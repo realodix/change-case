@@ -33,11 +33,11 @@ use Realodix\ChangeCase\ChangeCase;
 - [`snake_case`](#snake_case)
 - [`spinal-case`](#spinal-case)
 
-### camelCase
+#### camelCase
 
 > Transform into a string with the separator denoted by the next word capitalized.
 
-**Options**
+Options
 - separateNumbers
 
 ```php
@@ -52,7 +52,7 @@ $cc->camelCase('1twoThree', separateNumbers: true);
 // '1TwoThree'
 ```
 
-### Capital Case
+#### Capital Case
 
 > Transform into a space separated string with each word capitalized.
 
@@ -62,7 +62,7 @@ $cc->capitalCase('test string');
 // 'Test String'
 ```
 
-### CONSTANT_CASE
+#### CONSTANT_CASE
 
 > Transform into upper case string with an underscore between words.
 
@@ -72,7 +72,7 @@ $cc->constantCase('test string');
 // 'TEST_STRING'
 ```
 
-### dot.case
+#### dot.case
 
 > Transform into a lower case string with a period between words.
 
@@ -82,7 +82,7 @@ $cc->dotCase('test string');
 // 'test.string'
 ```
 
-### Header-Case
+#### Header-Case
 
 > Transform into a dash separated string of capitalized words.
 
@@ -92,11 +92,11 @@ $cc->headerCase('test string');
 // 'Test-String'
 ```
 
-### no case
+#### no case
 
 > Transform into a lower cased string with spaces between words.
 
-**Options**
+Options
 - delimiter
 - splitRegexp
 - stripRegexp
@@ -120,7 +120,7 @@ $cc->noCase('Foo123Bar', separateNumbers: true)
 // foo 123 bar
 ```
 
-### PascalCase
+#### PascalCase
 
 > Transform into a string of capitalized words without separators.
 
@@ -131,7 +131,7 @@ $cc->pascalCase('test string');
 // 'TestString'
 ```
 
-### path/case
+#### path/case
 
 > Transform into a lower case string with slashes between words.
 
@@ -141,7 +141,7 @@ $cc->pathCase('test string');
 // 'test/string'
 ```
 
-### Sentence case
+#### Sentence case
 
 > Transform into a lower case with spaces between words, then capitalize the string.
 
@@ -151,11 +151,11 @@ $cc->sentenceCase('testString');
 // 'Test string'
 ```
 
-### snake_case
+#### snake_case
 
 > Transform into a lower case string with underscores between words.
 
-**Options**
+Options
 - separateNumbers
 
 ```php
@@ -170,11 +170,11 @@ $cc->snakeCase('Foo123Bar', separateNumbers: true);
 // 'foo_123_bar'
 ```
 
-### spinal-case
+#### spinal-case
 
 > Transform into a lower cased string with dashes between words.
 
-**Options**
+Options
 - separateNumbers
 
 ```php
@@ -194,7 +194,7 @@ $cc->spinalCase('Foo123Bar', separateNumbers: true);
 - [`swapCase`](#swapcase)
 - [`titleCase`](#titlecase)
 
-### swapCase
+#### swapCase
 
 > Transform a string by swapping every character from upper to lower case, or lower to upper case.
 
@@ -204,7 +204,7 @@ $cc->swapCase('Test String');
 // 'tEST sTRING'
 ```
 
-### titleCase
+#### titleCase
 
 > Transform a string into title case following English rules.
 
