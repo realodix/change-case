@@ -1,0 +1,45 @@
+{
+    "name": "realodix/change-case",
+    "description": "Convert strings between camelCase, PascalCase, Capital Case, snake_case and more.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Budi Hermawan",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/realodix/change-case",
+    "keywords": [
+        "lowercase", "uppercase", "camel-case", "snake-case", "pascal-case", "change-case", "constant-case"
+    ],
+    "require": {
+        "php": "^8.0",
+        "voku/portable-utf8": "^5.4"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.14",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^2.4",
+        "phpunit/phpunit": "^9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Realodix\\ChangeCase\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Realodix\\ChangeCase\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
