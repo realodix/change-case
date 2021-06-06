@@ -18,7 +18,6 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.14",
-        "kubawerlos/php-cs-fixer-custom-fixers": "^2.4",
         "phpunit/phpunit": "^9",
         "realodix/php-cs-fixer-config": "^2.0"
     },
