@@ -7,8 +7,4 @@ $overrideRules = [
     // ..
 ];
 
-$options = [
-    // ..
-];
-
-return Factory::fromRuleSet(new RuleSet\RealodixStrict(), $overrideRules, $options);
+return Factory::fromRuleSet(new RuleSet\RealodixPlus, $overrideRules);
