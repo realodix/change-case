@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6974ae5e98c8f9c0f42027ca614fd4f3",
+    "content-hash": "8368727c83b07386999132c1e682eb02",
     "packages": [
         {
             "name": "symfony/polyfill-iconv",
@@ -1044,6 +1044,127 @@
             "time": "2020-05-25T17:44:05+00:00"
         },
         {
+            "name": "drupol/phpcsfixer-configs-drupal",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drupol/phpcsfixer-configs-drupal.git",
+                "reference": "774b1b9e160e1d4223758d406d89046c575bf6c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drupol/phpcsfixer-configs-drupal/zipball/774b1b9e160e1d4223758d406d89046c575bf6c5",
+                "reference": "774b1b9e160e1d4223758d406d89046c575bf6c5",
+                "shasum": ""
+            },
+            "require": {
+                "drupol/phpcsfixer-configs-php": "^2",
+                "php": ">= 7.1.3"
+            },
+            "require-dev": {
+                "codeception/codeception": "^4.0",
+                "codeception/module-cli": "^1.1",
+                "codeception/module-filesystem": "^1.0",
+                "drupol/php-conventions": "^5",
+                "friends-of-phpspec/phpspec-code-coverage": "^6",
+                "infection/infection": "^0.22",
+                "infection/phpspec-adapter": "^0.1.1",
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpro/grumphp": "1.1.* || 1.3.*",
+                "phpspec/phpspec": "^7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "drupol\\PhpCsFixerConfigsDrupal\\": "./src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pol Dellaiera",
+                    "email": "pol.dellaiera@protonmail.com"
+                }
+            ],
+            "description": "Base PHP CS Fixer configurations for Drupal 7 and 8.",
+            "support": {
+                "issues": "https://github.com/drupol/phpcsfixer-configs-drupal/issues",
+                "source": "https://github.com/drupol/phpcsfixer-configs-drupal/tree/2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/drupol",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.paypal.me/drupol",
+                    "type": "paypal"
+                }
+            ],
+            "time": "2021-05-12T10:32:39+00:00"
+        },
+        {
+            "name": "drupol/phpcsfixer-configs-php",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drupol/phpcsfixer-configs-php.git",
+                "reference": "f8ec2d163b0876fe2669221099eae3ccb3206e89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drupol/phpcsfixer-configs-php/zipball/f8ec2d163b0876fe2669221099eae3ccb3206e89",
+                "reference": "f8ec2d163b0876fe2669221099eae3ccb3206e89",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofphp/php-cs-fixer": "^3",
+                "php": ">= 7.1.3",
+                "symfony/yaml": "^3 || ^4 || ^5"
+            },
+            "require-dev": {
+                "friends-of-phpspec/phpspec-code-coverage": "^6",
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpro/grumphp": "1.1.* || 1.3.*",
+                "phpspec/phpspec": "^7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "drupol\\PhpCsFixerConfigsPhp\\": "./src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pol Dellaiera",
+                    "email": "pol.dellaiera@protonmail.com"
+                }
+            ],
+            "description": "Base PHP CS Fixer configurations.",
+            "support": {
+                "issues": "https://github.com/drupol/phpcsfixer-configs-php/issues",
+                "source": "https://github.com/drupol/phpcsfixer-configs-php/tree/2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/drupol",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.paypal.me/drupol",
+                    "type": "paypal"
+                }
+            ],
+            "time": "2021-05-23T20:34:04+00:00"
+        },
+        {
             "name": "fakerphp/faker",
             "version": "v1.14.1",
             "source": {
@@ -1731,6 +1852,51 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v4.10.5"
             },
             "time": "2021-05-03T19:11:20+00:00"
+        },
+        {
+            "name": "pedrotroller/php-cs-custom-fixer",
+            "version": "v2.25.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PedroTroller/PhpCSFixer-Custom-Fixers.git",
+                "reference": "4e0fc9810eeb467690be83c5427f55ad9819db33"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PedroTroller/PhpCSFixer-Custom-Fixers/zipball/4e0fc9810eeb467690be83c5427f55ad9819db33",
+                "reference": "4e0fc9810eeb467690be83c5427f55ad9819db33",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "php": "^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^7.0",
+                "twig/twig": "^3.3",
+                "webmozart/assert": "^1.10"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PedroTroller\\CS\\Fixer\\": "src/PedroTroller/CS/Fixer"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP-CS-FIXER : my custom fixers",
+            "support": {
+                "issues": "https://github.com/PedroTroller/PhpCSFixer-Custom-Fixers/issues",
+                "source": "https://github.com/PedroTroller/PhpCSFixer-Custom-Fixers/tree/v2.25.1"
+            },
+            "time": "2021-05-27T14:32:28+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -2791,33 +2957,36 @@
         },
         {
             "name": "realodix/php-cs-fixer-config",
-            "version": "v2.0.7",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/realodix/PHP-CS-Fixer-Config.git",
-                "reference": "ad3984955effb1795c48cd6db92073896f7a6b9a"
+                "reference": "e791053f4652541b4b4f9d8a89a539d95f881d04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/realodix/PHP-CS-Fixer-Config/zipball/ad3984955effb1795c48cd6db92073896f7a6b9a",
-                "reference": "ad3984955effb1795c48cd6db92073896f7a6b9a",
+                "url": "https://api.github.com/repos/realodix/PHP-CS-Fixer-Config/zipball/e791053f4652541b4b4f9d8a89a539d95f881d04",
+                "reference": "e791053f4652541b4b4f9d8a89a539d95f881d04",
                 "shasum": ""
             },
             "require": {
+                "drupol/phpcsfixer-configs-drupal": "^2.0",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "kubawerlos/php-cs-fixer-custom-fixers": "^2.5",
                 "matt-allan/laravel-code-style": "dev-main",
-                "php": "^7.3 || ^8.0"
+                "pedrotroller/php-cs-custom-fixer": "^2.25",
+                "php": "^7.3 || ^8.0",
+                "slam/php-cs-fixer-extensions": "^3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.x-dev"
+                    "dev-main": "3.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Realodix\\PhpCsFixerConfig\\": "src"
+                    "Realodix\\CsConfig\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2836,7 +3005,7 @@
                 "issues": "https://github.com/realodix/php-cs-fixer-config/issues",
                 "source": "https://github.com/realodix/php-cs-fixer-config"
             },
-            "time": "2021-06-09T13:03:34+00:00"
+            "time": "2021-06-16T06:46:09+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -3801,6 +3970,73 @@
                 }
             ],
             "time": "2020-09-28T06:39:44+00:00"
+        },
+        {
+            "name": "slam/php-cs-fixer-extensions",
+            "version": "v3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Slamdunk/php-cs-fixer-extensions.git",
+                "reference": "abbf8615b93badd541b22261b0a479b8ed3ac2e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Slamdunk/php-cs-fixer-extensions/zipball/abbf8615b93badd541b22261b0a479b8ed3ac2e5",
+                "reference": "abbf8615b93badd541b22261b0a479b8ed3ac2e5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-tokenizer": "*",
+                "friendsofphp/php-cs-fixer": "^3.0.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "malukenho/mcbumpface": "^1.1.5",
+                "phpstan/phpstan": "^0.12.86",
+                "phpstan/phpstan-phpunit": "^0.12.18",
+                "phpunit/phpunit": "^9.5.4",
+                "slam/php-debug-r": "^1.7.0",
+                "slam/phpstan-extensions": "^5.1.0",
+                "thecodingmachine/phpstan-strict-rules": "^0.12.1"
+            },
+            "type": "library",
+            "extra": {
+                "mc-bumpface": {
+                    "stripVersionPrefixes": true
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SlamCsFixer\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filippo Tessarotto",
+                    "email": "zoeslam@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Slam extension of friendsofphp/php-cs-fixer",
+            "support": {
+                "source": "https://github.com/Slamdunk/php-cs-fixer-extensions/tree/v3.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/filippotessarotto",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Slamdunk",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-05-10T07:55:05+00:00"
         },
         {
             "name": "symfony/console",
@@ -5022,6 +5258,81 @@
                 }
             ],
             "time": "2021-03-23T23:28:01+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v5.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "3bbcf262fceb3d8f48175302e6ba0ac96e3a5a11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/3bbcf262fceb3d8f48175302e6ba0ac96e3a5a11",
+                "reference": "3bbcf262fceb3d8f48175302e6ba0ac96e3a5a11",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "conflict": {
+                "symfony/console": "<4.4"
+            },
+            "require-dev": {
+                "symfony/console": "^4.4|^5.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "bin": [
+                "Resources/bin/yaml-lint"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Loads and dumps YAML files",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/yaml/tree/v5.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-05-26T17:43:10+00:00"
         },
         {
             "name": "theseer/tokenizer",
