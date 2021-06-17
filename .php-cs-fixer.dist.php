@@ -7,4 +7,4 @@ $overrideRules = [
     // ..
 ];
 
-return Factory::fromRuleSet(new RuleSet\RealodixPlus);
+return Factory::fromRuleSet(new RuleSet\RealodixPlus, $overrideRules);
