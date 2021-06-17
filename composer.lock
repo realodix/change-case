@@ -1604,16 +1604,16 @@
         },
         {
             "name": "realodix/php-cs-fixer-config",
-            "version": "v3.0.1",
+            "version": "v3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/realodix/PHP-CS-Fixer-Config.git",
-                "reference": "e791053f4652541b4b4f9d8a89a539d95f881d04"
+                "reference": "fa42a0bc2404a2da1c71b1873d00bf58b1e5c037"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/realodix/PHP-CS-Fixer-Config/zipball/e791053f4652541b4b4f9d8a89a539d95f881d04",
-                "reference": "e791053f4652541b4b4f9d8a89a539d95f881d04"
+                "url": "https://api.github.com/repos/realodix/PHP-CS-Fixer-Config/zipball/fa42a0bc2404a2da1c71b1873d00bf58b1e5c037",
+                "reference": "fa42a0bc2404a2da1c71b1873d00bf58b1e5c037"
             },
             "require": {
                 "drupol/phpcsfixer-configs-drupal": "^2.0",
@@ -1621,8 +1621,7 @@
                 "kubawerlos/php-cs-fixer-custom-fixers": "^2.5",
                 "matt-allan/laravel-code-style": "dev-main",
                 "pedrotroller/php-cs-custom-fixer": "^2.25",
-                "php": "^7.3 || ^8.0",
-                "slam/php-cs-fixer-extensions": "^3.0"
+                "php": "^7.4 || ^8.0"
             },
             "type": "library",
             "extra": {
@@ -2160,41 +2159,6 @@
                 "BSD-3-Clause"
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects"
-        },
-        {
-            "name": "slam/php-cs-fixer-extensions",
-            "version": "v3.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Slamdunk/php-cs-fixer-extensions.git",
-                "reference": "abbf8615b93badd541b22261b0a479b8ed3ac2e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Slamdunk/php-cs-fixer-extensions/zipball/abbf8615b93badd541b22261b0a479b8ed3ac2e5",
-                "reference": "abbf8615b93badd541b22261b0a479b8ed3ac2e5"
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "ext-tokenizer": "*",
-                "friendsofphp/php-cs-fixer": "^3.0.0",
-                "php": "^7.4 || ^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "mc-bumpface": {
-                    "stripVersionPrefixes": true
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SlamCsFixer\\": "lib/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Slam extension of friendsofphp/php-cs-fixer"
         },
         {
             "name": "symfony/console",
