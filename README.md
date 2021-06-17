@@ -130,6 +130,7 @@ $cc->noCase('Foo123Bar', ['separateNumbers' => true])
 
 > Transform into a string of capitalized words without separators.
 
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
