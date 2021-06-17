@@ -28,7 +28,7 @@ class ChangeCase
      */
     public function noCase($value, array $options = []): string
     {
-        $options = [
+        $options += [
             'delimiter'       => ' ',
             'splitRegexp'     => self::SPLIT_REGEXP,
             'stripRegexp'     => self::STRIP_REGEXP,
