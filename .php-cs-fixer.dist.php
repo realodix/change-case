@@ -7,4 +7,7 @@ $overrideRules = [
     // ..
 ];
 
-return Factory::fromRuleSet(new RuleSet\RealodixPlus, $overrideRules);
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__);
+
+return Factory::fromRuleSet(new RuleSet\RealodixPlus)->setFinder($finder);

@@ -21,26 +21,30 @@ class ChangeCase
     /**
      * Transform into a lower cased string with spaces between words.
      *
-     * @param mixed  $value
-     * @param string $delimiter
-     * @param mixed  $splitRegexp     const SPLIT_REGEXP
-     * @param mixed  $stripRegexp     const STRIP_REGEXP
-     * @param bool   $separateNumbers const SEPARATE_NUMBERS
+     * @param mixed $value
+     * @param mixed $options
      *
      * @return string
      */
     public function noCase(
         $value,
-        string $delimiter = ' ',
-        $splitRegexp = self::SPLIT_REGEXP,
-        $stripRegexp = self::STRIP_REGEXP,
-        bool $separateNumbers = self::SEPARATE_NUMBERS
-    ): string {
+        $options
+    ): string
+    {
+        $options = [
+            'delimiter'       => ' ',
+            'splitRegexp'     => self::SPLIT_REGEXP,
+            'stripRegexp'     => self::STRIP_REGEXP,
+            'separateNumbers' => self::SEPARATE_NUMBERS,
+        ];
+
         if ($separateNumbers) {
             $splitRegexp = self::SPLIT_SEPARATE_NUMBERS_REGEXP;
         }
 
-        $result = preg_replace($stripRegexp, $delimiter,
+        $result = preg_replace(
+            $stripRegexp,
+            $delimiter,
             preg_replace($splitRegexp, '$1 $2', $value)
         );
 
@@ -55,9 +59,12 @@ class ChangeCase
         }
 
         // Transform each token independently.
-        return implode($delimiter,
-            array_map('mb_strtolower',
-                mb_split(' ',
+        return implode(
+            $delimiter,
+            array_map(
+                'mb_strtolower',
+                mb_split(
+                    ' ',
                     UTF8::str_slice($result, $start, $end)
                 )
             )
@@ -83,6 +90,7 @@ class ChangeCase
      * Transform into a space separated string with each word capitalized.
      *
      * @param string $string
+     *
      * @return string
      */
     public function capitalCase(string $string): string
@@ -100,6 +108,7 @@ class ChangeCase
      * Transform into upper case string with an underscore between words.
      *
      * @param string $string
+     *
      * @return string
      */
     public function constantCase(string $string): string
@@ -111,6 +120,7 @@ class ChangeCase
      * Transform into a lower case string with a period between words.
      *
      * @param string $string
+     *
      * @return string
      */
     public function dotCase(string $string): string
@@ -122,6 +132,7 @@ class ChangeCase
      * Transform into a dash separated string of capitalized words.
      *
      * @param string $string
+     *
      * @return string
      */
     public function headerCase(string $string): string
@@ -147,7 +158,8 @@ class ChangeCase
     {
         $value = UTF8::ucwords(
             str_replace(
-                ['-', '_'], ' ',
+                ['-', '_'],
+                ' ',
                 $this->noCase($string, separateNumbers: $separateNumbers)
             )
         );
@@ -159,6 +171,7 @@ class ChangeCase
      * Transform into a lower case string with slashes between words.
      *
      * @param string $string
+     *
      * @return string
      */
     public function pathCase(string $string): string
@@ -170,6 +183,7 @@ class ChangeCase
      * Transform into a lower case with spaces between words, then capitalize the string.
      *
      * @param string $string
+     *
      * @return string
      */
     public function sentenceCase(string $string): string
@@ -215,6 +229,7 @@ class ChangeCase
      * to upper case.
      *
      * @param string $string
+     *
      * @return string
      */
     public function swapCase(string $string): string
@@ -234,6 +249,7 @@ class ChangeCase
      * - https://github.com/blakeembrey/change-case (packages/title-case)
      *
      * @param string $string
+     *
      * @return string
      */
     public function titleCase(string $string): string
