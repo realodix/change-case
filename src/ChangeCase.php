@@ -22,14 +22,11 @@ class ChangeCase
      * Transform into a lower cased string with spaces between words.
      *
      * @param mixed $value
-     * @param mixed $options
+     * @param array $options
      *
      * @return string
      */
-    public function noCase(
-        $value,
-        $options
-    ): string
+    public function noCase($value, array $options = []): string
     {
         $options = [
             'delimiter'       => ' ',
@@ -37,6 +34,11 @@ class ChangeCase
             'stripRegexp'     => self::STRIP_REGEXP,
             'separateNumbers' => self::SEPARATE_NUMBERS,
         ];
+
+        $delimiter = $options['delimiter'];
+        $splitRegexp = $options['splitRegexp'];
+        $stripRegexp = $options['stripRegexp'];
+        $separateNumbers = $options['separateNumbers'];
 
         if ($separateNumbers) {
             $splitRegexp = self::SPLIT_SEPARATE_NUMBERS_REGEXP;
@@ -75,14 +77,14 @@ class ChangeCase
      * Transform into a string with the separator denoted by the next word capitalized.
      *
      * @param string $string
-     * @param bool   $separateNumbers const SEPARATE_NUMBERS
+     * @param array  $options
      *
      * @return string
      */
-    public function camelCase(string $string, bool $separateNumbers = self::SEPARATE_NUMBERS): string
+    public function camelCase(string $string, array $options = []): string
     {
         return UTF8::lcfirst(
-            $this->pascalCase($string, separateNumbers: $separateNumbers)
+            $this->pascalCase($string, $options)
         );
     }
 
@@ -120,12 +122,18 @@ class ChangeCase
      * Transform into a lower case string with a period between words.
      *
      * @param string $string
+     * @param array  $options
      *
      * @return string
      */
-    public function dotCase(string $string): string
+    public function dotCase(string $string, array $options = []): string
     {
-        return $this->noCase($string, '.');
+        return $this->noCase(
+            $string,
+            $options += [
+                'delimiter' => '.',
+            ]
+        );
     }
 
     /**
@@ -142,7 +150,12 @@ class ChangeCase
             function (array $matches) {
                 return mb_strtoupper($matches[0]);
             },
-            $this->noCase($string, '-')
+            $this->noCase(
+                $string,
+                $options = [
+                    'delimiter' => '-',
+                ]
+            )
         );
     }
 
@@ -150,17 +163,17 @@ class ChangeCase
      * Transform into a string of capitalized words without separators.
      *
      * @param string $string
-     * @param bool   $separateNumbers const SEPARATE_NUMBERS
+     * @param array  $options
      *
      * @return string
      */
-    public function pascalCase(string $string, bool $separateNumbers = self::SEPARATE_NUMBERS): string
+    public function pascalCase(string $string, array $options = []): string
     {
         $value = UTF8::ucwords(
             str_replace(
                 ['-', '_'],
                 ' ',
-                $this->noCase($string, separateNumbers: $separateNumbers)
+                $this->noCase($string, $options)
             )
         );
 
@@ -171,12 +184,18 @@ class ChangeCase
      * Transform into a lower case string with slashes between words.
      *
      * @param string $string
+     * @param array  $options
      *
      * @return string
      */
-    public function pathCase(string $string): string
+    public function pathCase(string $string, array $options = []): string
     {
-        return $this->noCase($string, '/');
+        return $this->noCase(
+            $string,
+            $options += [
+                'delimiter' => '/',
+            ]
+        );
     }
 
     /**
@@ -195,19 +214,20 @@ class ChangeCase
      * Transform into a lower case string with underscores between words.
      *
      * @param string $string
-     * @param bool   $separateNumbers const SEPARATE_NUMBERS
+     * @param array  $options
      *
      * @return string
      */
-    public function snakeCase(string $string, bool $separateNumbers = self::SEPARATE_NUMBERS): string
+    public function snakeCase(string $string, array $options = []): string
     {
         $stripRegexp = '/(?!^_*)[^a-zA-Z0-9]+/i';
 
         return $this->noCase(
             $string,
-            '_',
-            stripRegexp: $stripRegexp,
-            separateNumbers: $separateNumbers
+            $options += [
+                'delimiter'   => '_',
+                'stripRegexp' => $stripRegexp,
+            ]
         );
     }
 
@@ -215,13 +235,18 @@ class ChangeCase
      * Transform into a lower cased string with dashes between words.
      *
      * @param string $string
-     * @param bool   $separateNumbers const SEPARATE_NUMBERS
+     * @param array  $options
      *
      * @return string
      */
-    public function spinalCase(string $string, bool $separateNumbers = self::SEPARATE_NUMBERS): string
+    public function spinalCase(string $string, array $options = []): string
     {
-        return $this->noCase($string, '-', separateNumbers: $separateNumbers);
+        return $this->noCase(
+            $string,
+            $options += [
+                'delimiter' => '-',
+            ],
+        );
     }
 
     /**
