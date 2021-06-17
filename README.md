@@ -37,7 +37,7 @@ use Realodix\ChangeCase\ChangeCase;
 - [`snake_case`](#snake_case)
 - [`spinal-case`](#spinal-case)
 
-**Options**
+#### Options
 - `delimiter`: (string) Used between words
 - `splitRegexp`: (RegExp) Used to split into word segments
 - `splitNumbersRegexp`: (RegExp) Used to split numbers
@@ -48,8 +48,7 @@ use Realodix\ChangeCase\ChangeCase;
 
 > Transform into a string with the separator denoted by the next word capitalized.
 
-Options
-- separateNumbers
+Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
