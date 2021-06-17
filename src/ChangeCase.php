@@ -81,9 +81,7 @@ class ChangeCase
      */
     public function camelCase(string $string, array $options = []): string
     {
-        return UTF8::lcfirst(
-            $this->pascalCase($string, $options)
-        );
+        return UTF8::lcfirst($this->pascalCase($string, $options));
     }
 
     /**
