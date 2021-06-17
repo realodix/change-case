@@ -52,7 +52,7 @@ $cc->camelCase('test string');
 
 $cc->camelCase('1twoThree');
 // '1twoThree'
-$cc->camelCase('1twoThree', separateNumbers: true);
+$cc->camelCase('1twoThree', ['separateNumbers' => true]);
 // '1TwoThree'
 ```
 
@@ -113,14 +113,14 @@ $cc->noCase('testString');
 // 'test string'
 
 $customSplitRegexp
-$cc->noCase('minifyURLs', splitRegexp: $customSplitRegexp);
+$cc->noCase('minifyURLs', ['splitRegexp' => $customSplitRegexp]);
 // 'minify urls'
-$cc->noCase('minifyURLs', delimiter: '-', splitRegexp: $customSplitRegexp);
+$cc->noCase('minifyURLs', ['delimiter' => '-', 'splitRegexp' => $customSplitRegexp]);
 // 'minify-urls'
 
 $cc->noCase('Foo123Bar')
 // foo123 bar
-$cc->noCase('Foo123Bar', separateNumbers: true)
+$cc->noCase('Foo123Bar', ['separateNumbers' => true])
 // foo 123 bar
 ```
 
@@ -170,7 +170,7 @@ $cc->snakeCase('test string');
 
 $cc->snakeCase('Foo123Bar');
 // 'foo123_bar'
-$cc->snakeCase('Foo123Bar', separateNumbers: true);
+$cc->snakeCase('Foo123Bar', ['separateNumbers' => true]);
 // 'foo_123_bar'
 ```
 
@@ -189,7 +189,7 @@ $cc->spinalCase('test string');
 
 $cc->spinalCase('Foo123Bar');
 // 'foo123-bar'
-$cc->spinalCase('Foo123Bar', separateNumbers: true);
+$cc->spinalCase('Foo123Bar', ['separateNumbers' => true]);
 // 'foo-123-bar'
 ```
 
