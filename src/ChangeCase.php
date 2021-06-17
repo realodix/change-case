@@ -10,28 +10,28 @@ class ChangeCase
      * Transform into a lower cased string with spaces between words.
      *
      * @param mixed $value
-     * @param array $options
+     * @param array $opt
      *
      * @return string
      */
-    public function noCase($value, array $options = []): string
+    public function noCase($value, array $opt = []): string
     {
-        $options += [
+        $opt += [
             'delimiter'       => ' ',
             'splitRegexp'     => ['/([a-z0-9])([A-Z])/', '/([A-Z])([A-Z][a-z])/'],
             'stripRegexp'     => '/[^a-zA-Z0-9]+/i',
             'separateNumbers' => false,
         ];
 
-        $splitRegexp = $options['splitRegexp'];
+        $splitRegexp = $opt['splitRegexp'];
 
-        if ($options['separateNumbers']) {
+        if ($opt['separateNumbers']) {
             $splitRegexp = [...$splitRegexp, '/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/'];
         }
 
         $result = preg_replace(
-            $options['stripRegexp'],
-            $options['delimiter'],
+            $opt['stripRegexp'],
+            $opt['delimiter'],
             preg_replace($splitRegexp, '$1 $2', $value)
         );
 
@@ -47,7 +47,7 @@ class ChangeCase
 
         // Transform each token independently.
         return implode(
-            $options['delimiter'],
+            $opt['delimiter'],
             array_map(
                 'mb_strtolower',
                 mb_split(
