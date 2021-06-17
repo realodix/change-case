@@ -48,7 +48,7 @@ use Realodix\ChangeCase\ChangeCase;
 
 > Transform into a string with the separator denoted by the next word capitalized.
 
-Support [options](#options)
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
@@ -106,11 +106,7 @@ $cc->headerCase('test string');
 
 > Transform into a lower cased string with spaces between words.
 
-Options
-- delimiter
-- splitRegexp
-- stripRegexp
-- separateNumbers
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
@@ -165,8 +161,7 @@ $cc->sentenceCase('testString');
 
 > Transform into a lower case string with underscores between words.
 
-Options
-- separateNumbers
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
@@ -184,8 +179,7 @@ $cc->snakeCase('Foo123Bar', ['separateNumbers' => true]);
 
 > Transform into a lower cased string with dashes between words.
 
-Options
-- separateNumbers
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
