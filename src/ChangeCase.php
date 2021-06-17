@@ -6,18 +6,6 @@ use voku\helper\UTF8;
 
 class ChangeCase
 {
-    // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-    const SPLIT_REGEXP = ['/([a-z0-9])([A-Z])/', '/([A-Z])([A-Z][a-z])/'];
-
-    // Regex to split numbers ("13test" -> "13 test")
-    const SPLIT_SEPARATE_NUMBERS_REGEXP = [...self::SPLIT_REGEXP, '/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/'];
-
-    // Remove all non-word characters
-    const STRIP_REGEXP = '/[^a-zA-Z0-9]+/i';
-
-    // Default $separateNumbers value
-    const SEPARATE_NUMBERS = false;
-
     /**
      * Transform into a lower cased string with spaces between words.
      *
@@ -30,23 +18,20 @@ class ChangeCase
     {
         $options += [
             'delimiter'       => ' ',
-            'splitRegexp'     => self::SPLIT_REGEXP,
-            'stripRegexp'     => self::STRIP_REGEXP,
-            'separateNumbers' => self::SEPARATE_NUMBERS,
+            'splitRegexp'     => ['/([a-z0-9])([A-Z])/', '/([A-Z])([A-Z][a-z])/'],
+            'stripRegexp'     => '/[^a-zA-Z0-9]+/i',
+            'separateNumbers' => false,
         ];
 
-        $delimiter = $options['delimiter'];
         $splitRegexp = $options['splitRegexp'];
-        $stripRegexp = $options['stripRegexp'];
-        $separateNumbers = $options['separateNumbers'];
 
-        if ($separateNumbers) {
-            $splitRegexp = self::SPLIT_SEPARATE_NUMBERS_REGEXP;
+        if ($options['separateNumbers']) {
+            $splitRegexp = [...$options['splitRegexp'], '/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/'];
         }
 
         $result = preg_replace(
-            $stripRegexp,
-            $delimiter,
+            $options['stripRegexp'],
+            $options['delimiter'],
             preg_replace($splitRegexp, '$1 $2', $value)
         );
 
@@ -62,7 +47,7 @@ class ChangeCase
 
         // Transform each token independently.
         return implode(
-            $delimiter,
+            $options['delimiter'],
             array_map(
                 'mb_strtolower',
                 mb_split(
