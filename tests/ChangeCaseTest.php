@@ -19,6 +19,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider noCaseProvider
+     *
+     * @param mixed $actual
+     * @param mixed $expected
      */
     public function noCase($actual, $expected)
     {
@@ -51,6 +54,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider camelCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function camelCase($expected, $actual)
     {
@@ -67,6 +73,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider capitalCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function capitalCase($expected, $actual)
     {
@@ -76,6 +85,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider constantCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function constantCase($expected, $actual)
     {
@@ -85,6 +97,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider dotCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function dotCase($expected, $actual)
     {
@@ -94,6 +109,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider headerCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function headerCase($expected, $actual)
     {
@@ -103,6 +121,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider pascalCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function pascalCase($expected, $actual)
     {
@@ -112,6 +133,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider pathCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function pathCase($expected, $actual)
     {
@@ -121,6 +145,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider sentenceCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function sentenceCase($expected, $actual)
     {
@@ -130,6 +157,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider snakeCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function snakeCase($expected, $actual)
     {
@@ -152,6 +182,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider spinalCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function spinalCase($expected, $actual)
     {
@@ -174,6 +207,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider swapCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
      */
     public function swapCase($expected, $actual)
     {
@@ -183,6 +219,9 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider titleCaseProvider
+     *
+     * @param mixed $actual
+     * @param mixed $expected
      */
     public function titleCase($actual, $expected)
     {
