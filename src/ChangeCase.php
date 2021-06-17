@@ -107,17 +107,14 @@ class ChangeCase
      * Transform into a lower case string with a period between words.
      *
      * @param string $string
-     * @param array  $options
      *
      * @return string
      */
-    public function dotCase(string $string, array $options = []): string
+    public function dotCase(string $string): string
     {
         return $this->noCase(
             $string,
-            $options += [
-                'delimiter' => '.',
-            ]
+            ['delimiter' => '.']
         );
     }
 
@@ -128,7 +125,7 @@ class ChangeCase
      *
      * @return string
      */
-    public function headerCase(string $string, array $options = []): string
+    public function headerCase(string $string): string
     {
         return preg_replace_callback(
             '/^.|-./u',
@@ -137,9 +134,7 @@ class ChangeCase
             },
             $this->noCase(
                 $string,
-                $options += [
-                    'delimiter' => '-',
-                ]
+                ['delimiter' => '-']
             )
         );
     }
@@ -169,17 +164,14 @@ class ChangeCase
      * Transform into a lower case string with slashes between words.
      *
      * @param string $string
-     * @param array  $options
      *
      * @return string
      */
-    public function pathCase(string $string, array $options = []): string
+    public function pathCase(string $string): string
     {
         return $this->noCase(
             $string,
-            $options += [
-                'delimiter' => '/',
-            ]
+            ['delimiter' => '/']
         );
     }
 
