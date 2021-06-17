@@ -128,7 +128,7 @@ class ChangeCase
      *
      * @return string
      */
-    public function headerCase(string $string): string
+    public function headerCase(string $string, array $options = []): string
     {
         return preg_replace_callback(
             '/^.|-./u',
@@ -137,7 +137,7 @@ class ChangeCase
             },
             $this->noCase(
                 $string,
-                $options = [
+                $options += [
                     'delimiter' => '-',
                 ]
             )
