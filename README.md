@@ -37,6 +37,13 @@ use Realodix\ChangeCase\ChangeCase;
 - [`snake_case`](#snake_case)
 - [`spinal-case`](#spinal-case)
 
+**Options**
+- `delimiter`:          (String) Used between words
+- `splitRegexp`:        (RegExp) Used to split into word segments
+- `splitNumbersRegexp`: (RegExp) Used to split numbers
+- `stripRegexp`:        (RegExp) Used to remove extraneous characters
+- `separateNumbers`:    (Bool) Used to separate numbers or not
+
 #### camelCase
 
 > Transform into a string with the separator denoted by the next word capitalized.

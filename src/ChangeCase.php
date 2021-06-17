@@ -18,6 +18,13 @@ class ChangeCase
     /**
      * Transform into a lower cased string with spaces between words.
      *
+     * ### Options
+     * - delimiter          (String) Used between words
+     * - splitRegexp        (RegExp) Used to split into word segments
+     * - splitNumbersRegexp (RegExp) Used to split numbers
+     * - stripRegexp        (RegExp) Used to remove extraneous characters
+     * - separateNumbers    (Bool) Used to separate numbers or not
+     *
      * @param mixed $value
      * @param array $opt
      *
