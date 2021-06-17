@@ -145,10 +145,7 @@ class ChangeCase
             function (array $matches) {
                 return mb_strtoupper($matches[0]);
             },
-            $this->noCase(
-                $string,
-                ['delimiter' => '-']
-            )
+            $this->noCase($string, ['delimiter' => '-'])
         );
     }
 
@@ -163,11 +160,7 @@ class ChangeCase
     public function pascalCase(string $string, array $options = []): string
     {
         $value = UTF8::ucwords(
-            str_replace(
-                ['-', '_'],
-                ' ',
-                $this->noCase($string, $options)
-            )
+            str_replace(['-', '_'], ' ', $this->noCase($string, $options))
         );
 
         return str_replace(' ', '', $value);
@@ -182,10 +175,7 @@ class ChangeCase
      */
     public function pathCase(string $string): string
     {
-        return $this->noCase(
-            $string,
-            ['delimiter' => '/']
-        );
+        return $this->noCase($string, ['delimiter' => '/']);
     }
 
     /**
