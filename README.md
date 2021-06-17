@@ -38,11 +38,11 @@ use Realodix\ChangeCase\ChangeCase;
 - [`spinal-case`](#spinal-case)
 
 **Options**
-- `delimiter`:          (String) Used between words
-- `splitRegexp`:        (RegExp) Used to split into word segments
+- `delimiter`: (string) Used between words
+- `splitRegexp`: (RegExp) Used to split into word segments
 - `splitNumbersRegexp`: (RegExp) Used to split numbers
-- `stripRegexp`:        (RegExp) Used to remove extraneous characters
-- `separateNumbers`:    (Bool) Used to separate numbers or not
+- `stripRegexp`: (RegExp) Used to remove extraneous characters
+- `separateNumbers`: (bool) Used to separate numbers or not
 
 #### camelCase
 
