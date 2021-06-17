@@ -26,7 +26,7 @@ class ChangeCase
         $splitRegexp = $options['splitRegexp'];
 
         if ($options['separateNumbers']) {
-            $splitRegexp = [...$options['splitRegexp'], '/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/'];
+            $splitRegexp = [...$splitRegexp, '/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/'];
         }
 
         $result = preg_replace(
