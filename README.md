@@ -114,10 +114,7 @@ $cc = new ChangeCase;
 $cc->noCase('testString');
 // 'test string'
 
-$customSplitRegexp
-$cc->noCase('minifyURLs', ['splitRegexp' => $customSplitRegexp]);
-// 'minify urls'
-$cc->noCase('minifyURLs', ['delimiter' => '-', 'splitRegexp' => $customSplitRegexp]);
+$cc->noCase('minifyURLs', ['delimiter' => '-']);
 // 'minify-urls'
 
 $cc->noCase('Foo123Bar')
