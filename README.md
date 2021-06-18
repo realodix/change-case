@@ -10,11 +10,8 @@
 
 You can install the package via composer:
 
-```
+```sh
 composer require realodix/change-case
-
-// Dev-build
-composer require realodix/change-case 1.x-dev
 ```
 
 ## Usage
