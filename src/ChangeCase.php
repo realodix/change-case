@@ -21,9 +21,9 @@ class ChangeCase
      * ### Options
      * - delimiter          (String) Used between words
      * - splitRegexp        (RegExp) Used to split into word segments
-     * - splitNumberRegexp (RegExp) Used to split numbers
+     * - splitNumberRegexp  (RegExp) Used to split numbers
      * - stripRegexp        (RegExp) Used to remove extraneous characters
-     * - separateNumber    (Bool) Used to separate numbers or not
+     * - separateNumber     (Bool) Used to separate numbers or not
      *
      * @param string $value
      * @param array  $opt
