@@ -1,6 +1,6 @@
 # Change Case
 
-![PHPVersion](https://img.shields.io/badge/PHP-8-777BB4.svg?style=flat-square)
+![PHPVersion](https://img.shields.io/badge/PHP-^7.4|^8-777BB4.svg?style=flat-square)
 [![Tests](https://github.com/realodix/change-case/actions/workflows/tests.yml/badge.svg)](https://github.com/realodix/change-case/actions/workflows/tests.yml)
 [![GitHub license](https://img.shields.io/github/license/realodix/change-case)](/LICENSE)
 
@@ -37,12 +37,18 @@ use Realodix\ChangeCase\ChangeCase;
 - [`snake_case`](#snake_case)
 - [`spinal-case`](#spinal-case)
 
+#### Options
+- `delimiter`: (string) Used between words
+- `splitRegexp`: (RegExp) Used to split into word segments
+- `splitNumbersRegexp`: (RegExp) Used to split numbers
+- `stripRegexp`: (RegExp) Used to remove extraneous characters
+- `separateNumbers`: (bool) Used to separate numbers or not
+
 #### camelCase
 
 > Transform into a string with the separator denoted by the next word capitalized.
 
-Options
-- separateNumbers
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
@@ -52,7 +58,7 @@ $cc->camelCase('test string');
 
 $cc->camelCase('1twoThree');
 // '1twoThree'
-$cc->camelCase('1twoThree', separateNumbers: true);
+$cc->camelCase('1twoThree', ['separateNumbers' => true]);
 // '1TwoThree'
 ```
 
@@ -80,6 +86,8 @@ $cc->constantCase('test string');
 
 > Transform into a lower case string with a period between words.
 
+💡 Support [options](#options)
+
 ```php
 $cc = new ChangeCase;
 $cc->dotCase('test string');
@@ -100,11 +108,7 @@ $cc->headerCase('test string');
 
 > Transform into a lower cased string with spaces between words.
 
-Options
-- delimiter
-- splitRegexp
-- stripRegexp
-- separateNumbers
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
@@ -112,15 +116,12 @@ $cc = new ChangeCase;
 $cc->noCase('testString');
 // 'test string'
 
-$customSplitRegexp
-$cc->noCase('minifyURLs', splitRegexp: $customSplitRegexp);
-// 'minify urls'
-$cc->noCase('minifyURLs', delimiter: '-', splitRegexp: $customSplitRegexp);
+$cc->noCase('minifyURLs', ['delimiter' => '-']);
 // 'minify-urls'
 
 $cc->noCase('Foo123Bar')
 // foo123 bar
-$cc->noCase('Foo123Bar', separateNumbers: true)
+$cc->noCase('Foo123Bar', ['separateNumbers' => true])
 // foo 123 bar
 ```
 
@@ -128,6 +129,7 @@ $cc->noCase('Foo123Bar', separateNumbers: true)
 
 > Transform into a string of capitalized words without separators.
 
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
@@ -159,8 +161,7 @@ $cc->sentenceCase('testString');
 
 > Transform into a lower case string with underscores between words.
 
-Options
-- separateNumbers
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
@@ -170,7 +171,7 @@ $cc->snakeCase('test string');
 
 $cc->snakeCase('Foo123Bar');
 // 'foo123_bar'
-$cc->snakeCase('Foo123Bar', separateNumbers: true);
+$cc->snakeCase('Foo123Bar', ['separateNumbers' => true]);
 // 'foo_123_bar'
 ```
 
@@ -178,8 +179,7 @@ $cc->snakeCase('Foo123Bar', separateNumbers: true);
 
 > Transform into a lower cased string with dashes between words.
 
-Options
-- separateNumbers
+💡 Support [options](#options)
 
 ```php
 $cc = new ChangeCase;
@@ -189,7 +189,7 @@ $cc->spinalCase('test string');
 
 $cc->spinalCase('Foo123Bar');
 // 'foo123-bar'
-$cc->spinalCase('Foo123Bar', separateNumbers: true);
+$cc->spinalCase('Foo123Bar', ['separateNumbers' => true]);
 // 'foo-123-bar'
 ```
 

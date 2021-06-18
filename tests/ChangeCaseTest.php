@@ -25,29 +25,31 @@ class ChangeCaseTest extends TestCase
      */
     public function noCase($actual, $expected)
     {
-        $this->assertSame($expected, (new ChangeCase)->noCase($actual));
+        $this->assertSame($expected, $this->cc->noCase($actual));
     }
 
     /** @test */
     public function noCaseWithOpt()
     {
-        $this->assertSame('camel#case', $this->cc->noCase('camelCase', '#'));
-        $this->assertSame('#camel#case#', $this->cc->noCase('#camel Case#', '#'));
+        $options = ['delimiter' => '#'];
+        $this->assertSame('camel#case', $this->cc->noCase('camelCase', $options));
+        $this->assertSame('#camel#case#', $this->cc->noCase('#camel Case#', $options));
 
         // Custom splitRegexp
         $this->assertSame(
             'minify urls',
-            $this->cc->noCase('minifyURLs', splitRegexp: '/([a-z])([A-Z0-9])/')
+            $this->cc->noCase('minifyURLs', ['splitRegexp' => '/([a-z])([A-Z0-9])/'])
         );
 
         // Separate Numbers
-        $this->assertSame('test string 123', $this->cc->noCase('testString123', separateNumbers: true));
-        $this->assertSame('foo 123 bar', $this->cc->noCase('Foo123Bar', separateNumbers: true));
-        $this->assertSame('a number 2 in', $this->cc->noCase('aNumber2in', separateNumbers: true));
+        $options = ['separateNumbers' => true];
+        $this->assertSame('test string 123', $this->cc->noCase('testString123', $options));
+        $this->assertSame('foo 123 bar', $this->cc->noCase('Foo123Bar', $options));
+        $this->assertSame('a number 2 in', $this->cc->noCase('aNumber2in', $options));
         $this->assertSame('v1 test', $this->cc->noCase('V1Test'));
         $this->assertSame(
             'v 1 test with separate numbers',
-            $this->cc->noCase('V1Test with separateNumbers', separateNumbers: true)
+            $this->cc->noCase('V1Test with separateNumbers', $options)
         );
     }
 
@@ -60,14 +62,14 @@ class ChangeCaseTest extends TestCase
      */
     public function camelCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->camelCase($actual));
+        $this->assertSame($expected, $this->cc->camelCase($actual));
     }
 
     /** @test */
     public function camelCaseWithOpt()
     {
         // Separate Numbers
-        $this->assertSame('1TwoThree', $this->cc->camelCase('1twoThree', separateNumbers: true));
+        $this->assertSame('1TwoThree', $this->cc->camelCase('1twoThree', ['separateNumbers' => true]));
     }
 
     /**
@@ -79,7 +81,7 @@ class ChangeCaseTest extends TestCase
      */
     public function capitalCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->capitalCase($actual));
+        $this->assertSame($expected, $this->cc->capitalCase($actual));
     }
 
     /**
@@ -91,7 +93,7 @@ class ChangeCaseTest extends TestCase
      */
     public function constantCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->constantCase($actual));
+        $this->assertSame($expected, $this->cc->constantCase($actual));
     }
 
     /**
@@ -103,7 +105,13 @@ class ChangeCaseTest extends TestCase
      */
     public function dotCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->dotCase($actual));
+        $this->assertSame($expected, $this->cc->dotCase($actual));
+    }
+
+    /** @test */
+    public function dotCaseWithOpt()
+    {
+        $this->assertSame('f.0.obar', $this->cc->dotCase('f0obar', ['separateNumbers' => true]));
     }
 
     /**
@@ -115,7 +123,7 @@ class ChangeCaseTest extends TestCase
      */
     public function headerCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->headerCase($actual));
+        $this->assertSame($expected, $this->cc->headerCase($actual));
     }
 
     /**
@@ -127,7 +135,7 @@ class ChangeCaseTest extends TestCase
      */
     public function pascalCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->pascalCase($actual));
+        $this->assertSame($expected, $this->cc->pascalCase($actual));
     }
 
     /**
@@ -139,7 +147,7 @@ class ChangeCaseTest extends TestCase
      */
     public function pathCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->pathCase($actual));
+        $this->assertSame($expected, $this->cc->pathCase($actual));
     }
 
     /**
@@ -151,7 +159,7 @@ class ChangeCaseTest extends TestCase
      */
     public function sentenceCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->sentenceCase($actual));
+        $this->assertSame($expected, $this->cc->sentenceCase($actual));
     }
 
     /**
@@ -163,19 +171,21 @@ class ChangeCaseTest extends TestCase
      */
     public function snakeCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->snakeCase($actual));
+        $this->assertSame($expected, $this->cc->snakeCase($actual));
     }
 
     /** @test */
     public function snakeCaseWithOpt()
     {
+        $options = ['separateNumbers' => true];
+
         $this->assertSame(
             'test_v_2',
-            $this->cc->snakeCase('TestV2', separateNumbers: true)
+            $this->cc->snakeCase('TestV2', $options)
         );
         $this->assertSame(
             'foo_123_bar',
-            $this->cc->snakeCase('Foo123Bar', separateNumbers: true)
+            $this->cc->snakeCase('Foo123Bar', $options)
         );
     }
 
@@ -188,19 +198,21 @@ class ChangeCaseTest extends TestCase
      */
     public function spinalCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->spinalCase($actual));
+        $this->assertSame($expected, $this->cc->spinalCase($actual));
     }
 
     /** @test */
     public function spinalCaseWithOpt()
     {
+        $options = ['separateNumbers' => true];
+
         $this->assertSame(
             'version-v-1-2-10',
-            $this->cc->spinalCase('version v1.2.10', separateNumbers: true)
+            $this->cc->spinalCase('version v1.2.10', $options)
         );
         $this->assertSame(
             'foo-123-bar',
-            $this->cc->spinalCase('Foo123Bar', separateNumbers: true)
+            $this->cc->spinalCase('Foo123Bar', $options)
         );
     }
 
@@ -213,7 +225,7 @@ class ChangeCaseTest extends TestCase
      */
     public function swapCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->swapCase($actual));
+        $this->assertSame($expected, $this->cc->swapCase($actual));
     }
 
     /**
@@ -225,6 +237,6 @@ class ChangeCaseTest extends TestCase
      */
     public function titleCase($actual, $expected)
     {
-        $this->assertSame($expected, (new ChangeCase)->titleCase($actual));
+        $this->assertSame($expected, $this->cc->titleCase($actual));
     }
 }

@@ -7,7 +7,6 @@ trait ChangeCaseTestProvider
     public function noCaseProvider()
     {
         return [
-            [null, ''],
             // Single words.
             ['test', 'test'],
             ['TEST', 'test'],

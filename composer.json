@@ -13,7 +13,7 @@
         "lowercase", "uppercase", "camel-case", "snake-case", "pascal-case", "change-case", "constant-case"
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^7.4|^8.0",
         "voku/portable-utf8": "^5.4"
     },
     "require-dev": {
