@@ -10,7 +10,7 @@ class ChangeCase
     const SPLIT_REGEXP = ['/([a-z0-9])([A-Z])/', '/([A-Z])([A-Z][a-z])/'];
 
     // Regex to split numbers ("13test" -> "13 test")
-    const SPLIT_NUMBERS_REGEXP = [...self::SPLIT_REGEXP, '/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/'];
+    const SPLIT_NUMBER_REGEXP = [...self::SPLIT_REGEXP, '/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/'];
 
     // Remove all non-word characters
     const STRIP_REGEXP = '/[^a-zA-Z0-9]+/i';
@@ -21,9 +21,9 @@ class ChangeCase
      * ### Options
      * - delimiter          (String) Used between words
      * - splitRegexp        (RegExp) Used to split into word segments
-     * - splitNumbersRegexp (RegExp) Used to split numbers
+     * - splitNumberRegexp (RegExp) Used to split numbers
      * - stripRegexp        (RegExp) Used to remove extraneous characters
-     * - separateNumbers    (Bool) Used to separate numbers or not
+     * - separateNumber    (Bool) Used to separate numbers or not
      *
      * @param string $value
      * @param array  $opt
@@ -33,14 +33,14 @@ class ChangeCase
     public function noCase(string $value, array $opt = []): string
     {
         $opt += [
-            'delimiter'          => ' ',
-            'splitRegexp'        => self::SPLIT_REGEXP,
-            'splitNumbersRegexp' => self::SPLIT_NUMBERS_REGEXP,
-            'stripRegexp'        => self::STRIP_REGEXP,
-            'separateNumbers'    => false,
+            'delimiter'         => ' ',
+            'splitRegexp'       => self::SPLIT_REGEXP,
+            'splitNumberRegexp' => self::SPLIT_NUMBER_REGEXP,
+            'stripRegexp'       => self::STRIP_REGEXP,
+            'separateNumber'    => false,
         ];
 
-        $splitRegexp = $opt['separateNumbers'] ? $opt['splitNumbersRegexp'] : $opt['splitRegexp'];
+        $splitRegexp = $opt['separateNumber'] ? $opt['splitNumberRegexp'] : $opt['splitRegexp'];
 
         $result = preg_replace(
             $opt['stripRegexp'],

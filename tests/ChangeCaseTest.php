@@ -42,14 +42,14 @@ class ChangeCaseTest extends TestCase
         );
 
         // Separate Numbers
-        $options = ['separateNumbers' => true];
+        $options = ['separateNumber' => true];
         $this->assertSame('test string 123', $this->cc->noCase('testString123', $options));
         $this->assertSame('foo 123 bar', $this->cc->noCase('Foo123Bar', $options));
         $this->assertSame('a number 2 in', $this->cc->noCase('aNumber2in', $options));
         $this->assertSame('v1 test', $this->cc->noCase('V1Test'));
         $this->assertSame(
-            'v 1 test with separate numbers',
-            $this->cc->noCase('V1Test with separateNumbers', $options)
+            'v 1 test with separate number',
+            $this->cc->noCase('V1Test with separateNumber', $options)
         );
     }
 
@@ -69,7 +69,7 @@ class ChangeCaseTest extends TestCase
     public function camelCaseWithOpt()
     {
         // Separate Numbers
-        $this->assertSame('1TwoThree', $this->cc->camelCase('1twoThree', ['separateNumbers' => true]));
+        $this->assertSame('1TwoThree', $this->cc->camelCase('1twoThree', ['separateNumber' => true]));
     }
 
     /**
@@ -111,7 +111,7 @@ class ChangeCaseTest extends TestCase
     /** @test */
     public function dotCaseWithOpt()
     {
-        $this->assertSame('f.0.obar', $this->cc->dotCase('f0obar', ['separateNumbers' => true]));
+        $this->assertSame('f.0.obar', $this->cc->dotCase('f0obar', ['separateNumber' => true]));
     }
 
     /**
@@ -177,7 +177,7 @@ class ChangeCaseTest extends TestCase
     /** @test */
     public function snakeCaseWithOpt()
     {
-        $options = ['separateNumbers' => true];
+        $options = ['separateNumber' => true];
 
         $this->assertSame(
             'test_v_2',
@@ -204,7 +204,7 @@ class ChangeCaseTest extends TestCase
     /** @test */
     public function spinalCaseWithOpt()
     {
-        $options = ['separateNumbers' => true];
+        $options = ['separateNumber' => true];
 
         $this->assertSame(
             'version-v-1-2-10',
