@@ -25,7 +25,7 @@ class ChangeCaseTest extends TestCase
      */
     public function noCase($actual, $expected)
     {
-        $this->assertSame($expected, (new ChangeCase)->noCase($actual));
+        $this->assertSame($expected, $this->cc->noCase($actual));
     }
 
     /** @test */
@@ -62,7 +62,7 @@ class ChangeCaseTest extends TestCase
      */
     public function camelCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->camelCase($actual));
+        $this->assertSame($expected, $this->cc->camelCase($actual));
     }
 
     /** @test */
@@ -81,7 +81,7 @@ class ChangeCaseTest extends TestCase
      */
     public function capitalCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->capitalCase($actual));
+        $this->assertSame($expected, $this->cc->capitalCase($actual));
     }
 
     /**
@@ -93,7 +93,7 @@ class ChangeCaseTest extends TestCase
      */
     public function constantCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->constantCase($actual));
+        $this->assertSame($expected, $this->cc->constantCase($actual));
     }
 
     /**
@@ -105,7 +105,9 @@ class ChangeCaseTest extends TestCase
      */
     public function dotCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->dotCase($actual));
+        $this->assertSame($expected, $this->cc->dotCase($actual));
+
+        $this->assertSame('f.0.obar', $this->cc->dotCase('f0obar', ['separateNumbers' => true]));
     }
 
     /**
@@ -117,7 +119,7 @@ class ChangeCaseTest extends TestCase
      */
     public function headerCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->headerCase($actual));
+        $this->assertSame($expected, $this->cc->headerCase($actual));
     }
 
     /**
@@ -129,7 +131,7 @@ class ChangeCaseTest extends TestCase
      */
     public function pascalCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->pascalCase($actual));
+        $this->assertSame($expected, $this->cc->pascalCase($actual));
     }
 
     /**
@@ -141,7 +143,7 @@ class ChangeCaseTest extends TestCase
      */
     public function pathCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->pathCase($actual));
+        $this->assertSame($expected, $this->cc->pathCase($actual));
     }
 
     /**
@@ -153,7 +155,7 @@ class ChangeCaseTest extends TestCase
      */
     public function sentenceCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->sentenceCase($actual));
+        $this->assertSame($expected, $this->cc->sentenceCase($actual));
     }
 
     /**
@@ -165,7 +167,7 @@ class ChangeCaseTest extends TestCase
      */
     public function snakeCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->snakeCase($actual));
+        $this->assertSame($expected, $this->cc->snakeCase($actual));
     }
 
     /** @test */
@@ -192,7 +194,7 @@ class ChangeCaseTest extends TestCase
      */
     public function spinalCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->spinalCase($actual));
+        $this->assertSame($expected, $this->cc->spinalCase($actual));
     }
 
     /** @test */
@@ -219,7 +221,7 @@ class ChangeCaseTest extends TestCase
      */
     public function swapCase($expected, $actual)
     {
-        $this->assertSame($expected, (new ChangeCase)->swapCase($actual));
+        $this->assertSame($expected, $this->cc->swapCase($actual));
     }
 
     /**
@@ -231,6 +233,6 @@ class ChangeCaseTest extends TestCase
      */
     public function titleCase($actual, $expected)
     {
-        $this->assertSame($expected, (new ChangeCase)->titleCase($actual));
+        $this->assertSame($expected, $this->cc->titleCase($actual));
     }
 }

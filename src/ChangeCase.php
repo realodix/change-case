@@ -121,9 +121,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function dotCase(string $string): string
+    public function dotCase(string $string, array $options = []): string
     {
-        return $this->noCase($string, ['delimiter' => '.']);
+        return $this->noCase($string, $options += ['delimiter' => '.']);
     }
 
     /**

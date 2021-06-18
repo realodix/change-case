@@ -86,6 +86,8 @@ $cc->constantCase('test string');
 
 > Transform into a lower case string with a period between words.
 
+💡 Support [options](#options)
+
 ```php
 $cc = new ChangeCase;
 $cc->dotCase('test string');
