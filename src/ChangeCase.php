@@ -25,12 +25,12 @@ class ChangeCase
      * - stripRegexp        (RegExp) Used to remove extraneous characters
      * - separateNumbers    (Bool) Used to separate numbers or not
      *
-     * @param mixed $value
-     * @param array $opt
+     * @param string $value
+     * @param array  $opt
      *
      * @return string
      */
-    public function noCase($value, array $opt = []): string
+    public function noCase(string $value, array $opt = []): string
     {
         $opt += [
             'delimiter'          => ' ',
