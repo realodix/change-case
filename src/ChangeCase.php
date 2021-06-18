@@ -243,7 +243,7 @@ class ChangeCase
      */
     public function titleCase(string $string): string
     {
-        $smallWords = '/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|only|over|tha[tn]|t(he|o)|up|upon|vs?\.?|via)[ \-]/i';
+        $wordLCRegExp = '/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|only|over|tha[tn]|t(he|o)|up|upon|vs?\.?|via)[ \-]/i';
 
         // find each word (including punctuation attached)
         preg_match_all('/[\w\p{L}&`\'‘’"“\.@:\/\{\(\[<>_]+-? */u', $string, $match_1, PREG_OFFSET_CAPTURE);
@@ -258,9 +258,9 @@ class ChangeCase
 
             $wordLC = $index > 0
                       && mb_substr($string, max(0, $index - 2), 1) !== ':'
-                      && preg_match($smallWords, $match);
+                      && preg_match($wordLCRegExp, $match);
             $wrappers = preg_match('/[\'"_{(\[‘“]/u', mb_substr($string, max(0, $index - 1), 3));
-            $lowerC = preg_match('/[\])}]/', mb_substr($string, max(0, $index - 1), 3))
+            $lowerCase = preg_match('/[\])}]/', mb_substr($string, max(0, $index - 1), 3))
                       || preg_match('/[A-Z]+|&|\w+[._]\w+/u', mb_substr($match, 1, mb_strlen($match) - 1));
 
             // Words that must always be lowercase are found (never in the first word, and
@@ -277,7 +277,7 @@ class ChangeCase
                          mb_substr($match, 2, mb_strlen($match) - 2);
 
             // Do not uppercase these cases
-            } elseif ($lowerC) {
+            } elseif ($lowerCase) {
                 continue;
             } else {
                 // if all else fails, then no more fringe-cases; uppercase the word
