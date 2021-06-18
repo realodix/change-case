@@ -75,13 +75,13 @@ class ChangeCase
      * Transform into a string with the separator denoted by the next word capitalized.
      *
      * @param string $string
-     * @param array  $options
+     * @param array  $opt
      *
      * @return string
      */
-    public function camelCase(string $string, array $options = []): string
+    public function camelCase(string $string, array $opt = []): string
     {
-        return UTF8::lcfirst($this->pascalCase($string, $options));
+        return UTF8::lcfirst($this->pascalCase($string, $opt));
     }
 
     /**
@@ -118,12 +118,13 @@ class ChangeCase
      * Transform into a lower case string with a period between words.
      *
      * @param string $string
+     * @param array  $opt
      *
      * @return string
      */
-    public function dotCase(string $string, array $options = []): string
+    public function dotCase(string $string, array $opt = []): string
     {
-        return $this->noCase($string, $options += ['delimiter' => '.']);
+        return $this->noCase($string, $opt += ['delimiter' => '.']);
     }
 
     /**
@@ -148,14 +149,14 @@ class ChangeCase
      * Transform into a string of capitalized words without separators.
      *
      * @param string $string
-     * @param array  $options
+     * @param array  $opt
      *
      * @return string
      */
-    public function pascalCase(string $string, array $options = []): string
+    public function pascalCase(string $string, array $opt = []): string
     {
         $value = UTF8::ucwords(
-            str_replace(['-', '_'], ' ', $this->noCase($string, $options))
+            str_replace(['-', '_'], ' ', $this->noCase($string, $opt))
         );
 
         return str_replace(' ', '', $value);
@@ -189,20 +190,17 @@ class ChangeCase
      * Transform into a lower case string with underscores between words.
      *
      * @param string $string
-     * @param array  $options
+     * @param array  $opt
      *
      * @return string
      */
-    public function snakeCase(string $string, array $options = []): string
+    public function snakeCase(string $string, array $opt = []): string
     {
         $stripRegexp = '/(?!^_*)[^a-zA-Z0-9]+/i';
 
         return $this->noCase(
             $string,
-            $options += [
-                'delimiter'   => '_',
-                'stripRegexp' => $stripRegexp,
-            ]
+            $opt += ['delimiter' => '_', 'stripRegexp' => $stripRegexp]
         );
     }
 
@@ -210,18 +208,13 @@ class ChangeCase
      * Transform into a lower cased string with dashes between words.
      *
      * @param string $string
-     * @param array  $options
+     * @param array  $opt
      *
      * @return string
      */
-    public function spinalCase(string $string, array $options = []): string
+    public function spinalCase(string $string, array $opt = []): string
     {
-        return $this->noCase(
-            $string,
-            $options += [
-                'delimiter' => '-',
-            ],
-        );
+        return $this->noCase($string, $opt += ['delimiter' => '-']);
     }
 
     /**
