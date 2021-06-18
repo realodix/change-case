@@ -106,7 +106,11 @@ class ChangeCaseTest extends TestCase
     public function dotCase($expected, $actual)
     {
         $this->assertSame($expected, $this->cc->dotCase($actual));
+    }
 
+    /** @test */
+    public function dotCaseWithOpt()
+    {
         $this->assertSame('f.0.obar', $this->cc->dotCase('f0obar', ['separateNumbers' => true]));
     }
 
