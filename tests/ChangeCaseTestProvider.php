@@ -218,27 +218,6 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function stripTagsProvider()
-    {
-        return [
-            ['foo bar', 'foo bar'],
-            ['before', 'before[gallery]'],
-            ['after', '[gallery]after'],
-            ['beforeafter', 'before[gallery]after'],
-            ['before[after', 'before[after'],
-            ['beforeafter', 'before[gallery id="123" size="medium"]after'],
-            ['beforeafter', 'before[footag]after'],
-            ['This is bold and This is colored', '[B]This is bold[/B] and This is [color=#FFCCCC]colored[/color]'],
-            ['bold', '[b:20m4ill1]bold[/b:20m4ill1]'],
-            ['bold', '<r><B><s>[b]</s>bold<e>[/b]</e></B></r>'],
-            ['bo &amp; ld', '[b:20m4ill1]bo &amp; ld[/b:20m4ill1]'],
-            ['bo &amp; ld', '<r><B><s>[b]</s>bo &amp; ld<e>[/b]</e></B></r>'],
-
-            ['', '[happy direction="left"]<Yay>[/happy]'],
-            ['English Wikipedia', '[url=https://en.wikipedia.org]English Wikipedia[/url]'],
-        ];
-    }
-
     public function swapCaseProvider()
     {
         return [
