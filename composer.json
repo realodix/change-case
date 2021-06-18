@@ -32,11 +32,6 @@
             "Realodix\\ChangeCase\\Test\\": "tests"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-main": "1.x-dev"
-        }
-    },
     "config": {
         "sort-packages": true
     },
