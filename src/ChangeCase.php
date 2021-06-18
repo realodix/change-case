@@ -234,10 +234,6 @@ class ChangeCase
      */
     public function swapCase(string $string): string
     {
-        if ($string === '') {
-            return '';
-        }
-
         return (string) (mb_strtolower($string) ^ mb_strtoupper($string) ^ $string);
     }
 
