@@ -34,6 +34,11 @@ use Realodix\ChangeCase\ChangeCase;
 - [`snake_case`](#snake_case)
 - [`spinal-case`](#spinal-case)
 
+### Other Case Utilities
+
+- [`swapCase`](#swapcase)
+- [`titleCase`](#titlecase)
+
 #### Options
 - `delimiter`: (string) Used between words
 - `splitRegexp`: (RegExp) Used to split into word segments
@@ -190,10 +195,6 @@ $cc->spinalCase('Foo123Bar', ['separateNumber' => true]);
 // 'foo-123-bar'
 ```
 
-### Other Case Utilities
-
-- [`swapCase`](#swapcase)
-- [`titleCase`](#titlecase)
 
 #### swapCase
 
