@@ -1,6 +1,6 @@
 # Change Case
 
-![PHPVersion](https://img.shields.io/badge/PHP-^7.4|^8-777BB4.svg?style=flat-square)
+![PHPVersion](https://img.shields.io/badge/PHP-^7.3|^8-777BB4.svg?style=flat-square)
 [![Tests](https://github.com/realodix/change-case/actions/workflows/tests.yml/badge.svg)](https://github.com/realodix/change-case/actions/workflows/tests.yml)
 [![GitHub license](https://img.shields.io/github/license/realodix/change-case)](/LICENSE)
 

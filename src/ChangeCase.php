@@ -6,15 +6,6 @@ use voku\helper\UTF8;
 
 class ChangeCase
 {
-    // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-    const SPLIT_REGEXP = ['/([a-z0-9])([A-Z])/', '/([A-Z])([A-Z][a-z])/'];
-
-    // Regex to split numbers ("13test" -> "13 test")
-    const SPLIT_NUMBER_REGEXP = [...self::SPLIT_REGEXP, '/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/'];
-
-    // Remove all non-word characters
-    const STRIP_REGEXP = '/[^a-zA-Z0-9]+/i';
-
     /**
      * Transform into a lower cased string with spaces between words.
      *
@@ -23,7 +14,7 @@ class ChangeCase
      * - splitRegexp        (RegExp) Used to split into word segments
      * - splitNumberRegexp  (RegExp) Used to split numbers
      * - stripRegexp        (RegExp) Used to remove extraneous characters
-     * - separateNumber     (Bool) Used to separate numbers or not
+     * - separateNumber     (Bool)   Used to separate numbers or not
      *
      * @param string $value
      * @param array  $opt
@@ -32,11 +23,18 @@ class ChangeCase
      */
     public function noCase(string $value, array $opt = []): string
     {
+        // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
+        $splitRegexp = ['/([a-z0-9])([A-Z])/', '/([A-Z])([A-Z][a-z])/'];
+        // Regex to split numbers ("13test" -> "13 test")
+        $splitNumberRegexp = array_merge($splitRegexp, ['/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/']);
+        // Remove all non-word characters
+        $stripRegexp = '/[^a-zA-Z0-9]+/i';
+
         $opt += [
             'delimiter'         => ' ',
-            'splitRegexp'       => self::SPLIT_REGEXP,
-            'splitNumberRegexp' => self::SPLIT_NUMBER_REGEXP,
-            'stripRegexp'       => self::STRIP_REGEXP,
+            'splitRegexp'       => $splitRegexp,
+            'splitNumberRegexp' => $splitNumberRegexp,
+            'stripRegexp'       => $stripRegexp,
             'separateNumber'    => false,
         ];
 
