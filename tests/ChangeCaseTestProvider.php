@@ -232,12 +232,52 @@ trait ChangeCaseTestProvider
     public function titleCaseProvider()
     {
         return [
-            ['', ''],
-            ['2019', '2019'],
-            ['test', 'Test'],
-            ['two words', 'Two Words'],
+            /*
+             * https://grammar.yourdictionary.com/capitalization/rules-for-capitalization-in-titles.html
+             */
+            // Capitalize the First and Last Word
+            ['how to land your dream job', 'How to Land Your Dream Job'],
+            ['of mice and men', 'Of Mice and Men'],
+            ['the cat in the hat', 'The Cat in the Hat'],
+
+            // Capitalize Nouns and Pronouns
+            ['visiting beautiful ruins', 'Visiting Beautiful Ruins'],
+            ['as she ran away', 'As She Ran Away'],
+            ['little house on the prairie', 'Little House on the Prairie'],
+            ['for whom the bell tolls', 'For Whom the Bell Tolls'],
+
+            // Capitalize Verbs and Helping Verbs
+            ['to kill a mockingbird', 'To Kill a Mockingbird'],
+            ['the sun also rises', 'The Sun Also Rises'],
+            ['their eyes were watching god', 'Their Eyes Were Watching God'],
+            ['tender is the night', 'Tender Is the Night'],
+
+            // Capitalize Adjectives and Adverbs
+            ['all quiet on the western', 'All Quiet on the Western'],
+            ['the wind-up bird chronicle', 'The Wind-Up Bird Chronicle'],
+            ['she quietly waits', 'She Quietly Waits'],
+            ['the poky little puppy', 'The Poky Little Puppy'],
+
+            // Do Not Capitalize Short Prepositions
+            ['one year in paris', 'One Year in Paris'],
+            ['the book of disquiet', 'The Book of Disquiet'],
+            ['a house for mr. biswas', 'A House for Mr. Biswas'],
+
+            // Do Not Capitalize Articles
+            ['through the looking glass', 'Through the Looking Glass'],
+            ['the portrait of a lady', 'The Portrait of a Lady'],
+            ['the sense of an ending', 'The Sense of an Ending'],
+
+            // Do Not Capitalize Short Coordinating Conjunctions
+            [
+                'do not capitalize ("and, but, or, for, nor") short coordinating conjunctions',
+                'Do Not Capitalize ("and, but, or, for, nor") Short Coordinating Conjunctions',
+            ],
+
+            /*
+             * https://github.com/blakeembrey/change-case/blob/master/packages/title-case/src/index.spec.ts/
+             */
             ['one. two.', 'One. Two.'],
-            ['a small word starts', 'A Small Word Starts'],
             ['small word ends on', 'Small Word Ends On'],
             ['we keep NASA capitalized', 'We Keep NASA Capitalized'],
             ['pass camelCase through', 'Pass camelCase Through'],
@@ -285,7 +325,7 @@ trait ChangeCaseTestProvider
                 'The Quick Brown Fox Jumps over the Lazy Dog',
             ],
             ['newcastle upon tyne', 'Newcastle upon Tyne'],
-            // ["newcastle *upon* tyne", "Newcastle *upon* Tyne"],
+            ['newcastle *upon* tyne', 'Newcastle *upon* Tyne'],
         ];
     }
 }

@@ -209,6 +209,8 @@ $cc->swapCase('Test String');
 
 > Transform a string into title case following English rules.
 
+`titleCase(string $string, array $ignore = [])`
+
 ```php
 $cc = new ChangeCase;
 $cc->titleCase('a simple test');

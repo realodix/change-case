@@ -231,63 +231,15 @@ class ChangeCase
     /**
      * Transform a string into title case following English rules.
      *
-     * Reference
-     * - https://github.com/Kroc/PHPtitleCase
-     * - https://github.com/blakeembrey/change-case (packages/title-case)
-     *
      * @param string $string
+     * @param array  $ignore
      *
      * @return string
      */
-    public function titleCase(string $string): string
+    public function titleCase(string $string, array $ignore = []): string
     {
-        $wordLCRegExp = '/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|only|over|tha[tn]|t(he|o)|up|upon|vs?\.?|via)[ \-]/i';
+        $ignore = ['nor', 'over', 'upon'];
 
-        // find each word (including punctuation attached)
-        preg_match_all('/[\w\p{L}&`\'‘’"“\.@:\/\{\(\[<>_]+-? */u', $string, $match_1, PREG_OFFSET_CAPTURE);
-
-        foreach ($match_1[0] as $match_2) {
-            [$match, $index] = $match_2;
-
-            // Correct offsets for multi-byte characters (`PREG_OFFSET_CAPTURE` returns
-            // byte-offset). We fix this by recounting the text before the offset using
-            // multi-byte aware `strlen`
-            $index = mb_strlen(substr($string, 0, $index));
-
-            $wordLC = $index > 0
-                      && mb_substr($string, max(0, $index - 2), 1) !== ':'
-                      && preg_match($wordLCRegExp, $match);
-            $wrappers = preg_match('/[\'"_{(\[‘“]/u', mb_substr($string, max(0, $index - 1), 3));
-            $lowerCase = preg_match('/[\])}]/', mb_substr($string, max(0, $index - 1), 3))
-                      || preg_match('/[A-Z]+|&|\w+[._]\w+/u', mb_substr($match, 1, mb_strlen($match) - 1));
-
-            // Words that must always be lowercase are found (never in the first word, and
-            // never if they start with a colon).
-            if ($wordLC) {
-                // ..and convert them to lowercase
-                $match = mb_strtolower($match);
-
-            // Brackets and other wrappers were found
-            } elseif ($wrappers) {
-                // convert first letter within wrapper to uppercase
-                $match = mb_substr($match, 0, 1).
-                         mb_strtoupper(mb_substr($match, 1, 1)).
-                         mb_substr($match, 2, mb_strlen($match) - 2);
-
-            // Do not uppercase these cases
-            } elseif ($lowerCase) {
-                continue;
-            } else {
-                // if all else fails, then no more fringe-cases; uppercase the word
-                $match = mb_strtoupper(mb_substr($match, 0, 1)).
-                         mb_substr($match, 1, mb_strlen($match));
-            }
-
-            // Resplice the title with the change
-            $string = mb_substr($string, 0, $index).$match.
-                      mb_substr($string, $index + mb_strlen($match), mb_strlen($string));
-        }
-
-        return $string;
+        return UTF8::str_titleize_for_humans($string, $ignore);
     }
 }
