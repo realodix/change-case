@@ -13,12 +13,12 @@
         "lowercase", "uppercase", "camel-case", "snake-case", "pascal-case", "change-case", "constant-case"
     ],
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.2|^8.0",
         "voku/portable-utf8": "^5.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.14",
-        "phpunit/phpunit": "^9",
+        "phpunit/phpunit": "^8.5.8|^9.3.3",
         "realodix/php-cs-fixer-config": "^3.0"
     },
     "autoload": {
