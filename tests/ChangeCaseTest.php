@@ -70,6 +70,9 @@ class ChangeCaseTest extends TestCase
     {
         // Separate Numbers
         $this->assertSame('1TwoThree', $this->cc->camelCase('1twoThree', ['separateNumber' => true]));
+
+        // https://github.com/blakeembrey/change-case/issues/216
+        $this->assertSame('helloWorld', $this->cc->camelCase('hello__world', ['splitRegexp' => '/(__)/']));
     }
 
     /**
