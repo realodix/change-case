@@ -2,6 +2,12 @@
 <phpunit colors="true"
          verbose="true"
 >
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true"
+                   processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="Realodix Test Suite">
             <directory suffix="Test.php">./tests</directory>
