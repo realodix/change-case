@@ -20,8 +20,6 @@ composer require realodix/change-case
 use Realodix\ChangeCase\ChangeCase;
 ```
 
-### Core
-
 - [`camelCase`](#camelcase)
 - [`Capital Case`](#capital-case)
 - [`CONSTANT_CASE`](#constant_case)
@@ -33,9 +31,6 @@ use Realodix\ChangeCase\ChangeCase;
 - [`Sentence case`](#sentence-case)
 - [`snake_case`](#snake_case)
 - [`spinal-case`](#spinal-case)
-
-### Other Case Utilities
-
 - [`swapCase`](#swapcase)
 - [`titleCase`](#titlecase)
 

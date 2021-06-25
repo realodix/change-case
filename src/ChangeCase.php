@@ -56,17 +56,12 @@ class ChangeCase
             $end--;
         }
 
-        // Transform each token independently.
-        return implode(
-            $opt['delimiter'],
-            array_map(
-                'mb_strtolower',
-                mb_split(
-                    ' ',
-                    UTF8::str_slice($result, $start, $end)
-                )
-            )
-        );
+        $slice = UTF8::str_slice($result, $start, $end);
+        $split = explode(' ', $slice);
+        $toLowerCase = array_map('mb_strtolower', $split);
+        $join = implode($opt['delimiter'], $toLowerCase);
+
+        return $join;
     }
 
     /**
@@ -154,10 +149,10 @@ class ChangeCase
     public function pascalCase(string $string, array $opt = []): string
     {
         $value = UTF8::ucwords(
-            str_replace(['-', '_'], ' ', $this->noCase($string, $opt))
+            UTF8::str_ireplace(['-', '_'], ' ', $this->noCase($string, $opt))
         );
 
-        return str_replace(' ', '', $value);
+        return UTF8::str_ireplace(' ', '', $value);
     }
 
     /**
