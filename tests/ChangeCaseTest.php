@@ -239,4 +239,13 @@ class ChangeCaseTest extends TestCase
     {
         $this->assertSame($expected, $this->cc->titleCase($actual));
     }
+
+    /** @test */
+    public function titleCaseWithIgnore()
+    {
+        $this->assertSame(
+            'Do re Mi',
+            $this->cc->titleCase('do re mi', ['re'])
+        );
+    }
 }

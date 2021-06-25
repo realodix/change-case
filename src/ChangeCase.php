@@ -227,14 +227,14 @@ class ChangeCase
      * Transform a string into title case following English rules.
      *
      * @param string $string
-     * @param array  $ignore
+     * @param array  $ignore An array of words not to capitalize.
      *
      * @return string
      */
     public function titleCase(string $string, array $ignore = []): string
     {
-        $ignore = ['nor', 'over', 'upon'];
+        $smallWords = ['nor', 'over', 'upon'];
 
-        return UTF8::str_titleize_for_humans($string, $ignore);
+        return UTF8::str_titleize_for_humans($string, array_merge($smallWords, $ignore));
     }
 }
