@@ -1,5 +1,9 @@
 /tests/coverage
 
+## IDE Local Workspace Folder
+/.idea
+/.vscode
+
 ## Composer
 /vendor/
 composer.phar
