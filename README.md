@@ -20,6 +20,8 @@ composer require realodix/change-case
 use Realodix\ChangeCase\ChangeCase;
 ```
 
+### Methods Available
+
 - [`camelCase`](#camelcase)
 - [`Capital Case`](#capital-case)
 - [`CONSTANT_CASE`](#constant_case)
@@ -34,7 +36,7 @@ use Realodix\ChangeCase\ChangeCase;
 - [`swapCase`](#swapcase)
 - [`titleCase`](#titlecase)
 
-#### Options
+### Options
 - `delimiter`: (string) Used between words
 - `splitRegexp`: (RegExp) Used to split into word segments
 - `splitNumberRegexp`: (RegExp) Used to split numbers
