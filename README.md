@@ -1,6 +1,6 @@
 # Change Case
 
-![PHPVersion](https://img.shields.io/badge/PHP-^7.2|^8-777BB4.svg?style=flat-square)
+![PHPVersion](https://img.shields.io/badge/PHP-^7.3|^8-777BB4.svg?style=flat-square)
 ![Tests](https://github.com/realodix/change-case/actions/workflows/tests.yml/badge.svg)
 [![GitHub license](https://img.shields.io/github/license/realodix/change-case)](/LICENSE)
 
@@ -35,6 +35,7 @@ use Realodix\ChangeCase\ChangeCase;
 - [`titleCase`](#titlecase)
 
 #### Options
+
 - `delimiter`: (string) Used between words
 - `splitRegexp`: (RegExp) Used to split into word segments
 - `splitNumberRegexp`: (RegExp) Used to split numbers
