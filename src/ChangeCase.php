@@ -48,7 +48,7 @@ class ChangeCase
 
         // Trim the delimiter from around the output string.
         $start = 0;
-        $end = mb_strlen($result);
+        $end = strlen($result);
         while (UTF8::char_at($result, $start) === ' ') {
             $start++;
         }
@@ -58,7 +58,7 @@ class ChangeCase
 
         $slice = UTF8::str_slice($result, $start, $end);
         $split = explode(' ', $slice);
-        $toLowerCase = array_map('mb_strtolower', $split);
+        $toLowerCase = array_map('strtolower', $split);
         $join = implode($opt['delimiter'], $toLowerCase);
 
         return $join;
@@ -89,7 +89,7 @@ class ChangeCase
         return preg_replace_callback(
             '/^.| ./u',
             function (array $matches) {
-                return mb_strtoupper($matches[0]);
+                return strtoupper($matches[0]);
             },
             $this->noCase($string)
         );
@@ -104,7 +104,7 @@ class ChangeCase
      */
     public function constantCase(string $string): string
     {
-        return mb_strtoupper($this->snakeCase($string));
+        return strtoupper($this->snakeCase($string));
     }
 
     /**
@@ -132,7 +132,7 @@ class ChangeCase
         return preg_replace_callback(
             '/^.|-./u',
             function (array $matches) {
-                return mb_strtoupper($matches[0]);
+                return strtoupper($matches[0]);
             },
             $this->noCase($string, ['delimiter' => '-'])
         );
@@ -148,9 +148,7 @@ class ChangeCase
      */
     public function pascalCase(string $string, array $opt = []): string
     {
-        $value = UTF8::ucwords(
-            UTF8::str_ireplace(['-', '_'], ' ', $this->noCase($string, $opt))
-        );
+        $value = UTF8::ucwords($this->noCase($string, $opt));
 
         return UTF8::str_ireplace(' ', '', $value);
     }
@@ -220,7 +218,7 @@ class ChangeCase
      */
     public function swapCase(string $string): string
     {
-        return (string) (mb_strtolower($string) ^ mb_strtoupper($string) ^ $string);
+        return strtolower($string) ^ strtoupper($string) ^ $string;
     }
 
     /**
