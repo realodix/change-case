@@ -1,28 +1,42 @@
-/tests/coverage
+/.logs
 
 ## IDE Local Workspace Folder
 /.idea
 /.vscode
 
-## Composer
-/vendor/
+## Package Manager
+# Composer
+/vendor
 composer.phar
+composer.lock
+# NPM
+/node_modules
+npm-debug.log
+yarn-error.log
 
-## PHPUnit
+## Testing
+# PHPUnit
+.phpunit.cache
 .phpunit.result.cache
 phpunit.xml
-
-## CodeSniffer
-/CodeSniffer.conf
-/phpcs.xml
-
 # Infection
 /infection-cache
-/infection.json
-/infection.log
+infection.json
+infection.log
 
-## PHP-CS-Fixer
+## Coding Standards
+# CodeSniffer
+/CodeSniffer.conf
+phpcs.xml
+.phpcs.xml
+# PHP-CS-Fixer
 .php_cs
 .php_cs.cache
 .php-cs-fixer.php
 .php-cs-fixer.cache
+
+## Static Analysis
+# PHPStan
+phpstan.neon
+# Psalm
+psalm.xml
