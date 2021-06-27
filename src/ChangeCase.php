@@ -124,17 +124,18 @@ class ChangeCase
      * Transform into a dash separated string of capitalized words.
      *
      * @param string $string
+     * @param array  $opt
      *
      * @return string
      */
-    public function header(string $string): string
+    public function header(string $string, array $opt = []): string
     {
         return preg_replace_callback(
             '/^.|-./u',
             function (array $matches) {
                 return mb_strtoupper($matches[0]);
             },
-            $this->no($string, ['delimiter' => '-'])
+            $this->no($string, $opt += ['delimiter' => '-'])
         );
     }
 
@@ -157,6 +158,7 @@ class ChangeCase
      * Transform into a lower case string with slashes between words.
      *
      * @param string $string
+     * @param array  $opt
      *
      * @return string
      */
