@@ -21,7 +21,7 @@ class ChangeCase
      *
      * @return string
      */
-    public function noCase(string $value, array $opt = []): string
+    public function no(string $value, array $opt = []): string
     {
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRegexp = ['/([a-z0-9])([A-Z])/', '/([A-Z])([A-Z][a-z])/'];
@@ -72,9 +72,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function camelCase(string $string, array $opt = []): string
+    public function camel(string $string, array $opt = []): string
     {
-        return UTF8::lcfirst($this->pascalCase($string, $opt));
+        return UTF8::lcfirst($this->pascal($string, $opt));
     }
 
     /**
@@ -84,14 +84,14 @@ class ChangeCase
      *
      * @return string
      */
-    public function capitalCase(string $string): string
+    public function capital(string $string): string
     {
         return preg_replace_callback(
             '/^.| ./u',
             function (array $matches) {
                 return strtoupper($matches[0]);
             },
-            $this->noCase($string)
+            $this->no($string)
         );
     }
 
@@ -102,9 +102,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function constantCase(string $string): string
+    public function constant(string $string): string
     {
-        return strtoupper($this->snakeCase($string));
+        return strtoupper($this->snake($string));
     }
 
     /**
@@ -115,9 +115,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function dotCase(string $string, array $opt = []): string
+    public function dot(string $string, array $opt = []): string
     {
-        return $this->noCase($string, $opt += ['delimiter' => '.']);
+        return $this->no($string, $opt += ['delimiter' => '.']);
     }
 
     /**
@@ -127,14 +127,14 @@ class ChangeCase
      *
      * @return string
      */
-    public function headerCase(string $string): string
+    public function header(string $string): string
     {
         return preg_replace_callback(
             '/^.|-./u',
             function (array $matches) {
                 return strtoupper($matches[0]);
             },
-            $this->noCase($string, ['delimiter' => '-'])
+            $this->no($string, ['delimiter' => '-'])
         );
     }
 
@@ -146,9 +146,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function pascalCase(string $string, array $opt = []): string
+    public function pascal(string $string, array $opt = []): string
     {
-        $value = UTF8::ucwords($this->noCase($string, $opt));
+        $value = UTF8::ucwords($this->no($string, $opt));
 
         return UTF8::str_ireplace(' ', '', $value);
     }
@@ -160,9 +160,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function pathCase(string $string): string
+    public function path(string $string): string
     {
-        return $this->noCase($string, ['delimiter' => '/']);
+        return $this->no($string, ['delimiter' => '/']);
     }
 
     /**
@@ -172,9 +172,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function sentenceCase(string $string): string
+    public function sentence(string $string): string
     {
-        return UTF8::ucfirst($this->noCase($string));
+        return UTF8::ucfirst($this->no($string));
     }
 
     /**
@@ -185,11 +185,11 @@ class ChangeCase
      *
      * @return string
      */
-    public function snakeCase(string $string, array $opt = []): string
+    public function snake(string $string, array $opt = []): string
     {
         $stripRegexp = '/(?!^_*)[^a-zA-Z0-9]+/i';
 
-        return $this->noCase(
+        return $this->no(
             $string,
             $opt += ['delimiter' => '_', 'stripRegexp' => $stripRegexp]
         );
@@ -203,9 +203,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function spinalCase(string $string, array $opt = []): string
+    public function spinal(string $string, array $opt = []): string
     {
-        return $this->noCase($string, $opt += ['delimiter' => '-']);
+        return $this->no($string, $opt += ['delimiter' => '-']);
     }
 
     /**
@@ -216,7 +216,7 @@ class ChangeCase
      *
      * @return string
      */
-    public function swapCase(string $string): string
+    public function swap(string $string): string
     {
         return strtolower($string) ^ strtoupper($string) ^ $string;
     }
@@ -229,7 +229,7 @@ class ChangeCase
      *
      * @return string
      */
-    public function titleCase(string $string, array $ignore = []): string
+    public function title(string $string, array $ignore = []): string
     {
         $smallWords = ['nor', 'over', 'upon'];
 

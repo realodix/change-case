@@ -53,12 +53,12 @@ use Realodix\ChangeCase\ChangeCase;
 ```php
 $cc = new ChangeCase;
 
-$cc->camelCase('test string');
+$cc->camel('test string');
 // 'testString'
 
-$cc->camelCase('1twoThree');
+$cc->camel('1twoThree');
 // '1twoThree'
-$cc->camelCase('1twoThree', ['separateNumber' => true]);
+$cc->camel('1twoThree', ['separateNumber' => true]);
 // '1TwoThree'
 ```
 
@@ -68,7 +68,7 @@ $cc->camelCase('1twoThree', ['separateNumber' => true]);
 
 ```php
 $cc = new ChangeCase;
-$cc->capitalCase('test string');
+$cc->capital('test string');
 // 'Test String'
 ```
 
@@ -78,7 +78,7 @@ $cc->capitalCase('test string');
 
 ```php
 $cc = new ChangeCase;
-$cc->constantCase('test string');
+$cc->constant('test string');
 // 'TEST_STRING'
 ```
 
@@ -90,7 +90,7 @@ $cc->constantCase('test string');
 
 ```php
 $cc = new ChangeCase;
-$cc->dotCase('test string');
+$cc->dot('test string');
 // 'test.string'
 ```
 
@@ -100,7 +100,7 @@ $cc->dotCase('test string');
 
 ```php
 $cc = new ChangeCase;
-$cc->headerCase('test string');
+$cc->header('test string');
 // 'Test-String'
 ```
 
@@ -113,15 +113,15 @@ $cc->headerCase('test string');
 ```php
 $cc = new ChangeCase;
 
-$cc->noCase('testString');
+$cc->no('testString');
 // 'test string'
 
-$cc->noCase('minifyURLs', ['delimiter' => '-']);
+$cc->no('minifyURLs', ['delimiter' => '-']);
 // 'minify-urls'
 
-$cc->noCase('Foo123Bar')
+$cc->no('Foo123Bar')
 // foo123 bar
-$cc->noCase('Foo123Bar', ['separateNumber' => true])
+$cc->no('Foo123Bar', ['separateNumber' => true])
 // foo 123 bar
 ```
 
@@ -133,7 +133,7 @@ $cc->noCase('Foo123Bar', ['separateNumber' => true])
 
 ```php
 $cc = new ChangeCase;
-$cc->pascalCase('test string');
+$cc->pascal('test string');
 // 'TestString'
 ```
 
@@ -143,7 +143,7 @@ $cc->pascalCase('test string');
 
 ```php
 $cc = new ChangeCase;
-$cc->pathCase('test string');
+$cc->path('test string');
 // 'test/string'
 ```
 
@@ -153,7 +153,7 @@ $cc->pathCase('test string');
 
 ```php
 $cc = new ChangeCase;
-$cc->sentenceCase('testString');
+$cc->sentence('testString');
 // 'Test string'
 ```
 
@@ -166,12 +166,12 @@ $cc->sentenceCase('testString');
 ```php
 $cc = new ChangeCase;
 
-$cc->snakeCase('test string');
+$cc->snake('test string');
 // 'test_string'
 
-$cc->snakeCase('Foo123Bar');
+$cc->snake('Foo123Bar');
 // 'foo123_bar'
-$cc->snakeCase('Foo123Bar', ['separateNumber' => true]);
+$cc->snake('Foo123Bar', ['separateNumber' => true]);
 // 'foo_123_bar'
 ```
 
@@ -184,12 +184,12 @@ $cc->snakeCase('Foo123Bar', ['separateNumber' => true]);
 ```php
 $cc = new ChangeCase;
 
-$cc->spinalCase('test string');
+$cc->spinal('test string');
 // 'test-string'
 
-$cc->spinalCase('Foo123Bar');
+$cc->spinal('Foo123Bar');
 // 'foo123-bar'
-$cc->spinalCase('Foo123Bar', ['separateNumber' => true]);
+$cc->spinal('Foo123Bar', ['separateNumber' => true]);
 // 'foo-123-bar'
 ```
 
@@ -200,7 +200,7 @@ $cc->spinalCase('Foo123Bar', ['separateNumber' => true]);
 
 ```php
 $cc = new ChangeCase;
-$cc->swapCase('Test String');
+$cc->swap('Test String');
 // 'tEST sTRING'
 ```
 
@@ -208,11 +208,11 @@ $cc->swapCase('Test String');
 
 > Transform a string into title case following English rules.
 
-`titleCase(string $string, array $ignore = [])`
+`title(string $string, array $ignore = [])`
 
 ```php
 $cc = new ChangeCase;
-$cc->titleCase('a simple test');
+$cc->title('a simple test');
 // 'A Simple Test'
 ```
 
