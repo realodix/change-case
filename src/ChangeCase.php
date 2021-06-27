@@ -24,11 +24,11 @@ class ChangeCase
     public function no(string $value, array $opt = []): string
     {
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-        $splitRegexp = ['/([\p{Ll}|\p{M}0-9])([\p{Lu}|\p{M}])/u', '/([\p{Lu}|\p{M}])([\p{Lu}|\p{M}][\p{Ll}|\p{M}])/u'];
+        $splitRegexp = ['/([\p{Ll}|\p{M}\p{N}])([\p{Lu}|\p{M}])/u', '/([\p{Lu}|\p{M}])([\p{Lu}|\p{M}][\p{Ll}|\p{M}])/u'];
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumberRegexp = array_merge($splitRegexp, ['/([0-9])([\p{L}|\p{M}])/u', '/([\p{L}|\p{M}])([0-9])/u']);
+        $splitNumberRegexp = array_merge($splitRegexp, ['/([\p{N}])([\p{L}|\p{M}])/u', '/([\p{L}|\p{M}])([\p{N}])/u']);
         // Remove all non-word characters
-        $stripRegexp = '/[^\p{L}|\p{M}0-9]+/ui';
+        $stripRegexp = '/[^\p{L}|\p{M}\p{N}]+/ui';
 
         $opt += [
             'delimiter'         => ' ',
@@ -187,7 +187,7 @@ class ChangeCase
      */
     public function snake(string $string, array $opt = []): string
     {
-        $stripRegexp = '/(?!^_*)[^\p{L}|\p{M}0-9]+/ui';
+        $stripRegexp = '/(?!^_*)[^\p{L}|\p{M}\p{N}]+/ui';
 
         return $this->no(
             $string,
