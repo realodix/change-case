@@ -140,6 +140,8 @@ $cc->pascalCase('test string');
 
 > Transform into a lower case string with slashes between words.
 
+💡 Support [options](#options)
+
 ```php
 $cc = new ChangeCase;
 $cc->pathCase('test string');
