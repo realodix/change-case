@@ -251,4 +251,30 @@ class ChangeCaseTest extends TestCase
             $this->cc->title('do re mi', ['re'])
         );
     }
+
+    /** @test */
+    public function unicode()
+    {
+        // Mark
+        $this->assertSame('ââ êê', $this->cc->no('"ÂÂ ÊÊ"'));
+        $this->assertSame('ââ êê', $this->cc->no('ÂÂ ÊÊ'));
+        $this->assertSame('ââÊê', $this->cc->camel('ÂÂ êê'));
+        $this->assertSame('ââÊê', $this->cc->camel('ââ ÊÊ'));
+        $this->assertSame('Ââ Êê', $this->cc->capital('ÂÂ ÊÊ'));
+        $this->assertSame('ÂÂ_ÊÊ', $this->cc->constant('ÂÂ ÊÊ'));
+        $this->assertSame('Ââ-Êê', $this->cc->header('ÂÂ ÊÊ'));
+        $this->assertSame('ââ/êê', $this->cc->path('ÂÂ ÊÊ'));
+        $this->assertSame('Ââ êê', $this->cc->sentence('ÂÂ ÊÊ'));
+        $this->assertSame('âÂ õÕ', $this->cc->swap('Ââ Õõ'));
+
+        // Mark + Number
+        $this->assertSame('ââ ⅰⅰ', $this->cc->no('"ÂÂ ⅠⅠ"'));
+        $this->assertSame('ââ ⅰⅰ', $this->cc->no('ÂÂ ⅠⅠ'));
+        $this->assertSame('Ââ Ⅰⅰ', $this->cc->capital('ÂÂ ⅠⅠ'));
+        $this->assertSame('ÂÂ_ⅠⅠ', $this->cc->constant('ÂÂ ⅠⅠ'));
+        $this->assertSame('Ââ-Ⅰⅰ', $this->cc->header('ÂÂ ⅠⅠ'));
+        $this->assertSame('ââ/ⅰⅰ', $this->cc->path('ÂÂ ⅠⅠ'));
+        $this->assertSame('Ââ ⅰⅰ', $this->cc->sentence('ÂÂ ⅠⅠ'));
+        $this->assertSame('âÂ õÕ', $this->cc->swap('Ââ Õõ'));
+    }
 }
