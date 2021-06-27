@@ -26,7 +26,7 @@ class ChangeCase
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRegexp = ['/([a-z0-9])([A-Z])/', '/([A-Z])([A-Z][a-z])/'];
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumberRegexp = array_merge($splitRegexp, ['/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/']);
+        $splitNumberRegexp = array_merge($splitRegexp, ['/([0-9])([a-zA-Z])/', '/([a-zA-Z])([0-9])/']);
         // Remove all non-word characters
         $stripRegexp = '/[^a-zA-Z0-9]+/i';
 
