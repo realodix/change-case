@@ -160,9 +160,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function path(string $string): string
+    public function path(string $string, array $opt = []): string
     {
-        return $this->no($string, ['delimiter' => '/']);
+        return $this->no($string, $opt += ['delimiter' => '/']);
     }
 
     /**

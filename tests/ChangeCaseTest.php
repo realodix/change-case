@@ -153,6 +153,21 @@ class ChangeCaseTest extends TestCase
         $this->assertSame($expected, $this->cc->path($actual));
     }
 
+    /** @test */
+    public function pathCaseWithOpt()
+    {
+        $options = ['separateNumber' => true];
+
+        $this->assertSame(
+            'test/v/2',
+            $this->cc->pathCase('TestV2', $options)
+        );
+        $this->assertSame(
+            'foo/123/bar',
+            $this->cc->pathCase('Foo123Bar', $options)
+        );
+    }
+
     /**
      * @test
      * @dataProvider sentenceCaseProvider
