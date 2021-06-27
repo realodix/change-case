@@ -154,17 +154,17 @@ class ChangeCaseTest extends TestCase
     }
 
     /** @test */
-    public function pathCaseWithOpt()
+    public function pathWithOpt()
     {
         $options = ['separateNumber' => true];
 
         $this->assertSame(
             'test/v/2',
-            $this->cc->pathCase('TestV2', $options)
+            $this->cc->path('TestV2', $options)
         );
         $this->assertSame(
             'foo/123/bar',
-            $this->cc->pathCase('Foo123Bar', $options)
+            $this->cc->path('Foo123Bar', $options)
         );
     }
 
