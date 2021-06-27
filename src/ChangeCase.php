@@ -24,11 +24,11 @@ class ChangeCase
     public function noCase(string $value, array $opt = []): string
     {
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-        $splitRegexp = ['/([a-z0-9])([A-Z])/', '/([A-Z])([A-Z][a-z])/'];
+        $splitRegexp = ['/([\p{Ll}|\p{M}0-9])([\p{Lu}|\p{M}])/u', '/([\p{Lu}|\p{M}])([\p{Lu}|\p{M}][\p{Ll}|\p{M}])/u'];
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumberRegexp = array_merge($splitRegexp, ['/([0-9])([A-Za-z])/', '/([A-Za-z])([0-9])/']);
+        $splitNumberRegexp = array_merge($splitRegexp, ['/([0-9])([\p{L}|\p{M}])/u', '/([\p{L}|\p{M}])([0-9])/u']);
         // Remove all non-word characters
-        $stripRegexp = '/[^a-zA-Z0-9]+/i';
+        $stripRegexp = '/[^\p{L}|\p{M}0-9]+/ui';
 
         $opt += [
             'delimiter'         => ' ',
@@ -48,7 +48,7 @@ class ChangeCase
 
         // Trim the delimiter from around the output string.
         $start = 0;
-        $end = strlen($result);
+        $end = mb_strlen($result);
         while (UTF8::char_at($result, $start) === ' ') {
             $start++;
         }
@@ -58,7 +58,7 @@ class ChangeCase
 
         $slice = UTF8::str_slice($result, $start, $end);
         $split = explode(' ', $slice);
-        $toLowerCase = array_map('strtolower', $split);
+        $toLowerCase = array_map('mb_strtolower', $split);
         $join = implode($opt['delimiter'], $toLowerCase);
 
         return $join;
@@ -89,7 +89,7 @@ class ChangeCase
         return preg_replace_callback(
             '/^.| ./u',
             function (array $matches) {
-                return strtoupper($matches[0]);
+                return mb_strtoupper($matches[0]);
             },
             $this->noCase($string)
         );
@@ -104,7 +104,7 @@ class ChangeCase
      */
     public function constantCase(string $string): string
     {
-        return strtoupper($this->snakeCase($string));
+        return mb_strtoupper($this->snakeCase($string));
     }
 
     /**
@@ -132,7 +132,7 @@ class ChangeCase
         return preg_replace_callback(
             '/^.|-./u',
             function (array $matches) {
-                return strtoupper($matches[0]);
+                return mb_strtoupper($matches[0]);
             },
             $this->noCase($string, ['delimiter' => '-'])
         );
@@ -187,7 +187,7 @@ class ChangeCase
      */
     public function snakeCase(string $string, array $opt = []): string
     {
-        $stripRegexp = '/(?!^_*)[^a-zA-Z0-9]+/i';
+        $stripRegexp = '/(?!^_*)[^\p{L}|\p{M}0-9]+/ui';
 
         return $this->noCase(
             $string,
@@ -218,7 +218,7 @@ class ChangeCase
      */
     public function swapCase(string $string): string
     {
-        return strtolower($string) ^ strtoupper($string) ^ $string;
+        return mb_strtolower($string) ^ mb_strtoupper($string) ^ $string;
     }
 
     /**

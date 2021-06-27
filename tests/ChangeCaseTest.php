@@ -251,4 +251,21 @@ class ChangeCaseTest extends TestCase
             $this->cc->titleCase('do re mi', ['re'])
         );
     }
+
+    /** @test */
+    public function unicode()
+    {
+        $this->assertSame('ăă ĕĕ', $this->cc->noCase('"ĂĂ ĔĔ"'));
+        $this->assertSame('ăăĔĕ', $this->cc->camelCase('ĂĂ ĔĔ'));
+        $this->assertSame('Ăă Ĕĕ', $this->cc->capitalCase('ĂĂ ĔĔ'));
+        $this->assertSame('ĂĂ_ĔĔ', $this->cc->constantCase('ĂĂ ĔĔ'));
+        $this->assertSame('ăă.ĕĕ', $this->cc->dotCase('ĂĂ ĔĔ'));
+        $this->assertSame('Ăă-Ĕĕ', $this->cc->headerCase('ĂĂ ĔĔ'));
+        $this->assertSame('ĂăĔĕ', $this->cc->pascalCase('ĂĂ ĔĔ'));
+        $this->assertSame('ăă/ĕĕ', $this->cc->pathCase('ĂĂ ĔĔ'));
+        $this->assertSame('Ăă ĕĕ', $this->cc->sentenceCase('ĂĂ ĔĔ'));
+        $this->assertSame('ăă_ĕĕ', $this->cc->snakeCase('ĂĂ ĔĔ'));
+        $this->assertSame('ăă-ĕĕ', $this->cc->spinalCase('ĂĂ ĔĔ'));
+        $this->assertSame('ăĂ ĕĔ', $this->cc->swapCase('Ăă Ĕĕ'));
+    }
 }
