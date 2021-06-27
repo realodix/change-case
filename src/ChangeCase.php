@@ -157,6 +157,7 @@ class ChangeCase
      * Transform into a lower case string with slashes between words.
      *
      * @param string $string
+     * @param array  $opt
      *
      * @return string
      */
