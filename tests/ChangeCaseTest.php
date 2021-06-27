@@ -130,17 +130,17 @@ class ChangeCaseTest extends TestCase
     }
 
     /** @test */
-    public function headerCaseWithOpt()
+    public function headerWithOpt()
     {
         $options = ['separateNumber' => true];
 
         $this->assertSame(
             'Test-V-2',
-            $this->cc->headerCase('TestV2', $options)
+            $this->cc->header('TestV2', $options)
         );
         $this->assertSame(
             'Foo-123-Bar',
-            $this->cc->headerCase('Foo123Bar', $options)
+            $this->cc->header('Foo123Bar', $options)
         );
     }
 
