@@ -129,6 +129,21 @@ class ChangeCaseTest extends TestCase
         $this->assertSame($expected, $this->cc->headerCase($actual));
     }
 
+    /** @test */
+    public function headerCaseWithOpt()
+    {
+        $options = ['separateNumber' => true];
+
+        $this->assertSame(
+            'Test-V-2',
+            $this->cc->headerCase('TestV2', $options)
+        );
+        $this->assertSame(
+            'Foo-123-Bar',
+            $this->cc->headerCase('Foo123Bar', $options)
+        );
+    }
+
     /**
      * @test
      * @dataProvider pascalCaseProvider

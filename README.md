@@ -97,6 +97,8 @@ $cc->dotCase('test string');
 
 > Transform into a dash separated string of capitalized words.
 
+💡 Support [options](#options)
+
 ```php
 $cc = new ChangeCase;
 $cc->headerCase('test string');
