@@ -21,7 +21,7 @@ class ChangeCase
      *
      * @return string
      */
-    public function no(string $value, array $opt = []): string
+    public static function no(string $value, array $opt = []): string
     {
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRegexp = ['/([\p{Ll}|\p{M}\p{N}])([\p{Lu}|\p{M}])/u', '/([\p{Lu}|\p{M}])([\p{Lu}|\p{M}][\p{Ll}|\p{M}])/u'];
@@ -72,9 +72,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function camel(string $string, array $opt = []): string
+    public static function camel(string $string, array $opt = []): string
     {
-        return UTF8::lcfirst($this->pascal($string, $opt));
+        return UTF8::lcfirst(self::pascal($string, $opt));
     }
 
     /**
@@ -84,14 +84,14 @@ class ChangeCase
      *
      * @return string
      */
-    public function capital(string $string): string
+    public static function capital(string $string): string
     {
         return preg_replace_callback(
             '/^.| ./u',
             function (array $matches) {
                 return mb_strtoupper($matches[0]);
             },
-            $this->no($string)
+            self::no($string)
         );
     }
 
@@ -102,9 +102,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function constant(string $string): string
+    public static function constant(string $string): string
     {
-        return mb_strtoupper($this->snake($string));
+        return mb_strtoupper(self::snake($string));
     }
 
     /**
@@ -115,9 +115,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function dot(string $string, array $opt = []): string
+    public static function dot(string $string, array $opt = []): string
     {
-        return $this->no($string, $opt += ['delimiter' => '.']);
+        return self::no($string, $opt += ['delimiter' => '.']);
     }
 
     /**
@@ -128,14 +128,14 @@ class ChangeCase
      *
      * @return string
      */
-    public function header(string $string, array $opt = []): string
+    public static function header(string $string, array $opt = []): string
     {
         return preg_replace_callback(
             '/^.|-./u',
             function (array $matches) {
                 return mb_strtoupper($matches[0]);
             },
-            $this->no($string, $opt += ['delimiter' => '-'])
+            self::no($string, $opt += ['delimiter' => '-'])
         );
     }
 
@@ -147,9 +147,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function pascal(string $string, array $opt = []): string
+    public static function pascal(string $string, array $opt = []): string
     {
-        $value = UTF8::ucwords($this->no($string, $opt));
+        $value = UTF8::ucwords(self::no($string, $opt));
 
         return UTF8::str_ireplace(' ', '', $value);
     }
@@ -162,9 +162,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function path(string $string, array $opt = []): string
+    public static function path(string $string, array $opt = []): string
     {
-        return $this->no($string, $opt += ['delimiter' => '/']);
+        return self::no($string, $opt += ['delimiter' => '/']);
     }
 
     /**
@@ -174,9 +174,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function sentence(string $string): string
+    public static function sentence(string $string): string
     {
-        return UTF8::ucfirst($this->no($string));
+        return UTF8::ucfirst(self::no($string));
     }
 
     /**
@@ -187,11 +187,11 @@ class ChangeCase
      *
      * @return string
      */
-    public function snake(string $string, array $opt = []): string
+    public static function snake(string $string, array $opt = []): string
     {
         $stripRegexp = '/(?!^_*)[^\p{L}|\p{M}\p{N}]+/ui';
 
-        return $this->no(
+        return self::no(
             $string,
             $opt += ['delimiter' => '_', 'stripRegexp' => $stripRegexp]
         );
@@ -205,9 +205,9 @@ class ChangeCase
      *
      * @return string
      */
-    public function spinal(string $string, array $opt = []): string
+    public static function spinal(string $string, array $opt = []): string
     {
-        return $this->no($string, $opt += ['delimiter' => '-']);
+        return self::no($string, $opt += ['delimiter' => '-']);
     }
 
     /**
@@ -218,7 +218,7 @@ class ChangeCase
      *
      * @return string
      */
-    public function swap(string $string): string
+    public static function swap(string $string): string
     {
         return mb_strtolower($string) ^ mb_strtoupper($string) ^ $string;
     }
@@ -231,7 +231,7 @@ class ChangeCase
      *
      * @return string
      */
-    public function title(string $string, array $ignore = []): string
+    public static function title(string $string, array $ignore = []): string
     {
         $smallWords = ['nor', 'over', 'upon'];
 

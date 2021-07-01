@@ -25,31 +25,31 @@ class ChangeCaseTest extends TestCase
      */
     public function no($actual, $expected)
     {
-        $this->assertSame($expected, $this->cc->no($actual));
+        $this->assertSame($expected, ChangeCase::no($actual));
     }
 
     /** @test */
     public function noCaseWithOpt()
     {
         $options = ['delimiter' => '#'];
-        $this->assertSame('camel#case', $this->cc->no('camelCase', $options));
-        $this->assertSame('#camel#case#', $this->cc->no('#camel Case#', $options));
+        $this->assertSame('camel#case', ChangeCase::no('camelCase', $options));
+        $this->assertSame('#camel#case#', ChangeCase::no('#camel Case#', $options));
 
         // Custom splitRegexp
         $this->assertSame(
             'minify urls',
-            $this->cc->no('minifyURLs', ['splitRegexp' => '/([a-z])([A-Z0-9])/'])
+            ChangeCase::no('minifyURLs', ['splitRegexp' => '/([a-z])([A-Z0-9])/'])
         );
 
         // Separate Numbers
         $options = ['separateNumber' => true];
-        $this->assertSame('test string 123', $this->cc->no('testString123', $options));
-        $this->assertSame('foo 123 bar', $this->cc->no('Foo123Bar', $options));
-        $this->assertSame('a number 2 in', $this->cc->no('aNumber2in', $options));
-        $this->assertSame('v1 test', $this->cc->no('V1Test'));
+        $this->assertSame('test string 123', ChangeCase::no('testString123', $options));
+        $this->assertSame('foo 123 bar', ChangeCase::no('Foo123Bar', $options));
+        $this->assertSame('a number 2 in', ChangeCase::no('aNumber2in', $options));
+        $this->assertSame('v1 test', ChangeCase::no('V1Test'));
         $this->assertSame(
             'v 1 test with separate number',
-            $this->cc->no('V1Test with separateNumber', $options)
+            ChangeCase::no('V1Test with separateNumber', $options)
         );
     }
 
@@ -62,17 +62,17 @@ class ChangeCaseTest extends TestCase
      */
     public function camel($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->camel($actual));
+        $this->assertSame($expected, ChangeCase::camel($actual));
     }
 
     /** @test */
     public function camelCaseWithOpt()
     {
         // Separate Numbers
-        $this->assertSame('1TwoThree', $this->cc->camel('1twoThree', ['separateNumber' => true]));
+        $this->assertSame('1TwoThree', ChangeCase::camel('1twoThree', ['separateNumber' => true]));
 
         // https://github.com/blakeembrey/change-case/issues/216
-        $this->assertSame('helloWorld', $this->cc->camel('hello__world', ['splitRegexp' => '/(__)/']));
+        $this->assertSame('helloWorld', ChangeCase::camel('hello__world', ['splitRegexp' => '/(__)/']));
     }
 
     /**
@@ -84,7 +84,7 @@ class ChangeCaseTest extends TestCase
      */
     public function capital($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->capital($actual));
+        $this->assertSame($expected, ChangeCase::capital($actual));
     }
 
     /**
@@ -96,7 +96,7 @@ class ChangeCaseTest extends TestCase
      */
     public function constant($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->constant($actual));
+        $this->assertSame($expected, ChangeCase::constant($actual));
     }
 
     /**
@@ -108,13 +108,13 @@ class ChangeCaseTest extends TestCase
      */
     public function dot($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->dot($actual));
+        $this->assertSame($expected, ChangeCase::dot($actual));
     }
 
     /** @test */
     public function dotCaseWithOpt()
     {
-        $this->assertSame('f.0.obar', $this->cc->dot('f0obar', ['separateNumber' => true]));
+        $this->assertSame('f.0.obar', ChangeCase::dot('f0obar', ['separateNumber' => true]));
     }
 
     /**
@@ -126,7 +126,7 @@ class ChangeCaseTest extends TestCase
      */
     public function header($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->header($actual));
+        $this->assertSame($expected, ChangeCase::header($actual));
     }
 
     /** @test */
@@ -136,11 +136,11 @@ class ChangeCaseTest extends TestCase
 
         $this->assertSame(
             'Test-V-2',
-            $this->cc->header('TestV2', $options)
+            ChangeCase::header('TestV2', $options)
         );
         $this->assertSame(
             'Foo-123-Bar',
-            $this->cc->header('Foo123Bar', $options)
+            ChangeCase::header('Foo123Bar', $options)
         );
     }
 
@@ -153,7 +153,7 @@ class ChangeCaseTest extends TestCase
      */
     public function pascal($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->pascal($actual));
+        $this->assertSame($expected, ChangeCase::pascal($actual));
     }
 
     /**
@@ -165,7 +165,7 @@ class ChangeCaseTest extends TestCase
      */
     public function path($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->path($actual));
+        $this->assertSame($expected, ChangeCase::path($actual));
     }
 
     /** @test */
@@ -175,11 +175,11 @@ class ChangeCaseTest extends TestCase
 
         $this->assertSame(
             'test/v/2',
-            $this->cc->path('TestV2', $options)
+            ChangeCase::path('TestV2', $options)
         );
         $this->assertSame(
             'foo/123/bar',
-            $this->cc->path('Foo123Bar', $options)
+            ChangeCase::path('Foo123Bar', $options)
         );
     }
 
@@ -192,7 +192,7 @@ class ChangeCaseTest extends TestCase
      */
     public function sentence($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->sentence($actual));
+        $this->assertSame($expected, ChangeCase::sentence($actual));
     }
 
     /**
@@ -204,7 +204,7 @@ class ChangeCaseTest extends TestCase
      */
     public function snake($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->snake($actual));
+        $this->assertSame($expected, ChangeCase::snake($actual));
     }
 
     /** @test */
@@ -214,11 +214,11 @@ class ChangeCaseTest extends TestCase
 
         $this->assertSame(
             'test_v_2',
-            $this->cc->snake('TestV2', $options)
+            ChangeCase::snake('TestV2', $options)
         );
         $this->assertSame(
             'foo_123_bar',
-            $this->cc->snake('Foo123Bar', $options)
+            ChangeCase::snake('Foo123Bar', $options)
         );
     }
 
@@ -231,7 +231,7 @@ class ChangeCaseTest extends TestCase
      */
     public function spinal($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->spinal($actual));
+        $this->assertSame($expected, ChangeCase::spinal($actual));
     }
 
     /** @test */
@@ -241,11 +241,11 @@ class ChangeCaseTest extends TestCase
 
         $this->assertSame(
             'version-v-1-2-10',
-            $this->cc->spinal('version v1.2.10', $options)
+            ChangeCase::spinal('version v1.2.10', $options)
         );
         $this->assertSame(
             'foo-123-bar',
-            $this->cc->spinal('Foo123Bar', $options)
+            ChangeCase::spinal('Foo123Bar', $options)
         );
     }
 
@@ -258,7 +258,7 @@ class ChangeCaseTest extends TestCase
      */
     public function swap($expected, $actual)
     {
-        $this->assertSame($expected, $this->cc->swap($actual));
+        $this->assertSame($expected, ChangeCase::swap($actual));
     }
 
     /**
@@ -270,7 +270,7 @@ class ChangeCaseTest extends TestCase
      */
     public function title($actual, $expected)
     {
-        $this->assertSame($expected, $this->cc->title($actual));
+        $this->assertSame($expected, ChangeCase::title($actual));
     }
 
     /** @test */
@@ -278,7 +278,7 @@ class ChangeCaseTest extends TestCase
     {
         $this->assertSame(
             'Do re Mi',
-            $this->cc->title('do re mi', ['re'])
+            ChangeCase::title('do re mi', ['re'])
         );
     }
 
@@ -286,25 +286,25 @@ class ChangeCaseTest extends TestCase
     public function unicode()
     {
         // Mark
-        $this->assertSame('ââ êê', $this->cc->no('"ÂÂ ÊÊ"'));
-        $this->assertSame('ââ êê', $this->cc->no('ÂÂ ÊÊ'));
-        $this->assertSame('ââÊê', $this->cc->camel('ÂÂ êê'));
-        $this->assertSame('ââÊê', $this->cc->camel('ââ ÊÊ'));
-        $this->assertSame('Ââ Êê', $this->cc->capital('ÂÂ ÊÊ'));
-        $this->assertSame('ÂÂ_ÊÊ', $this->cc->constant('ÂÂ ÊÊ'));
-        $this->assertSame('Ââ-Êê', $this->cc->header('ÂÂ ÊÊ'));
-        $this->assertSame('ââ/êê', $this->cc->path('ÂÂ ÊÊ'));
-        $this->assertSame('Ââ êê', $this->cc->sentence('ÂÂ ÊÊ'));
-        $this->assertSame('âÂ õÕ', $this->cc->swap('Ââ Õõ'));
+        $this->assertSame('ââ êê', ChangeCase::no('"ÂÂ ÊÊ"'));
+        $this->assertSame('ââ êê', ChangeCase::no('ÂÂ ÊÊ'));
+        $this->assertSame('ââÊê', ChangeCase::camel('ÂÂ êê'));
+        $this->assertSame('ââÊê', ChangeCase::camel('ââ ÊÊ'));
+        $this->assertSame('Ââ Êê', ChangeCase::capital('ÂÂ ÊÊ'));
+        $this->assertSame('ÂÂ_ÊÊ', ChangeCase::constant('ÂÂ ÊÊ'));
+        $this->assertSame('Ââ-Êê', ChangeCase::header('ÂÂ ÊÊ'));
+        $this->assertSame('ââ/êê', ChangeCase::path('ÂÂ ÊÊ'));
+        $this->assertSame('Ââ êê', ChangeCase::sentence('ÂÂ ÊÊ'));
+        $this->assertSame('âÂ õÕ', ChangeCase::swap('Ââ Õõ'));
 
         // Mark + Number
-        $this->assertSame('ââ ⅰⅰ', $this->cc->no('"ÂÂ ⅠⅠ"'));
-        $this->assertSame('ââ ⅰⅰ', $this->cc->no('ÂÂ ⅠⅠ'));
-        $this->assertSame('Ââ Ⅰⅰ', $this->cc->capital('ÂÂ ⅠⅠ'));
-        $this->assertSame('ÂÂ_ⅠⅠ', $this->cc->constant('ÂÂ ⅠⅠ'));
-        $this->assertSame('Ââ-Ⅰⅰ', $this->cc->header('ÂÂ ⅠⅠ'));
-        $this->assertSame('ââ/ⅰⅰ', $this->cc->path('ÂÂ ⅠⅠ'));
-        $this->assertSame('Ââ ⅰⅰ', $this->cc->sentence('ÂÂ ⅠⅠ'));
-        $this->assertSame('âÂ õÕ', $this->cc->swap('Ââ Õõ'));
+        $this->assertSame('ââ ⅰⅰ', ChangeCase::no('"ÂÂ ⅠⅠ"'));
+        $this->assertSame('ââ ⅰⅰ', ChangeCase::no('ÂÂ ⅠⅠ'));
+        $this->assertSame('Ââ Ⅰⅰ', ChangeCase::capital('ÂÂ ⅠⅠ'));
+        $this->assertSame('ÂÂ_ⅠⅠ', ChangeCase::constant('ÂÂ ⅠⅠ'));
+        $this->assertSame('Ââ-Ⅰⅰ', ChangeCase::header('ÂÂ ⅠⅠ'));
+        $this->assertSame('ââ/ⅰⅰ', ChangeCase::path('ÂÂ ⅠⅠ'));
+        $this->assertSame('Ââ ⅰⅰ', ChangeCase::sentence('ÂÂ ⅠⅠ'));
+        $this->assertSame('âÂ õÕ', ChangeCase::swap('Ââ Õõ'));
     }
 }
