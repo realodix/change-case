@@ -368,8 +368,6 @@ class ChangeCase
             /**
              * @param string[] $matches
              *
-             * @psalm-pure
-             *
              * @return string
              */
             static function (array $matches) use ($encoding): string {
@@ -389,8 +387,6 @@ class ChangeCase
                      ~uxi',
             /**
              * @param string[] $matches
-             *
-             * @psalm-pure
              *
              * @return string
              */
