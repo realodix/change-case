@@ -251,11 +251,8 @@ class ChangeCase
      *
      * @return string
      */
-    public static function titleize(
-        string $str,
-        array $ignore = [],
-        string $encoding = 'UTF-8'
-    ): string {
+    public static function titleize(string $str, array $ignore = [], string $encoding = 'UTF-8'): string
+    {
         if ($str === '') {
             return '';
         }
