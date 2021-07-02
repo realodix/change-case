@@ -294,7 +294,7 @@ class ChangeCase
              *
              * @return string
              */
-            static function (array $matches) use ($encoding): string {
+            static function (array $matches): string {
                 // preserve leading underscore
                 $str = $matches[1];
                 if ($matches[2]) {
@@ -302,10 +302,10 @@ class ChangeCase
                     $str .= $matches[2];
                 } elseif ($matches[3]) {
                     // lower-case small words
-                    $str .= mb_strtolower($matches[3], $encoding);
+                    $str .= mb_strtolower($matches[3]);
                 } elseif ($matches[4]) {
                     // capitalize word w/o internal caps
-                    $str .= UTF8::ucfirst($matches[4], $encoding);
+                    $str .= UTF8::ucfirst($matches[4]);
                 } else {
                     // preserve other kinds of word (iPhone)
                     $str .= $matches[5];
@@ -330,8 +330,8 @@ class ChangeCase
              *
              * @return string
              */
-            static function (array $matches) use ($encoding): string {
-                return $matches[1].UTF8::ucfirst($matches[2], $encoding);
+            static function (array $matches): string {
+                return $matches[1].UTF8::ucfirst($matches[2]);
             },
             $str
         );
@@ -347,8 +347,8 @@ class ChangeCase
              *
              * @return string
              */
-            static function (array $matches) use ($encoding): string {
-                return UTF8::ucfirst($matches[1], $encoding);
+            static function (array $matches): string {
+                return UTF8::ucfirst($matches[1]);
             },
             $str
         );
@@ -366,8 +366,8 @@ class ChangeCase
              *
              * @return string
              */
-            static function (array $matches) use ($encoding): string {
-                return UTF8::ucfirst($matches[1], $encoding);
+            static function (array $matches): string {
+                return UTF8::ucfirst($matches[1]);
             },
             $str
         );
@@ -386,8 +386,8 @@ class ChangeCase
              *
              * @return string
              */
-            static function (array $matches) use ($encoding): string {
-                return $matches[1].UTF8::ucfirst($matches[2], $encoding);
+            static function (array $matches): string {
+                return $matches[1].UTF8::ucfirst($matches[2]);
             },
             $str
         );
