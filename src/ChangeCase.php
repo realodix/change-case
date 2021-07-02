@@ -231,27 +231,7 @@ class ChangeCase
      *
      * @return string
      */
-    public static function title(string $string, array $ignore = []): string
-    {
-        $smallWords = ['nor', 'over', 'upon'];
-
-        return self::titleize($string, array_merge($smallWords, $ignore));
-    }
-
-    /**
-     * Returns a trimmed string in proper title case. Also accepts an array, $ignore,
-     * allowing you to list words not to be capitalized.
-     *
-     * Adapted from John Gruber's script.
-     *- https://gist.github.com/gruber/9f9e8650d68b13ce4d78
-     *
-     * @param string $str
-     * @param array  $ignore   <p>An array of words not to capitalize.</p>
-     * @param string $encoding [optional] <p>Set the charset for e.g. "mb_" function</p>
-     *
-     * @return string
-     */
-    public static function titleize(string $str, array $ignore = [], string $encoding = 'UTF-8'): string
+    public static function title(string $str, array $ignore = []): string
     {
         if ($str === '') {
             return '';
