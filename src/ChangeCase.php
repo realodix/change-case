@@ -267,25 +267,8 @@ class ChangeCase
         }
 
         $small_words = [
-            '(?<!q&)a',
-            'an',
-            'and',
-            'as',
-            'at(?!&t)',
-            'but',
-            'by',
-            'en',
-            'for',
-            'if',
-            'in',
-            'of',
-            'on',
-            'or',
-            'the',
-            'to',
-            'v[.]?',
-            'via',
-            'vs[.]?',
+            '(?<!q&)a', 'an', 'and', 'as', 'at(?!&t)', 'but', 'by', 'en', 'for', 'if', 'in',
+            'of', 'on', 'or', 'the', 'to', 'v[.]?', 'via', 'vs[.]?',
         ];
 
         if ($ignore !== []) {
@@ -297,23 +280,23 @@ class ChangeCase
 
         $str = \trim($str);
 
-        if (!self::has_lowercase($str)) {
+        if (! self::has_lowercase($str)) {
             $str = self::strtolower($str, $encoding);
         }
 
         // the main substitutions
         /** @noinspection RegExpDuplicateAlternationBranch - false-positive - https://youtrack.jetbrains.com/issue/WI-51002 */
         $str = (string) \preg_replace_callback(
-            '~\\b (_*) (?:                                                           # 1. Leading underscore and
-                        ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |                # 2. file path or
-                          [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ ' . $apostrophe_rx . ' )  #    URL, domain, or email
+            '~\\b (_*) (?:                                                              # 1. Leading underscore and
+                        ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |            # 2. file path or
+                          [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ '.$apostrophe_rx.' )  #    URL, domain, or email
                         |
-                        ( (?i: ' . $small_words_rx . ' ) ' . $apostrophe_rx . ' )           # 3. or small word (case-insensitive)
+                        ( (?i: '.$small_words_rx.' ) '.$apostrophe_rx.' )               # 3. or small word (case-insensitive)
                         |
-                        ( [[:alpha:]] [[:lower:]\'’()\[\]{}]* ' . $apostrophe_rx . ' )     # 4. or word w/o internal caps
+                        ( [[:alpha:]] [[:lower:]\'’()\[\]{}]* '.$apostrophe_rx.' )      # 4. or word w/o internal caps
                         |
-                        ( [[:alpha:]] [[:alpha:]\'’()\[\]{}]* ' . $apostrophe_rx . ' )     # 5. or some other word
-                      ) (_*) \\b                                                          # 6. With trailing underscore
+                        ( [[:alpha:]] [[:alpha:]\'’()\[\]{}]* '.$apostrophe_rx.' )      # 5. or some other word
+                      ) (_*) \\b                                                        # 6. With trailing underscore
                     ~ux',
             /**
              * @param string[] $matches
@@ -348,10 +331,10 @@ class ChangeCase
 
         // Exceptions for small words: capitalize at start of title...
         $str = (string) \preg_replace_callback(
-            '~(  \\A [[:punct:]]*            # start of title...
-                      |  [:.;?!][ ]+                # or of subsentence...
-                      |  [ ][\'"“‘(\[][ ]* )        # or of inserted subphrase...
-                      ( ' . $small_words_rx . ' ) \\b # ...followed by small word
+            '~(  \\A [[:punct:]]*                  # start of title...
+                      |  [:.;?!][ ]+               # or of subsentence...
+                      |  [ ][\'"“‘(\[][ ]* )       # or of inserted subphrase...
+                      ( '.$small_words_rx.' ) \\b  # ...followed by small word
                      ~uxi',
             /**
              * @param string[] $matches
@@ -361,16 +344,16 @@ class ChangeCase
              * @return string
              */
             static function (array $matches) use ($encoding): string {
-                return $matches[1] . static::ucfirst($matches[2], $encoding);
+                return $matches[1].static::ucfirst($matches[2], $encoding);
             },
             $str
         );
 
         // ...and end of title
         $str = (string) \preg_replace_callback(
-            '~\\b ( ' . $small_words_rx . ' ) # small word...
-                      (?= [[:punct:]]* \Z          # ...at the end of the title...
-                      |   [\'"’”)\]] [ ] )         # ...or of an inserted subphrase?
+            '~\\b ( '.$small_words_rx.' )   # small word...
+                      (?= [[:punct:]]* \Z   # ...at the end of the title...
+                      |   [\'"’”)\]] [ ] )  # ...or of an inserted subphrase?
                      ~uxi',
             /**
              * @param string[] $matches
@@ -390,7 +373,7 @@ class ChangeCase
         $str = (string) \preg_replace_callback(
             '~\\b
                         (?<! -)                   # Negative lookbehind for a hyphen; we do not want to match man-in-the-middle but do want (in-flight)
-                        ( ' . $small_words_rx . ' )
+                        ( '.$small_words_rx.' )
                         (?= -[[:alpha:]]+)        # lookahead for "-someword"
                        ~uxi',
             /**
@@ -411,7 +394,7 @@ class ChangeCase
             '~\\b
                       (?<!…)                    # Negative lookbehind for a hyphen; we do not want to match man-in-the-middle but do want (stand-in)
                       ( [[:alpha:]]+- )         # $1 = first word and hyphen, should already be properly capped
-                      ( ' . $small_words_rx . ' ) # ...followed by small word
+                      ( '.$small_words_rx.' ) # ...followed by small word
                       (?!	- )                 # Negative lookahead for another -
                      ~uxi',
             /**
@@ -422,7 +405,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches) use ($encoding): string {
-                return $matches[1] . static::ucfirst($matches[2], $encoding);
+                return $matches[1].static::ucfirst($matches[2], $encoding);
             },
             $str
         );
