@@ -239,25 +239,19 @@ class ChangeCase
     }
 
     /**
-     * Returns a trimmed string in proper title case.
-     *
-     * Also accepts an array, $ignore, allowing you to list words not to be
-     * capitalized.
+     * Returns a trimmed string in proper title case. Also accepts an array, $ignore,
+     * allowing you to list words not to be capitalized.
      *
      * Adapted from John Gruber's script.
-     *
-     * @see https://gist.github.com/gruber/9f9e8650d68b13ce4d78
+     *- https://gist.github.com/gruber/9f9e8650d68b13ce4d78
      *
      * @param string $str
      * @param array  $ignore   <p>An array of words not to capitalize.</p>
      * @param string $encoding [optional] <p>Set the charset for e.g. "mb_" function</p>
      *
-     * @psalm-pure
-     *
      * @return string
-     *                <p>The titleized string.</p>
      */
-    public static function str_titleize_for_humans(
+    public static function titleize(
         string $str,
         array $ignore = [],
         string $encoding = 'UTF-8'
@@ -285,7 +279,6 @@ class ChangeCase
         }
 
         // the main substitutions
-        /** @noinspection RegExpDuplicateAlternationBranch - false-positive - https://youtrack.jetbrains.com/issue/WI-51002 */
         $str = (string) \preg_replace_callback(
             '~\\b (_*) (?:                                                              # 1. Leading underscore and
                         ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |            # 2. file path or
@@ -339,8 +332,6 @@ class ChangeCase
             /**
              * @param string[] $matches
              *
-             * @psalm-pure
-             *
              * @return string
              */
             static function (array $matches) use ($encoding): string {
@@ -357,8 +348,6 @@ class ChangeCase
                      ~uxi',
             /**
              * @param string[] $matches
-             *
-             * @psalm-pure
              *
              * @return string
              */
@@ -392,10 +381,11 @@ class ChangeCase
         // e.g. "Stand-in" -> "Stand-In" (Stand is already capped at this point)
         $str = (string) \preg_replace_callback(
             '~\\b
-                      (?<!…)                    # Negative lookbehind for a hyphen; we do not want to match man-in-the-middle but do want (stand-in)
-                      ( [[:alpha:]]+- )         # $1 = first word and hyphen, should already be properly capped
-                      ( '.$small_words_rx.' ) # ...followed by small word
-                      (?!	- )                 # Negative lookahead for another -
+                      (?<!…)                   # Negative lookbehind for a hyphen; we do not want to match
+                                               # man-in-the-middle but do want (stand-in)
+                      ( [[:alpha:]]+- )        # $1 = first word and hyphen, should already be properly capped
+                      ( '.$small_words_rx.' )  # ...followed by small word
+                      (?!	- )                # Negative lookahead for another -
                      ~uxi',
             /**
              * @param string[] $matches
