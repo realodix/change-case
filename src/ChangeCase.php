@@ -235,7 +235,7 @@ class ChangeCase
     {
         $smallWords = ['nor', 'over', 'upon'];
 
-        return UTF8::str_titleize_for_humans($string, array_merge($smallWords, $ignore));
+        return self::titleize($string, array_merge($smallWords, $ignore));
     }
 
     /**
@@ -263,20 +263,20 @@ class ChangeCase
         ];
 
         if ($ignore !== []) {
-            $small_words = \array_merge($small_words, $ignore);
+            $small_words = array_merge($small_words, $ignore);
         }
 
-        $small_words_rx = \implode('|', $small_words);
+        $small_words_rx = implode('|', $small_words);
         $apostrophe_rx = '(?x: [\'’] [[:lower:]]* )?';
 
-        $str = \trim($str);
+        $str = trim($str);
 
-        if (! self::has_lowercase($str)) {
-            $str = self::strtolower($str, $encoding);
+        if (! UTF8::has_lowercase($str)) {
+            $str = mb_strtolower($str);
         }
 
         // the main substitutions
-        $str = (string) \preg_replace_callback(
+        $str = (string) preg_replace_callback(
             '~\\b (_*) (?:                                                              # 1. Leading underscore and
                         ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |            # 2. file path or
                           [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ '.$apostrophe_rx.' )  #    URL, domain, or email
@@ -303,10 +303,10 @@ class ChangeCase
                     $str .= $matches[2];
                 } elseif ($matches[3]) {
                     // lower-case small words
-                    $str .= self::strtolower($matches[3], $encoding);
+                    $str .= UTF8::strtolower($matches[3], $encoding);
                 } elseif ($matches[4]) {
                     // capitalize word w/o internal caps
-                    $str .= static::ucfirst($matches[4], $encoding);
+                    $str .= UTF8::ucfirst($matches[4], $encoding);
                 } else {
                     // preserve other kinds of word (iPhone)
                     $str .= $matches[5];
@@ -320,7 +320,7 @@ class ChangeCase
         );
 
         // Exceptions for small words: capitalize at start of title...
-        $str = (string) \preg_replace_callback(
+        $str = (string) preg_replace_callback(
             '~(  \\A [[:punct:]]*                  # start of title...
                       |  [:.;?!][ ]+               # or of subsentence...
                       |  [ ][\'"“‘(\[][ ]* )       # or of inserted subphrase...
@@ -332,13 +332,13 @@ class ChangeCase
              * @return string
              */
             static function (array $matches) use ($encoding): string {
-                return $matches[1].static::ucfirst($matches[2], $encoding);
+                return $matches[1].UTF8::ucfirst($matches[2], $encoding);
             },
             $str
         );
 
         // ...and end of title
-        $str = (string) \preg_replace_callback(
+        $str = (string) preg_replace_callback(
             '~\\b ( '.$small_words_rx.' )   # small word...
                       (?= [[:punct:]]* \Z   # ...at the end of the title...
                       |   [\'"’”)\]] [ ] )  # ...or of an inserted subphrase?
@@ -349,14 +349,14 @@ class ChangeCase
              * @return string
              */
             static function (array $matches) use ($encoding): string {
-                return static::ucfirst($matches[1], $encoding);
+                return UTF8::ucfirst($matches[1], $encoding);
             },
             $str
         );
 
         // Exceptions for small words in hyphenated compound words.
         // e.g. "in-flight" -> In-Flight
-        $str = (string) \preg_replace_callback(
+        $str = (string) preg_replace_callback(
             '~\\b
                         (?<! -)                   # Negative lookbehind for a hyphen; we do not want to match man-in-the-middle but do want (in-flight)
                         ( '.$small_words_rx.' )
@@ -368,13 +368,13 @@ class ChangeCase
              * @return string
              */
             static function (array $matches) use ($encoding): string {
-                return static::ucfirst($matches[1], $encoding);
+                return UTF8::ucfirst($matches[1], $encoding);
             },
             $str
         );
 
         // e.g. "Stand-in" -> "Stand-In" (Stand is already capped at this point)
-        $str = (string) \preg_replace_callback(
+        $str = (string) preg_replace_callback(
             '~\\b
                       (?<!…)                   # Negative lookbehind for a hyphen; we do not want to match
                                                # man-in-the-middle but do want (stand-in)
@@ -388,7 +388,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches) use ($encoding): string {
-                return $matches[1].static::ucfirst($matches[2], $encoding);
+                return $matches[1].UTF8::ucfirst($matches[2], $encoding);
             },
             $str
         );
