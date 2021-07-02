@@ -260,6 +260,7 @@ class ChangeCase
         $small_words = [
             '(?<!q&)a', 'an', 'and', 'as', 'at(?!&t)', 'but', 'by', 'en', 'for', 'if', 'in',
             'of', 'on', 'or', 'the', 'to', 'v[.]?', 'via', 'vs[.]?',
+            'nor', 'over', 'upon',
         ];
 
         if ($ignore !== []) {
@@ -291,8 +292,6 @@ class ChangeCase
             /**
              * @param string[] $matches
              *
-             * @psalm-pure
-             *
              * @return string
              */
             static function (array $matches) use ($encoding): string {
@@ -303,7 +302,7 @@ class ChangeCase
                     $str .= $matches[2];
                 } elseif ($matches[3]) {
                     // lower-case small words
-                    $str .= UTF8::strtolower($matches[3], $encoding);
+                    $str .= mb_strtolower($matches[3], $encoding);
                 } elseif ($matches[4]) {
                     // capitalize word w/o internal caps
                     $str .= UTF8::ucfirst($matches[4], $encoding);
