@@ -239,13 +239,16 @@ class ChangeCase
             'nor', 'over', 'upon',
         ];
 
+        $alphaRX = '[:alpha:]';
+        $lowerRX = '[:lower:]';
+
         if ($ignore !== []) {
             $smallWords = array_merge($smallWords, $ignore);
         }
 
 
         $smallWordsRX = implode('|', $smallWords);
-        $apostropheRX = '(?x: [\'’] [[:lower:]]* )?';
+        $apostropheRX = '(?x: [\'’] ['.$lowerRX.']* )?';
 
         $str = trim($str);
 
@@ -256,14 +259,14 @@ class ChangeCase
         // the main substitutions
         $str = preg_replace_callback(
             '~\\b (_*)
-            (?:                                                                # 1. Leading underscore and
-                ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |           # 2. file path or
-                  [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ '.$apostropheRX.' )  #    URL, domain, or email
-                | ((?i: '.$smallWordsRX.') '.$apostropheRX.')                  # 3. or small word (case-insensitive)
-                | ([[:alpha:]] [[:lower:]\'’()\[\]{}]* '.$apostropheRX.')      # 4. or word w/o internal caps
-                | ([[:alpha:]] [[:alpha:]\'’()\[\]{}]* '.$apostropheRX.')      # 5. or some other word
+            (?:                                                                      # 1. Leading underscore and
+                ( (?<=[ ][/\\\\]) ['.$alphaRX.']+ [-_'.$alphaRX.'/\\\\]+ |           # 2. file path or
+                  [-_'.$alphaRX.']+ [@.:] [-_'.$alphaRX.'@.:/]+ '.$apostropheRX.' )  #    URL, domain, or email
+                | ((?i: '.$smallWordsRX.') '.$apostropheRX.')                        # 3. or small word (case-insensitive)
+                | (['.$alphaRX.'] ['.$lowerRX.'\'’()\[\]{}]* '.$apostropheRX.')      # 4. or word w/o internal caps
+                | (['.$alphaRX.'] ['.$alphaRX.'\'’()\[\]{}]* '.$apostropheRX.')      # 5. or some other word
             )
-            (_*) \\b                                                           # 6. With trailing underscore
+            (_*) \\b                                                                 # 6. With trailing underscore
             ~ux',
 
             /**
@@ -342,7 +345,7 @@ class ChangeCase
                 (?<! -)                # Negative lookbehind for a hyphen; we do not want to match
                                        # man-in-the-middle but do want (in-flight)
                 ('.$smallWordsRX.')
-                (?= -[[:alpha:]]+)     # lookahead for "-someword"
+                (?= -['.$alphaRX.']+)  # lookahead for "-someword"
             ~uxi',
 
             /**
@@ -361,7 +364,7 @@ class ChangeCase
             '~\\b
                 (?<!…)               # Negative lookbehind for a hyphen; we do not want to match
                                      # man-in-the-middle but do want (stand-in)
-                ([[:alpha:]]+-)      # $1 = first word and hyphen, should already be properly capped
+                (['.$alphaRX.']+-)   # $1 = first word and hyphen, should already be properly capped
                 ('.$smallWordsRX.')  # ...followed by small word
                 (?!	- )              # Negative lookahead for another -
             ~uxi',
