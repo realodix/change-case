@@ -226,15 +226,160 @@ class ChangeCase
     /**
      * Transform a string into title case following English rules.
      *
-     * @param string $string
+     * @param string $str
      * @param array  $ignore An array of words not to capitalize.
      *
      * @return string
      */
-    public static function title(string $string, array $ignore = []): string
+    public static function title(string $str, array $ignore = []): string
     {
-        $smallWords = ['nor', 'over', 'upon'];
+        $smallWords = [
+            '(?<!q&)a', 'an', 'and', 'as', 'at(?!&t)', 'but', 'by', 'en', 'for', 'if', 'in',
+            'of', 'on', 'or', 'the', 'to', 'v[.]?', 'via', 'vs[.]?',
+            'nor', 'over', 'upon',
+        ];
 
-        return UTF8::str_titleize_for_humans($string, array_merge($smallWords, $ignore));
+        $alphaRx = '[:alpha:]';
+        $lowerRx = '[:lower:]';
+
+        if ($ignore !== []) {
+            $smallWords = array_merge($smallWords, $ignore);
+        }
+
+
+        $smallWordsRx = implode('|', $smallWords);
+        $apostropheRx = '(?x: [\'’] ['.$lowerRx.']* )?';
+
+        $str = trim($str);
+
+        if (! UTF8::has_lowercase($str)) {
+            $str =strtolower($str);
+        }
+
+        // the main substitutions
+        $str = preg_replace_callback(
+            '~\\b (_*)
+            (?:                                                                      # 1. Leading underscore and
+                ( (?<=[ ][/\\\\]) ['.$alphaRx.']+ [-_'.$alphaRx.'/\\\\]+ |           # 2. file path or
+                  [-_'.$alphaRx.']+ [@.:] [-_'.$alphaRx.'@.:/]+ '.$apostropheRx.' )  #    URL, domain, or email
+                | ((?i: '.$smallWordsRx.') '.$apostropheRx.')                        # 3. or small word (case-insensitive)
+                | (['.$alphaRx.'] ['.$lowerRx.'\'’()\[\]{}]* '.$apostropheRx.')      # 4. or word w/o internal caps
+                | (['.$alphaRx.'] ['.$alphaRx.'\'’()\[\]{}]* '.$apostropheRx.')      # 5. or some other word
+            )
+            (_*) \\b                                                                 # 6. With trailing underscore
+            ~ux',
+
+            /**
+             * @param string[] $matches
+             *
+             * @return string
+             */
+            static function (array $matches): string {
+                // preserve leading underscore
+                $str = $matches[1];
+                if ($matches[2]) {
+                    // preserve URLs, domains, emails and file paths
+                    $str .= $matches[2];
+                } elseif ($matches[3]) {
+                    // lower-case small words
+                    $str .=strtolower($matches[3]);
+                } elseif ($matches[4]) {
+                    // capitalize word w/o internal caps
+                    $str .= UTF8::ucfirst($matches[4]);
+                } else {
+                    // preserve other kinds of word (iPhone)
+                    $str .= $matches[5];
+                }
+                // preserve trailing underscore
+                $str .= $matches[6];
+
+                return $str;
+            },
+            $str
+        );
+
+        // Exceptions for small words: capitalize at start of title...
+        $str = preg_replace_callback(
+            '~( \\A
+                [[:punct:]]*         # start of title...
+                | [:.;?!][ ]+        # or of subsentence...
+                | [ ][\'"“‘(\[][ ]*  # or of inserted subphrase...
+              )
+              ('.$smallWordsRx.')    # ...followed by small word
+            \\b
+            ~uxi',
+
+            /**
+             * @param string[] $matches
+             *
+             * @return string
+             */
+            static function (array $matches): string {
+                return $matches[1].UTF8::ucfirst($matches[2]);
+            },
+            $str
+        );
+
+        // ...and end of title
+        $str = preg_replace_callback(
+            '~\\b ('.$smallWordsRx.')   # small word...
+                  (?= [[:punct:]]* \Z   # ...at the end of the title...
+                  |   [\'"’”)\]] [ ] )  # ...or of an inserted subphrase?
+            ~uxi',
+
+            /**
+             * @param string[] $matches
+             *
+             * @return string
+             */
+            static function (array $matches): string {
+                return UTF8::ucfirst($matches[1]);
+            },
+            $str
+        );
+
+        // Exceptions for small words in hyphenated compound words.
+        // e.g. "in-flight" -> In-Flight
+        $str = preg_replace_callback(
+            '~\\b
+                (?<! -)                # Negative lookbehind for a hyphen; we do not want to match
+                                       # man-in-the-middle but do want (in-flight)
+                ('.$smallWordsRx.')
+                (?= -['.$alphaRx.']+)  # lookahead for "-someword"
+            ~uxi',
+
+            /**
+             * @param string[] $matches
+             *
+             * @return string
+             */
+            static function (array $matches): string {
+                return UTF8::ucfirst($matches[1]);
+            },
+            $str
+        );
+
+        // e.g. "Stand-in" -> "Stand-In" (Stand is already capped at this point)
+        $str = preg_replace_callback(
+            '~\\b
+                (?<!…)               # Negative lookbehind for a hyphen; we do not want to match
+                                     # man-in-the-middle but do want (stand-in)
+                (['.$alphaRx.']+-)   # $1 = first word and hyphen, should already be properly capped
+                ('.$smallWordsRx.')  # ...followed by small word
+                (?!	- )              # Negative lookahead for another -
+            ~uxi',
+
+            /**
+             * @param string[] $matches
+             *
+             * @return string
+             */
+            static function (array $matches): string {
+                return $matches[1].UTF8::ucfirst($matches[2]);
+            },
+            $str
+        );
+
+        return $str;
     }
 }

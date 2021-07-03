@@ -280,6 +280,14 @@ class ChangeCaseTest extends TestCase
             'Do re Mi',
             ChangeCase::title('do re mi', ['re'])
         );
+
+        $this->assertSame(
+            'I Like to watch DVDs at Home',
+            ChangeCase::title(
+                'i like to watch DVDs at home',
+                ['watch']
+            )
+        );
     }
 
     /** @test */
