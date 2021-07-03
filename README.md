@@ -39,9 +39,9 @@ use Realodix\ChangeCase\ChangeCase;
 ### Options
 
 - `delimiter`: (string) Used between words
-- `splitRegexp`: (RegExp) Used to split into word segments
-- `splitNumberRegexp`: (RegExp) Used to split numbers
-- `stripRegexp`: (RegExp) Used to remove extraneous characters
+- `splitRx`: (RegExp) Used to split into word segments
+- `splitNumberRx`: (RegExp) Used to split numbers
+- `stripRx`: (RegExp) Used to remove extraneous characters
 - `separateNumber`: (bool) Used to separate numbers or not
 
 #### camelCase

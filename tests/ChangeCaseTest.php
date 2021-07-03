@@ -38,7 +38,7 @@ class ChangeCaseTest extends TestCase
         // Custom splitRegexp
         $this->assertSame(
             'minify urls',
-            ChangeCase::no('minifyURLs', ['splitRegexp' => '/([a-z])([A-Z0-9])/'])
+            ChangeCase::no('minifyURLs', ['splitRx' => '/([a-z])([A-Z0-9])/'])
         );
 
         // Separate Numbers
@@ -72,7 +72,7 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('1TwoThree', ChangeCase::camel('1twoThree', ['separateNumber' => true]));
 
         // https://github.com/blakeembrey/change-case/issues/216
-        $this->assertSame('helloWorld', ChangeCase::camel('hello__world', ['splitRegexp' => '/(__)/']));
+        $this->assertSame('helloWorld', ChangeCase::camel('hello__world', ['splitRx' => '/(__)/']));
     }
 
     /**

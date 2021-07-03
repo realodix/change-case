@@ -11,9 +11,9 @@ class ChangeCase
      *
      * ### Options
      * - delimiter          (String) Used between words
-     * - splitRegexp        (RegExp) Used to split into word segments
-     * - splitNumberRegexp  (RegExp) Used to split numbers
-     * - stripRegexp        (RegExp) Used to remove extraneous characters
+     * - splitRx        (Rx) Used to split into word segments
+     * - splitNumberRx  (Rx) Used to split numbers
+     * - stripRx        (Rx) Used to remove extraneous characters
      * - separateNumber     (Bool)   Used to separate numbers or not
      *
      * @param string $value
@@ -24,26 +24,26 @@ class ChangeCase
     public static function no(string $value, array $opt = []): string
     {
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-        $splitRegexp = ['/([\p{Ll}|\p{M}\p{N}])([\p{Lu}|\p{M}])/u', '/([\p{Lu}|\p{M}])([\p{Lu}|\p{M}][\p{Ll}|\p{M}])/u'];
+        $splitRx = ['/([\p{Ll}|\p{M}\p{N}])([\p{Lu}|\p{M}])/u', '/([\p{Lu}|\p{M}])([\p{Lu}|\p{M}][\p{Ll}|\p{M}])/u'];
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumberRegexp = array_merge($splitRegexp, ['/([\p{N}])([\p{L}|\p{M}])/u', '/([\p{L}|\p{M}])([\p{N}])/u']);
+        $splitNumberRx = array_merge($splitRx, ['/([\p{N}])([\p{L}|\p{M}])/u', '/([\p{L}|\p{M}])([\p{N}])/u']);
         // Remove all non-word characters
-        $stripRegexp = '/[^\p{L}|\p{M}\p{N}]+/ui';
+        $stripRx = '/[^\p{L}|\p{M}\p{N}]+/ui';
 
         $opt += [
-            'delimiter'         => ' ',
-            'splitRegexp'       => $splitRegexp,
-            'splitNumberRegexp' => $splitNumberRegexp,
-            'stripRegexp'       => $stripRegexp,
-            'separateNumber'    => false,
+            'delimiter'      => ' ',
+            'splitRx'        => $splitRx,
+            'splitNumberRx'  => $splitNumberRx,
+            'stripRx'        => $stripRx,
+            'separateNumber' => false,
         ];
 
-        $splitRegexp = $opt['separateNumber'] ? $opt['splitNumberRegexp'] : $opt['splitRegexp'];
+        $splitRx = $opt['separateNumber'] ? $opt['splitNumberRx'] : $opt['splitRx'];
 
         $result = preg_replace(
-            $opt['stripRegexp'],
+            $opt['stripRx'],
             $opt['delimiter'],
-            preg_replace($splitRegexp, '$1 $2', $value)
+            preg_replace($splitRx, '$1 $2', $value)
         );
 
         // Trim the delimiter from around the output string.
@@ -189,11 +189,11 @@ class ChangeCase
      */
     public static function snake(string $string, array $opt = []): string
     {
-        $stripRegexp = '/(?!^_*)[^\p{L}|\p{M}\p{N}]+/ui';
+        $stripRx = '/(?!^_*)[^\p{L}|\p{M}\p{N}]+/ui';
 
         return self::no(
             $string,
-            $opt += ['delimiter' => '_', 'stripRegexp' => $stripRegexp]
+            $opt += ['delimiter' => '_', 'stripRx' => $stripRx]
         );
     }
 
