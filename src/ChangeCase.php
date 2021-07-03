@@ -239,16 +239,16 @@ class ChangeCase
             'nor', 'over', 'upon',
         ];
 
-        $alphaRX = '[:alpha:]';
-        $lowerRX = '[:lower:]';
+        $alphaRx = '[:alpha:]';
+        $lowerRx = '[:lower:]';
 
         if ($ignore !== []) {
             $smallWords = array_merge($smallWords, $ignore);
         }
 
 
-        $smallWordsRX = implode('|', $smallWords);
-        $apostropheRX = '(?x: [\'’] ['.$lowerRX.']* )?';
+        $smallWordsRx = implode('|', $smallWords);
+        $apostropheRx = '(?x: [\'’] ['.$lowerRx.']* )?';
 
         $str = trim($str);
 
@@ -260,11 +260,11 @@ class ChangeCase
         $str = preg_replace_callback(
             '~\\b (_*)
             (?:                                                                      # 1. Leading underscore and
-                ( (?<=[ ][/\\\\]) ['.$alphaRX.']+ [-_'.$alphaRX.'/\\\\]+ |           # 2. file path or
-                  [-_'.$alphaRX.']+ [@.:] [-_'.$alphaRX.'@.:/]+ '.$apostropheRX.' )  #    URL, domain, or email
-                | ((?i: '.$smallWordsRX.') '.$apostropheRX.')                        # 3. or small word (case-insensitive)
-                | (['.$alphaRX.'] ['.$lowerRX.'\'’()\[\]{}]* '.$apostropheRX.')      # 4. or word w/o internal caps
-                | (['.$alphaRX.'] ['.$alphaRX.'\'’()\[\]{}]* '.$apostropheRX.')      # 5. or some other word
+                ( (?<=[ ][/\\\\]) ['.$alphaRx.']+ [-_'.$alphaRx.'/\\\\]+ |           # 2. file path or
+                  [-_'.$alphaRx.']+ [@.:] [-_'.$alphaRx.'@.:/]+ '.$apostropheRx.' )  #    URL, domain, or email
+                | ((?i: '.$smallWordsRx.') '.$apostropheRx.')                        # 3. or small word (case-insensitive)
+                | (['.$alphaRx.'] ['.$lowerRx.'\'’()\[\]{}]* '.$apostropheRx.')      # 4. or word w/o internal caps
+                | (['.$alphaRx.'] ['.$alphaRx.'\'’()\[\]{}]* '.$apostropheRx.')      # 5. or some other word
             )
             (_*) \\b                                                                 # 6. With trailing underscore
             ~ux',
@@ -305,7 +305,7 @@ class ChangeCase
                 | [:.;?!][ ]+        # or of subsentence...
                 | [ ][\'"“‘(\[][ ]*  # or of inserted subphrase...
               )
-              ('.$smallWordsRX.')    # ...followed by small word
+              ('.$smallWordsRx.')    # ...followed by small word
             \\b
             ~uxi',
 
@@ -322,7 +322,7 @@ class ChangeCase
 
         // ...and end of title
         $str = preg_replace_callback(
-            '~\\b ('.$smallWordsRX.')   # small word...
+            '~\\b ('.$smallWordsRx.')   # small word...
                   (?= [[:punct:]]* \Z   # ...at the end of the title...
                   |   [\'"’”)\]] [ ] )  # ...or of an inserted subphrase?
             ~uxi',
@@ -344,8 +344,8 @@ class ChangeCase
             '~\\b
                 (?<! -)                # Negative lookbehind for a hyphen; we do not want to match
                                        # man-in-the-middle but do want (in-flight)
-                ('.$smallWordsRX.')
-                (?= -['.$alphaRX.']+)  # lookahead for "-someword"
+                ('.$smallWordsRx.')
+                (?= -['.$alphaRx.']+)  # lookahead for "-someword"
             ~uxi',
 
             /**
@@ -364,8 +364,8 @@ class ChangeCase
             '~\\b
                 (?<!…)               # Negative lookbehind for a hyphen; we do not want to match
                                      # man-in-the-middle but do want (stand-in)
-                (['.$alphaRX.']+-)   # $1 = first word and hyphen, should already be properly capped
-                ('.$smallWordsRX.')  # ...followed by small word
+                (['.$alphaRx.']+-)   # $1 = first word and hyphen, should already be properly capped
+                ('.$smallWordsRx.')  # ...followed by small word
                 (?!	- )              # Negative lookahead for another -
             ~uxi',
 
