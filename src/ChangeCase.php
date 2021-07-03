@@ -2,7 +2,7 @@
 
 namespace Realodix\ChangeCase;
 
-use voku\helper\UTF8;
+use Realodix\Utils\Str;
 
 class ChangeCase
 {
@@ -49,14 +49,14 @@ class ChangeCase
         // Trim the delimiter from around the output string.
         $start = 0;
         $end = mb_strlen($result);
-        while (UTF8::char_at($result, $start) === ' ') {
+        while (Str::charAt($result, $start) === ' ') {
             $start++;
         }
-        while (UTF8::char_at($result, $end - 1) === ' ') {
+        while (Str::charAt($result, $end - 1) === ' ') {
             $end--;
         }
 
-        $slice = UTF8::str_slice($result, $start, $end);
+        $slice = Str::slice($result, $start, $end);
         $split = explode(' ', $slice);
         $toLowerCase = array_map('mb_strtolower', $split);
         $join = implode($opt['delimiter'], $toLowerCase);
@@ -74,7 +74,7 @@ class ChangeCase
      */
     public static function camel(string $string, array $opt = []): string
     {
-        return UTF8::lcfirst(self::pascal($string, $opt));
+        return Str::lcfirst(self::pascal($string, $opt));
     }
 
     /**
@@ -149,9 +149,9 @@ class ChangeCase
      */
     public static function pascal(string $string, array $opt = []): string
     {
-        $value = UTF8::ucwords(self::no($string, $opt));
+        $value = Str::ucwords(self::no($string, $opt));
 
-        return UTF8::str_ireplace(' ', '', $value);
+        return str_ireplace(' ', '', $value);
     }
 
     /**
@@ -176,7 +176,7 @@ class ChangeCase
      */
     public static function sentence(string $string): string
     {
-        return UTF8::ucfirst(self::no($string));
+        return Str::ucfirst(self::no($string));
     }
 
     /**
@@ -246,14 +246,13 @@ class ChangeCase
             $smallWords = array_merge($smallWords, $ignore);
         }
 
-
         $smallWordsRx = implode('|', $smallWords);
         $apostropheRx = '(?x: [\'’] ['.$lowerRx.']* )?';
 
         $str = trim($str);
 
-        if (! UTF8::has_lowercase($str)) {
-            $str =strtolower($str);
+        if (! Str::hasLowercase($str)) {
+            $str = strtolower($str);
         }
 
         // the main substitutions
@@ -282,10 +281,10 @@ class ChangeCase
                     $str .= $matches[2];
                 } elseif ($matches[3]) {
                     // lower-case small words
-                    $str .=strtolower($matches[3]);
+                    $str .= strtolower($matches[3]);
                 } elseif ($matches[4]) {
                     // capitalize word w/o internal caps
-                    $str .= UTF8::ucfirst($matches[4]);
+                    $str .= Str::ucfirst($matches[4]);
                 } else {
                     // preserve other kinds of word (iPhone)
                     $str .= $matches[5];
@@ -315,7 +314,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches): string {
-                return $matches[1].UTF8::ucfirst($matches[2]);
+                return $matches[1].Str::ucfirst($matches[2]);
             },
             $str
         );
@@ -333,7 +332,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches): string {
-                return UTF8::ucfirst($matches[1]);
+                return Str::ucfirst($matches[1]);
             },
             $str
         );
@@ -354,7 +353,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches): string {
-                return UTF8::ucfirst($matches[1]);
+                return Str::ucfirst($matches[1]);
             },
             $str
         );
@@ -375,7 +374,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches): string {
-                return $matches[1].UTF8::ucfirst($matches[2]);
+                return $matches[1].Str::ucfirst($matches[2]);
             },
             $str
         );
