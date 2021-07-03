@@ -10,11 +10,11 @@ class ChangeCase
      * Transform into a lower cased string with spaces between words.
      *
      * ### Options
-     * - delimiter          (String) Used between words
-     * - splitRx        (Rx) Used to split into word segments
-     * - splitNumberRx  (Rx) Used to split numbers
-     * - stripRx        (Rx) Used to remove extraneous characters
-     * - separateNumber     (Bool)   Used to separate numbers or not
+     * - delimiter       (String) Used between words
+     * - splitRx         (Rx) Used to split into word segments
+     * - splitNumberRx   (Rx) Used to split numbers
+     * - stripRx         (Rx) Used to remove extraneous characters
+     * - separateNumber  (Bool)   Used to separate numbers or not
      *
      * @param string $value
      * @param array  $opt
@@ -67,89 +67,89 @@ class ChangeCase
     /**
      * Transform into a string with the separator denoted by the next word capitalized.
      *
-     * @param string $string
+     * @param string $str
      * @param array  $opt
      *
      * @return string
      */
-    public static function camel(string $string, array $opt = []): string
+    public static function camel(string $str, array $opt = []): string
     {
-        return Str::lcfirst(self::pascal($string, $opt));
+        return Str::lcfirst(self::pascal($str, $opt));
     }
 
     /**
      * Transform into a space separated string with each word capitalized.
      *
-     * @param string $string
+     * @param string $str
      *
      * @return string
      */
-    public static function capital(string $string): string
+    public static function capital(string $str): string
     {
         return preg_replace_callback(
             '/^.| ./u',
             function (array $matches) {
                 return mb_strtoupper($matches[0]);
             },
-            self::no($string)
+            self::no($str)
         );
     }
 
     /**
      * Transform into upper case string with an underscore between words.
      *
-     * @param string $string
+     * @param string $str
      *
      * @return string
      */
-    public static function constant(string $string): string
+    public static function constant(string $str): string
     {
-        return mb_strtoupper(self::snake($string));
+        return mb_strtoupper(self::snake($str));
     }
 
     /**
      * Transform into a lower case string with a period between words.
      *
-     * @param string $string
+     * @param string $str
      * @param array  $opt
      *
      * @return string
      */
-    public static function dot(string $string, array $opt = []): string
+    public static function dot(string $str, array $opt = []): string
     {
-        return self::no($string, $opt += ['delimiter' => '.']);
+        return self::no($str, $opt += ['delimiter' => '.']);
     }
 
     /**
      * Transform into a dash separated string of capitalized words.
      *
-     * @param string $string
+     * @param string $str
      * @param array  $opt
      *
      * @return string
      */
-    public static function header(string $string, array $opt = []): string
+    public static function header(string $str, array $opt = []): string
     {
         return preg_replace_callback(
             '/^.|-./u',
             function (array $matches) {
                 return mb_strtoupper($matches[0]);
             },
-            self::no($string, $opt += ['delimiter' => '-'])
+            self::no($str, $opt += ['delimiter' => '-'])
         );
     }
 
     /**
      * Transform into a string of capitalized words without separators.
      *
-     * @param string $string
+     * @param string $str
      * @param array  $opt
      *
      * @return string
      */
-    public static function pascal(string $string, array $opt = []): string
+    public static function pascal(string $str, array $opt = []): string
     {
-        $value = Str::ucwords(self::no($string, $opt));
+        $value = Str::ucwords(self::no($str, $opt));
 
         return str_ireplace(' ', '', $value);
     }
@@ -157,42 +157,42 @@ class ChangeCase
     /**
      * Transform into a lower case string with slashes between words.
      *
-     * @param string $string
+     * @param string $str
      * @param array  $opt
      *
      * @return string
      */
-    public static function path(string $string, array $opt = []): string
+    public static function path(string $str, array $opt = []): string
     {
-        return self::no($string, $opt += ['delimiter' => '/']);
+        return self::no($str, $opt += ['delimiter' => '/']);
     }
 
     /**
      * Transform into a lower case with spaces between words, then capitalize the string.
      *
-     * @param string $string
+     * @param string $str
      *
      * @return string
      */
-    public static function sentence(string $string): string
+    public static function sentence(string $str): string
     {
-        return Str::ucfirst(self::no($string));
+        return Str::ucfirst(self::no($str));
     }
 
     /**
      * Transform into a lower case string with underscores between words.
      *
-     * @param string $string
+     * @param string $str
      * @param array  $opt
      *
      * @return string
      */
-    public static function snake(string $string, array $opt = []): string
+    public static function snake(string $str, array $opt = []): string
     {
         $stripRx = '/(?!^_*)[^\p{L}|\p{M}\p{N}]+/ui';
 
         return self::no(
-            $string,
+            $str,
             $opt += ['delimiter' => '_', 'stripRx' => $stripRx]
         );
     }
@@ -200,27 +200,27 @@ class ChangeCase
     /**
      * Transform into a lower cased string with dashes between words.
      *
-     * @param string $string
+     * @param string $str
      * @param array  $opt
      *
      * @return string
      */
-    public static function spinal(string $string, array $opt = []): string
+    public static function spinal(string $str, array $opt = []): string
     {
-        return self::no($string, $opt += ['delimiter' => '-']);
+        return self::no($str, $opt += ['delimiter' => '-']);
     }
 
     /**
      * Transform a string by swapping every character from upper to lower case, or lower
      * to upper case.
      *
-     * @param string $string
+     * @param string $str
      *
      * @return string
      */
-    public static function swap(string $string): string
+    public static function swap(string $str): string
     {
-        return mb_strtolower($string) ^ mb_strtoupper($string) ^ $string;
+        return mb_strtolower($str) ^ mb_strtoupper($str) ^ $str;
     }
 
     /**
