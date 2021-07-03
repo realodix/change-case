@@ -6,14 +6,20 @@ use Realodix\Utils\Str;
 
 class ChangeCase
 {
+    const ALPHA_RX = '\p{L}|\p{M}';
+
+    const LO_CHAR_RX = '\p{Ll}|\p{M}';
+
+    const UP_CHAR_RX = '\p{Lu}|\p{M}';
+
     /**
      * Transform into a lower cased string with spaces between words.
      *
      * ### Options
-     * - delimiter       (String) Used between words
-     * - splitRx         (Rx) Used to split into word segments
+     * - delimiter    (String) Used between words
+     * - splitRx      (Rx) Used to split into word segments
      * - splitNumRx   (Rx) Used to split numbers
-     * - stripRx         (Rx) Used to remove extraneous characters
+     * - stripRx      (Rx) Used to remove extraneous characters
      * - separateNum  (Bool)   Used to separate numbers or not
      *
      * @param string $value
@@ -24,11 +30,19 @@ class ChangeCase
     public static function no(string $value, array $opt = []): string
     {
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-        $splitRx = ['/([\p{Ll}|\p{M}\p{N}])([\p{Lu}|\p{M}])/u', '/([\p{Lu}|\p{M}])([\p{Lu}|\p{M}][\p{Ll}|\p{M}])/u'];
+        $splitRx = [
+            '/(['.self::LO_CHAR_RX.'\p{N}])(['.self::UP_CHAR_RX.'])/u',
+            '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u'
+        ];
+
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumRx = array_merge($splitRx, ['/([\p{N}])([\p{L}|\p{M}])/u', '/([\p{L}|\p{M}])([\p{N}])/u']);
+        $splitNumRx = array_merge(
+            $splitRx,
+            ['/([\p{N}])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])([\p{N}])/u']
+        );
+
         // Remove all non-word characters
-        $stripRx = '/[^\p{L}|\p{M}\p{N}]+/ui';
+        $stripRx = '/[^'.self::ALPHA_RX.'\p{N}]+/ui';
 
         $opt += [
             'delimiter'   => ' ',
@@ -189,7 +203,7 @@ class ChangeCase
      */
     public static function snake(string $str, array $opt = []): string
     {
-        $stripRx = '/(?!^_*)[^\p{L}|\p{M}\p{N}]+/ui';
+        $stripRx = '/(?!^_*)[^'.self::ALPHA_RX.'\p{N}]+/ui';
 
         return self::no(
             $str,
