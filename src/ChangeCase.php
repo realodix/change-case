@@ -249,7 +249,7 @@ class ChangeCase
         $str = trim($str);
 
         if (! UTF8::has_lowercase($str)) {
-            $str = mb_strtolower($str);
+            $str =strtolower($str);
         }
 
         // the main substitutions
@@ -278,7 +278,7 @@ class ChangeCase
                     $str .= $matches[2];
                 } elseif ($matches[3]) {
                     // lower-case small words
-                    $str .= mb_strtolower($matches[3]);
+                    $str .=strtolower($matches[3]);
                 } elseif ($matches[4]) {
                     // capitalize word w/o internal caps
                     $str .= UTF8::ucfirst($matches[4]);
