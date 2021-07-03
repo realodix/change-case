@@ -233,18 +233,18 @@ class ChangeCase
      */
     public static function title(string $str, array $ignore = []): string
     {
-        $small_words = [
+        $smallWords = [
             '(?<!q&)a', 'an', 'and', 'as', 'at(?!&t)', 'but', 'by', 'en', 'for', 'if', 'in',
             'of', 'on', 'or', 'the', 'to', 'v[.]?', 'via', 'vs[.]?',
             'nor', 'over', 'upon',
         ];
 
         if ($ignore !== []) {
-            $small_words = array_merge($small_words, $ignore);
+            $smallWords = array_merge($smallWords, $ignore);
         }
 
-        $small_words_rx = implode('|', $small_words);
-        $apostrophe_rx = '(?x: [\'’] [[:lower:]]* )?';
+        $smallWordsRx = implode('|', $smallWords);
+        $apostropheRx = '(?x: [\'’] [[:lower:]]* )?';
 
         $str = trim($str);
 
@@ -255,14 +255,14 @@ class ChangeCase
         // the main substitutions
         $str = preg_replace_callback(
             '~\\b (_*)
-            (?:                                                                 # 1. Leading underscore and
-                ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |            # 2. file path or
-                  [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ '.$apostrophe_rx.' )  #    URL, domain, or email
-                | ((?i: '.$small_words_rx.') '.$apostrophe_rx.')                # 3. or small word (case-insensitive)
-                | ([[:alpha:]] [[:lower:]\'’()\[\]{}]* '.$apostrophe_rx.')      # 4. or word w/o internal caps
-                | ([[:alpha:]] [[:alpha:]\'’()\[\]{}]* '.$apostrophe_rx.')      # 5. or some other word
+            (?:                                                                # 1. Leading underscore and
+                ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |           # 2. file path or
+                  [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ '.$apostropheRx.' )  #    URL, domain, or email
+                | ((?i: '.$smallWordsRx.') '.$apostropheRx.')                  # 3. or small word (case-insensitive)
+                | ([[:alpha:]] [[:lower:]\'’()\[\]{}]* '.$apostropheRx.')      # 4. or word w/o internal caps
+                | ([[:alpha:]] [[:alpha:]\'’()\[\]{}]* '.$apostropheRx.')      # 5. or some other word
             )
-            (_*) \\b                                                            # 6. With trailing underscore
+            (_*) \\b                                                           # 6. With trailing underscore
             ~ux',
 
             /**
@@ -301,7 +301,7 @@ class ChangeCase
                 | [:.;?!][ ]+        # or of subsentence...
                 | [ ][\'"“‘(\[][ ]*  # or of inserted subphrase...
               )
-              ('.$small_words_rx.')  # ...followed by small word
+              ('.$smallWordsRx.')    # ...followed by small word
             \\b
             ~uxi',
 
@@ -318,9 +318,9 @@ class ChangeCase
 
         // ...and end of title
         $str = preg_replace_callback(
-            '~\\b ('.$small_words_rx.')  # small word...
-                  (?= [[:punct:]]* \Z    # ...at the end of the title...
-                  |   [\'"’”)\]] [ ] )   # ...or of an inserted subphrase?
+            '~\\b ('.$smallWordsRx.')   # small word...
+                  (?= [[:punct:]]* \Z   # ...at the end of the title...
+                  |   [\'"’”)\]] [ ] )  # ...or of an inserted subphrase?
             ~uxi',
 
             /**
@@ -340,7 +340,7 @@ class ChangeCase
             '~\\b
                 (?<! -)                # Negative lookbehind for a hyphen; we do not want to match
                                        # man-in-the-middle but do want (in-flight)
-                ('.$small_words_rx.')
+                ('.$smallWordsRx.')
                 (?= -[[:alpha:]]+)     # lookahead for "-someword"
             ~uxi',
 
@@ -358,11 +358,11 @@ class ChangeCase
         // e.g. "Stand-in" -> "Stand-In" (Stand is already capped at this point)
         $str = preg_replace_callback(
             '~\\b
-                (?<!…)                 # Negative lookbehind for a hyphen; we do not want to match
-                                       # man-in-the-middle but do want (stand-in)
-                ([[:alpha:]]+-)        # $1 = first word and hyphen, should already be properly capped
-                ('.$small_words_rx.')  # ...followed by small word
-                (?!	- )                # Negative lookahead for another -
+                (?<!…)               # Negative lookbehind for a hyphen; we do not want to match
+                                     # man-in-the-middle but do want (stand-in)
+                ([[:alpha:]]+-)      # $1 = first word and hyphen, should already be properly capped
+                ('.$smallWordsRx.')  # ...followed by small word
+                (?!	- )              # Negative lookahead for another -
             ~uxi',
 
             /**
