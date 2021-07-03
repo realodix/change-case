@@ -254,17 +254,17 @@ class ChangeCase
 
         // the main substitutions
         $str = (string) preg_replace_callback(
-            '~\\b (_*) (?:                                                              # 1. Leading underscore and
-                        ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |            # 2. file path or
-                          [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ '.$apostrophe_rx.' )  #    URL, domain, or email
-                        |
-                        ( (?i: '.$small_words_rx.' ) '.$apostrophe_rx.' )               # 3. or small word (case-insensitive)
-                        |
-                        ( [[:alpha:]] [[:lower:]\'’()\[\]{}]* '.$apostrophe_rx.' )      # 4. or word w/o internal caps
-                        |
-                        ( [[:alpha:]] [[:alpha:]\'’()\[\]{}]* '.$apostrophe_rx.' )      # 5. or some other word
-                      ) (_*) \\b                                                        # 6. With trailing underscore
-                    ~ux',
+            '~\\b (_*)
+            (?:                                                                 # 1. Leading underscore and
+                ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |            # 2. file path or
+                  [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ '.$apostrophe_rx.' )  #    URL, domain, or email
+                | ((?i: '.$small_words_rx.') '.$apostrophe_rx.')                # 3. or small word (case-insensitive)
+                | ([[:alpha:]] [[:lower:]\'’()\[\]{}]* '.$apostrophe_rx.')      # 4. or word w/o internal caps
+                | ([[:alpha:]] [[:alpha:]\'’()\[\]{}]* '.$apostrophe_rx.')      # 5. or some other word
+            )
+            (_*) \\b                                                            # 6. With trailing underscore
+            ~ux',
+
             /**
              * @param string[] $matches
              *
@@ -296,11 +296,15 @@ class ChangeCase
 
         // Exceptions for small words: capitalize at start of title...
         $str = (string) preg_replace_callback(
-            '~(  \\A [[:punct:]]*                  # start of title...
-                      |  [:.;?!][ ]+               # or of subsentence...
-                      |  [ ][\'"“‘(\[][ ]* )       # or of inserted subphrase...
-                      ( '.$small_words_rx.' ) \\b  # ...followed by small word
-                     ~uxi',
+            '~( \\A
+                [[:punct:]]*         # start of title...
+                | [:.;?!][ ]+        # or of subsentence...
+                | [ ][\'"“‘(\[][ ]*  # or of inserted subphrase...
+              )
+              ('.$small_words_rx.')  # ...followed by small word
+            \\b
+            ~uxi',
+
             /**
              * @param string[] $matches
              *
@@ -314,10 +318,11 @@ class ChangeCase
 
         // ...and end of title
         $str = (string) preg_replace_callback(
-            '~\\b ( '.$small_words_rx.' )   # small word...
-                      (?= [[:punct:]]* \Z   # ...at the end of the title...
-                      |   [\'"’”)\]] [ ] )  # ...or of an inserted subphrase?
-                     ~uxi',
+            '~\\b ('.$small_words_rx.')  # small word...
+                  (?= [[:punct:]]* \Z    # ...at the end of the title...
+                  |   [\'"’”)\]] [ ] )   # ...or of an inserted subphrase?
+            ~uxi',
+
             /**
              * @param string[] $matches
              *
@@ -333,11 +338,12 @@ class ChangeCase
         // e.g. "in-flight" -> In-Flight
         $str = (string) preg_replace_callback(
             '~\\b
-                        (?<! -)                   # Negative lookbehind for a hyphen; we do not want to match
-                                                  # man-in-the-middle but do want (in-flight)
-                        ( '.$small_words_rx.' )
-                        (?= -[[:alpha:]]+)        # lookahead for "-someword"
-                       ~uxi',
+                (?<! -)                # Negative lookbehind for a hyphen; we do not want to match
+                                       # man-in-the-middle but do want (in-flight)
+                ('.$small_words_rx.')
+                (?= -[[:alpha:]]+)     # lookahead for "-someword"
+            ~uxi',
+
             /**
              * @param string[] $matches
              *
@@ -352,12 +358,13 @@ class ChangeCase
         // e.g. "Stand-in" -> "Stand-In" (Stand is already capped at this point)
         $str = (string) preg_replace_callback(
             '~\\b
-                      (?<!…)                   # Negative lookbehind for a hyphen; we do not want to match
-                                               # man-in-the-middle but do want (stand-in)
-                      ( [[:alpha:]]+- )        # $1 = first word and hyphen, should already be properly capped
-                      ( '.$small_words_rx.' )  # ...followed by small word
-                      (?!	- )                # Negative lookahead for another -
-                     ~uxi',
+                (?<!…)                 # Negative lookbehind for a hyphen; we do not want to match
+                                       # man-in-the-middle but do want (stand-in)
+                ([[:alpha:]]+-)        # $1 = first word and hyphen, should already be properly capped
+                ('.$small_words_rx.')  # ...followed by small word
+                (?!	- )                # Negative lookahead for another -
+            ~uxi',
+
             /**
              * @param string[] $matches
              *
