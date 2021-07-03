@@ -49,7 +49,7 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('v1 test', ChangeCase::no('V1Test'));
         $this->assertSame(
             'v 1 test with separate number',
-            ChangeCase::no('V1Test with separateNum', $options)
+            ChangeCase::no('V1Test with separateNumber', $options)
         );
     }
 
