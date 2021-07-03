@@ -243,8 +243,9 @@ class ChangeCase
             $smallWords = array_merge($smallWords, $ignore);
         }
 
-        $smallWordsRx = implode('|', $smallWords);
-        $apostropheRx = '(?x: [\'’] [[:lower:]]* )?';
+
+        $smallWordsRX = implode('|', $smallWords);
+        $apostropheRX = '(?x: [\'’] [[:lower:]]* )?';
 
         $str = trim($str);
 
@@ -257,10 +258,10 @@ class ChangeCase
             '~\\b (_*)
             (?:                                                                # 1. Leading underscore and
                 ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |           # 2. file path or
-                  [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ '.$apostropheRx.' )  #    URL, domain, or email
-                | ((?i: '.$smallWordsRx.') '.$apostropheRx.')                  # 3. or small word (case-insensitive)
-                | ([[:alpha:]] [[:lower:]\'’()\[\]{}]* '.$apostropheRx.')      # 4. or word w/o internal caps
-                | ([[:alpha:]] [[:alpha:]\'’()\[\]{}]* '.$apostropheRx.')      # 5. or some other word
+                  [-_[:alpha:]]+ [@.:] [-_[:alpha:]@.:/]+ '.$apostropheRX.' )  #    URL, domain, or email
+                | ((?i: '.$smallWordsRX.') '.$apostropheRX.')                  # 3. or small word (case-insensitive)
+                | ([[:alpha:]] [[:lower:]\'’()\[\]{}]* '.$apostropheRX.')      # 4. or word w/o internal caps
+                | ([[:alpha:]] [[:alpha:]\'’()\[\]{}]* '.$apostropheRX.')      # 5. or some other word
             )
             (_*) \\b                                                           # 6. With trailing underscore
             ~ux',
@@ -301,7 +302,7 @@ class ChangeCase
                 | [:.;?!][ ]+        # or of subsentence...
                 | [ ][\'"“‘(\[][ ]*  # or of inserted subphrase...
               )
-              ('.$smallWordsRx.')    # ...followed by small word
+              ('.$smallWordsRX.')    # ...followed by small word
             \\b
             ~uxi',
 
@@ -318,7 +319,7 @@ class ChangeCase
 
         // ...and end of title
         $str = preg_replace_callback(
-            '~\\b ('.$smallWordsRx.')   # small word...
+            '~\\b ('.$smallWordsRX.')   # small word...
                   (?= [[:punct:]]* \Z   # ...at the end of the title...
                   |   [\'"’”)\]] [ ] )  # ...or of an inserted subphrase?
             ~uxi',
@@ -340,7 +341,7 @@ class ChangeCase
             '~\\b
                 (?<! -)                # Negative lookbehind for a hyphen; we do not want to match
                                        # man-in-the-middle but do want (in-flight)
-                ('.$smallWordsRx.')
+                ('.$smallWordsRX.')
                 (?= -[[:alpha:]]+)     # lookahead for "-someword"
             ~uxi',
 
@@ -361,7 +362,7 @@ class ChangeCase
                 (?<!…)               # Negative lookbehind for a hyphen; we do not want to match
                                      # man-in-the-middle but do want (stand-in)
                 ([[:alpha:]]+-)      # $1 = first word and hyphen, should already be properly capped
-                ('.$smallWordsRx.')  # ...followed by small word
+                ('.$smallWordsRX.')  # ...followed by small word
                 (?!	- )              # Negative lookahead for another -
             ~uxi',
 
