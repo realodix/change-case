@@ -226,17 +226,13 @@ class ChangeCase
     /**
      * Transform a string into title case following English rules.
      *
-     * @param string $string
+     * @param string $str
      * @param array  $ignore An array of words not to capitalize.
      *
      * @return string
      */
     public static function title(string $str, array $ignore = []): string
     {
-        if ($str === '') {
-            return '';
-        }
-
         $small_words = [
             '(?<!q&)a', 'an', 'and', 'as', 'at(?!&t)', 'but', 'by', 'en', 'for', 'if', 'in',
             'of', 'on', 'or', 'the', 'to', 'v[.]?', 'via', 'vs[.]?',
@@ -337,7 +333,8 @@ class ChangeCase
         // e.g. "in-flight" -> In-Flight
         $str = (string) preg_replace_callback(
             '~\\b
-                        (?<! -)                   # Negative lookbehind for a hyphen; we do not want to match man-in-the-middle but do want (in-flight)
+                        (?<! -)                   # Negative lookbehind for a hyphen; we do not want to match
+                                                  # man-in-the-middle but do want (in-flight)
                         ( '.$small_words_rx.' )
                         (?= -[[:alpha:]]+)        # lookahead for "-someword"
                        ~uxi',
