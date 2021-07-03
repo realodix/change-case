@@ -40,9 +40,9 @@ use Realodix\ChangeCase\ChangeCase;
 
 - `delimiter`: (string) Used between words
 - `splitRx`: (RegExp) Used to split into word segments
-- `splitNumberRx`: (RegExp) Used to split numbers
+- `splitNumRx`: (RegExp) Used to split numbers
 - `stripRx`: (RegExp) Used to remove extraneous characters
-- `separateNumber`: (bool) Used to separate numbers or not
+- `separateNum`: (bool) Used to separate numbers or not
 
 #### camelCase
 
@@ -58,7 +58,7 @@ $cc->camel('test string');
 
 $cc->camel('1twoThree');
 // '1twoThree'
-$cc->camel('1twoThree', ['separateNumber' => true]);
+$cc->camel('1twoThree', ['separateNum' => true]);
 // '1TwoThree'
 ```
 
@@ -123,7 +123,7 @@ $cc->no('minifyURLs', ['delimiter' => '-']);
 
 $cc->no('Foo123Bar')
 // foo123 bar
-$cc->no('Foo123Bar', ['separateNumber' => true])
+$cc->no('Foo123Bar', ['separateNum' => true])
 // foo 123 bar
 ```
 
@@ -175,7 +175,7 @@ $cc->snake('test string');
 
 $cc->snake('Foo123Bar');
 // 'foo123_bar'
-$cc->snake('Foo123Bar', ['separateNumber' => true]);
+$cc->snake('Foo123Bar', ['separateNum' => true]);
 // 'foo_123_bar'
 ```
 
@@ -193,7 +193,7 @@ $cc->spinal('test string');
 
 $cc->spinal('Foo123Bar');
 // 'foo123-bar'
-$cc->spinal('Foo123Bar', ['separateNumber' => true]);
+$cc->spinal('Foo123Bar', ['separateNum' => true]);
 // 'foo-123-bar'
 ```
 

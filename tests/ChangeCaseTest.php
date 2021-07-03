@@ -42,14 +42,14 @@ class ChangeCaseTest extends TestCase
         );
 
         // Separate Numbers
-        $options = ['separateNumber' => true];
+        $options = ['separateNum' => true];
         $this->assertSame('test string 123', ChangeCase::no('testString123', $options));
         $this->assertSame('foo 123 bar', ChangeCase::no('Foo123Bar', $options));
         $this->assertSame('a number 2 in', ChangeCase::no('aNumber2in', $options));
         $this->assertSame('v1 test', ChangeCase::no('V1Test'));
         $this->assertSame(
             'v 1 test with separate number',
-            ChangeCase::no('V1Test with separateNumber', $options)
+            ChangeCase::no('V1Test with separateNum', $options)
         );
     }
 
@@ -69,7 +69,7 @@ class ChangeCaseTest extends TestCase
     public function camelCaseWithOpt()
     {
         // Separate Numbers
-        $this->assertSame('1TwoThree', ChangeCase::camel('1twoThree', ['separateNumber' => true]));
+        $this->assertSame('1TwoThree', ChangeCase::camel('1twoThree', ['separateNum' => true]));
 
         // https://github.com/blakeembrey/change-case/issues/216
         $this->assertSame('helloWorld', ChangeCase::camel('hello__world', ['splitRx' => '/(__)/']));
@@ -114,7 +114,7 @@ class ChangeCaseTest extends TestCase
     /** @test */
     public function dotCaseWithOpt()
     {
-        $this->assertSame('f.0.obar', ChangeCase::dot('f0obar', ['separateNumber' => true]));
+        $this->assertSame('f.0.obar', ChangeCase::dot('f0obar', ['separateNum' => true]));
     }
 
     /**
@@ -132,7 +132,7 @@ class ChangeCaseTest extends TestCase
     /** @test */
     public function headerWithOpt()
     {
-        $options = ['separateNumber' => true];
+        $options = ['separateNum' => true];
 
         $this->assertSame(
             'Test-V-2',
@@ -171,7 +171,7 @@ class ChangeCaseTest extends TestCase
     /** @test */
     public function pathWithOpt()
     {
-        $options = ['separateNumber' => true];
+        $options = ['separateNum' => true];
 
         $this->assertSame(
             'test/v/2',
@@ -210,7 +210,7 @@ class ChangeCaseTest extends TestCase
     /** @test */
     public function snakeCaseWithOpt()
     {
-        $options = ['separateNumber' => true];
+        $options = ['separateNum' => true];
 
         $this->assertSame(
             'test_v_2',
@@ -237,7 +237,7 @@ class ChangeCaseTest extends TestCase
     /** @test */
     public function spinalCaseWithOpt()
     {
-        $options = ['separateNumber' => true];
+        $options = ['separateNum' => true];
 
         $this->assertSame(
             'version-v-1-2-10',

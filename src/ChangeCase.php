@@ -12,9 +12,9 @@ class ChangeCase
      * ### Options
      * - delimiter       (String) Used between words
      * - splitRx         (Rx) Used to split into word segments
-     * - splitNumberRx   (Rx) Used to split numbers
+     * - splitNumRx   (Rx) Used to split numbers
      * - stripRx         (Rx) Used to remove extraneous characters
-     * - separateNumber  (Bool)   Used to separate numbers or not
+     * - separateNum  (Bool)   Used to separate numbers or not
      *
      * @param string $value
      * @param array  $opt
@@ -26,19 +26,19 @@ class ChangeCase
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRx = ['/([\p{Ll}|\p{M}\p{N}])([\p{Lu}|\p{M}])/u', '/([\p{Lu}|\p{M}])([\p{Lu}|\p{M}][\p{Ll}|\p{M}])/u'];
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumberRx = array_merge($splitRx, ['/([\p{N}])([\p{L}|\p{M}])/u', '/([\p{L}|\p{M}])([\p{N}])/u']);
+        $splitNumRx = array_merge($splitRx, ['/([\p{N}])([\p{L}|\p{M}])/u', '/([\p{L}|\p{M}])([\p{N}])/u']);
         // Remove all non-word characters
         $stripRx = '/[^\p{L}|\p{M}\p{N}]+/ui';
 
         $opt += [
-            'delimiter'      => ' ',
-            'splitRx'        => $splitRx,
-            'splitNumberRx'  => $splitNumberRx,
-            'stripRx'        => $stripRx,
-            'separateNumber' => false,
+            'delimiter'   => ' ',
+            'splitRx'     => $splitRx,
+            'splitNumRx'  => $splitNumRx,
+            'stripRx'     => $stripRx,
+            'separateNum' => false,
         ];
 
-        $splitRx = $opt['separateNumber'] ? $opt['splitNumberRx'] : $opt['splitRx'];
+        $splitRx = $opt['separateNum'] ? $opt['splitNumRx'] : $opt['splitRx'];
 
         $result = preg_replace(
             $opt['stripRx'],
