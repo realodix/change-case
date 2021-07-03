@@ -253,7 +253,7 @@ class ChangeCase
         }
 
         // the main substitutions
-        $str = (string) preg_replace_callback(
+        $str = preg_replace_callback(
             '~\\b (_*)
             (?:                                                                 # 1. Leading underscore and
                 ( (?<=[ ][/\\\\]) [[:alpha:]]+ [-_[:alpha:]/\\\\]+ |            # 2. file path or
@@ -295,7 +295,7 @@ class ChangeCase
         );
 
         // Exceptions for small words: capitalize at start of title...
-        $str = (string) preg_replace_callback(
+        $str = preg_replace_callback(
             '~( \\A
                 [[:punct:]]*         # start of title...
                 | [:.;?!][ ]+        # or of subsentence...
@@ -317,7 +317,7 @@ class ChangeCase
         );
 
         // ...and end of title
-        $str = (string) preg_replace_callback(
+        $str = preg_replace_callback(
             '~\\b ('.$small_words_rx.')  # small word...
                   (?= [[:punct:]]* \Z    # ...at the end of the title...
                   |   [\'"’”)\]] [ ] )   # ...or of an inserted subphrase?
@@ -336,7 +336,7 @@ class ChangeCase
 
         // Exceptions for small words in hyphenated compound words.
         // e.g. "in-flight" -> In-Flight
-        $str = (string) preg_replace_callback(
+        $str = preg_replace_callback(
             '~\\b
                 (?<! -)                # Negative lookbehind for a hyphen; we do not want to match
                                        # man-in-the-middle but do want (in-flight)
@@ -356,7 +356,7 @@ class ChangeCase
         );
 
         // e.g. "Stand-in" -> "Stand-In" (Stand is already capped at this point)
-        $str = (string) preg_replace_callback(
+        $str = preg_replace_callback(
             '~\\b
                 (?<!…)                 # Negative lookbehind for a hyphen; we do not want to match
                                        # man-in-the-middle but do want (stand-in)
