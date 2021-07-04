@@ -38,11 +38,19 @@ use Realodix\ChangeCase\ChangeCase;
 
 ### Options
 
-- `delimiter`: (string) Used between words
-- `splitRx`: (RegExp) Used to split into word segments
-- `splitNumRx`: (RegExp) Used to split numbers
-- `stripRx`: (RegExp) Used to remove extraneous characters
-- `separateNum`: (bool) Used to separate numbers or not
+Every method that gets 💡 flag, they can support option
+
+- `delimiter`: (string) This character separates each chunk of data within the text string.
+- `splitRx`: (RegExp) Used to split into word segments.
+- `splitNumRx`: (RegExp) Used to split numbers.
+- `stripRx`: (RegExp) Used to remove extraneous characters.
+- `separateNum`: (bool) Used to separate numbers or not.
+
+Examples 
+```php
+ChangeCase::camel('1twoThree', ['separateNum' => true]);
+// '1TwoThree'
+```
 
 #### camelCase
 
@@ -196,9 +204,9 @@ ChangeCase::swap('Test String');
 
 > Transform a string into title case following English rules.
 
-⚠️ Unfortunately, currently `title()` does not support unicode characters (E.g. Nonspacing Mark).
-
 `title(string $string, array $ignore = [])`
+
+⚠️ Unfortunately, currently `title()` does not support unicode characters (E.g. Nonspacing Mark).
 
 ```php
 ChangeCase::title('a simple test');
