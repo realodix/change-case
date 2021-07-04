@@ -240,6 +240,11 @@ class ChangeCase
     /**
      * Transform a string into title case following English rules.
      *
+     * Reference
+     * - https://gist.github.com/gruber/9f9e8650d68b13ce4d78
+     * - https://github.com/voku/portable-utf8/blob/4caf5ad/src/voku/helper/UTF8.php#L9090
+     * - https://gist.github.com/HipsterJazzbo/2532c93a18db7451b0cec529c95b53c4
+     *
      * @param string $str
      * @param array  $ignore An array of words not to capitalize.
      *
