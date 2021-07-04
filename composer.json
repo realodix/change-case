@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "realodix/php-utility": "3.x-dev"
+        "voku/portable-utf8": "^5.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.14",

@@ -2,7 +2,7 @@
 
 namespace Realodix\ChangeCase;
 
-use Realodix\Utils\Str;
+use voku\helper\UTF8;
 
 class ChangeCase
 {
@@ -63,14 +63,14 @@ class ChangeCase
         // Trim the delimiter from around the output string.
         $start = 0;
         $end = mb_strlen($result);
-        while (Str::charAt($result, $start) === ' ') {
+        while (UTF8::char_at($result, $start) === ' ') {
             $start++;
         }
-        while (Str::charAt($result, $end - 1) === ' ') {
+        while (UTF8::char_at($result, $end - 1) === ' ') {
             $end--;
         }
 
-        $slice = Str::slice($result, $start, $end);
+        $slice = UTF8::str_slice($result, $start, $end);
         $split = explode(' ', $slice);
         $toLowerCase = array_map('mb_strtolower', $split);
         $join = implode($opt['delimiter'], $toLowerCase);
@@ -88,7 +88,7 @@ class ChangeCase
      */
     public static function camel(string $str, array $opt = []): string
     {
-        return Str::lcfirst(self::pascal($str, $opt));
+        return UTF8::lcfirst(self::pascal($str, $opt));
     }
 
     /**
@@ -163,7 +163,7 @@ class ChangeCase
      */
     public static function pascal(string $str, array $opt = []): string
     {
-        $value = Str::ucwords(self::no($str, $opt));
+        $value = UTF8::ucwords(self::no($str, $opt));
 
         return str_ireplace(' ', '', $value);
     }
@@ -190,7 +190,7 @@ class ChangeCase
      */
     public static function sentence(string $str): string
     {
-        return Str::ucfirst(self::no($str));
+        return UTF8::ucfirst(self::no($str));
     }
 
     /**
@@ -265,7 +265,7 @@ class ChangeCase
 
         $str = trim($str);
 
-        if (! Str::hasLowercase($str)) {
+        if (! UTF8::has_lowercase($str)) {
             $str = strtolower($str);
         }
 
@@ -298,7 +298,7 @@ class ChangeCase
                     $str .= strtolower($matches[3]);
                 } elseif ($matches[4]) {
                     // capitalize word w/o internal caps
-                    $str .= Str::ucfirst($matches[4]);
+                    $str .= UTF8::ucfirst($matches[4]);
                 } else {
                     // preserve other kinds of word (iPhone)
                     $str .= $matches[5];
@@ -328,7 +328,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches): string {
-                return $matches[1].Str::ucfirst($matches[2]);
+                return $matches[1].UTF8::ucfirst($matches[2]);
             },
             $str
         );
@@ -346,7 +346,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches): string {
-                return Str::ucfirst($matches[1]);
+                return UTF8::ucfirst($matches[1]);
             },
             $str
         );
@@ -367,7 +367,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches): string {
-                return Str::ucfirst($matches[1]);
+                return UTF8::ucfirst($matches[1]);
             },
             $str
         );
@@ -388,7 +388,7 @@ class ChangeCase
              * @return string
              */
             static function (array $matches): string {
-                return $matches[1].Str::ucfirst($matches[2]);
+                return $matches[1].UTF8::ucfirst($matches[2]);
             },
             $str
         );
