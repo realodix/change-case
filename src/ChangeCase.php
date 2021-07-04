@@ -32,7 +32,7 @@ class ChangeCase
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRx = [
             '/(['.self::LO_CHAR_RX.'\p{N}])(['.self::UP_CHAR_RX.'])/u',
-            '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u'
+            '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
         ];
 
         // Regex to split numbers ("13test" -> "13 test")
