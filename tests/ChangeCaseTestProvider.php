@@ -233,48 +233,6 @@ trait ChangeCaseTestProvider
     {
         return [
             /*
-             * https://grammar.yourdictionary.com/capitalization/rules-for-capitalization-in-titles.html
-             */
-            // Capitalize the First and Last Word
-            ['how to land your dream job', 'How to Land Your Dream Job'],
-            ['of mice and men', 'Of Mice and Men'],
-            ['the cat in the hat', 'The Cat in the Hat'],
-
-            // Capitalize Nouns and Pronouns
-            ['visiting beautiful ruins', 'Visiting Beautiful Ruins'],
-            ['as she ran away', 'As She Ran Away'],
-            ['little house on the prairie', 'Little House on the Prairie'],
-            ['for whom the bell tolls', 'For Whom the Bell Tolls'],
-
-            // Capitalize Verbs and Helping Verbs
-            ['to kill a mockingbird', 'To Kill a Mockingbird'],
-            ['the sun also rises', 'The Sun Also Rises'],
-            ['their eyes were watching god', 'Their Eyes Were Watching God'],
-            ['tender is the night', 'Tender Is the Night'],
-
-            // Capitalize Adjectives and Adverbs
-            ['all quiet on the western', 'All Quiet on the Western'],
-            ['the wind-up bird chronicle', 'The Wind-Up Bird Chronicle'],
-            ['she quietly waits', 'She Quietly Waits'],
-            ['the poky little puppy', 'The Poky Little Puppy'],
-
-            // Do Not Capitalize Short Prepositions
-            ['one year in paris', 'One Year in Paris'],
-            ['the book of disquiet', 'The Book of Disquiet'],
-            ['a house for mr. biswas', 'A House for Mr. Biswas'],
-
-            // Do Not Capitalize Articles
-            ['through the looking glass', 'Through the Looking Glass'],
-            ['the portrait of a lady', 'The Portrait of a Lady'],
-            ['the sense of an ending', 'The Sense of an Ending'],
-
-            // Do Not Capitalize Short Coordinating Conjunctions
-            [
-                'do not capitalize ("and, but, or, for, nor") short coordinating conjunctions',
-                'Do Not Capitalize ("and, but, or, for, nor") Short Coordinating Conjunctions',
-            ],
-
-            /*
              * https://github.com/blakeembrey/change-case/blob/master/packages/title-case/src/index.spec.ts/
              */
             ['one. two.', 'One. Two.'],
@@ -284,10 +242,7 @@ trait ChangeCaseTestProvider
             ['follow step-by-step instructions', 'Follow Step-by-Step Instructions'],
             ['your hair[cut] looks (nice)', 'Your Hair[cut] Looks (Nice)'],
             ['leave Q&A unscathed', 'Leave Q&A Unscathed'],
-            [
-                'piña colada while you listen to ænima',
-                'Piña Colada While You Listen to Ænima',
-            ],
+            ['piña colada while you listen to ænima', 'Piña Colada While You Listen to Ænima'],
             ['start title – end title', 'Start Title – End Title'],
             ['start title–end title', 'Start Title–End Title'],
             ['start title — end title', 'Start Title — End Title'],
@@ -302,28 +257,16 @@ trait ChangeCaseTestProvider
             ['one two: three four', 'One Two: Three Four'],
             ['one two: "Three Four"', 'One Two: "Three Four"'],
             ['email email@example.com address', 'Email email@example.com Address'],
-            [
-                'you have an https://example.com/ title',
-                'You Have an https://example.com/ Title',
-            ],
+            ['you have an https://example.com/ title', 'You Have an https://example.com/ Title'],
             ['_underscores around words_', '_Underscores Around Words_'],
             ['*asterisks around words*', '*Asterisks Around Words*'],
             ['this vs. that', 'This vs. That'],
             ['this vs that', 'This vs That'],
             ['this v. that', 'This v. That'],
             ['this v that', 'This v That'],
-            [
-                'Scott Moritz and TheStreet.com’s million iPhone la-la land',
-                'Scott Moritz and TheStreet.com’s Million iPhone La-La Land',
-            ],
-            [
-                'Notes and observations regarding Apple’s announcements from ‘The Beat Goes On’ special event',
-                'Notes and Observations Regarding Apple’s Announcements From ‘The Beat Goes On’ Special Event',
-            ],
-            [
-                'the quick brown fox jumps over the lazy dog',
-                'The Quick Brown Fox Jumps over the Lazy Dog',
-            ],
+            ['Scott Moritz and TheStreet.com’s million iPhone la-la land', 'Scott Moritz and TheStreet.com’s Million iPhone La-La Land'],
+            ['Notes and observations regarding Apple’s announcements from ‘The Beat Goes On’ special event', 'Notes and Observations Regarding Apple’s Announcements From ‘The Beat Goes On’ Special Event'],
+            ['the quick brown fox jumps over the lazy dog', 'The Quick Brown Fox Jumps over the Lazy Dog'],
             ['newcastle upon tyne', 'Newcastle upon Tyne'],
             ['newcastle *upon* tyne', 'Newcastle *upon* Tyne'],
 
@@ -332,41 +275,20 @@ trait ChangeCaseTestProvider
              */
             ['Abc in-Flight Defg', 'Abc In-Flight Defg'],
             ['Abc Stand-in Defg', 'Abc Stand-In Defg'],
-
             ['TITLE CASE', 'Title Case'],
             ['testing the method', 'Testing the Method'],
             ['  Θα ήθελα να φύγει  ', 'Θα Ήθελα Να Φύγει'],
-            [
-                'For step-by-step directions email someone@gmail.com',
-                'For Step-by-Step Directions Email someone@gmail.com',
-            ],
-            [
-                "2lmc Spool: 'Gruber on OmniFocus and Vapo(u)rware'",
-                "2lmc Spool: 'Gruber on OmniFocus and Vapo(u)rware'",
-            ],
+            ['For step-by-step directions email someone@gmail.com', 'For Step-by-Step Directions Email someone@gmail.com'],
+            ["2lmc Spool: 'Gruber on OmniFocus and Vapo(u)rware'", "2lmc Spool: 'Gruber on OmniFocus and Vapo(u)rware'"],
             ['Have you read “The Lottery”?', 'Have You Read “The Lottery”?'],
             ['your hair[cut] looks (nice)', 'Your Hair[cut] Looks (Nice)'],
-            [
-                "People probably won't put http://foo.com/bar/ in titles",
-                "People Probably Won't Put http://foo.com/bar/ in Titles",
-            ],
-            [
-                'Scott Moritz and TheStreet.com’s million iPhone la‑la land',
-                'Scott Moritz and TheStreet.com’s Million iPhone La‑La Land',
-            ],
+            ["People probably won't put http://foo.com/bar/ in titles", "People Probably Won't Put http://foo.com/bar/ in Titles"],
+            ['Scott Moritz and TheStreet.com’s million iPhone la‑la land', 'Scott Moritz and TheStreet.com’s Million iPhone La‑La Land'],
             ['BlackBerry vs. iPhone', 'BlackBerry vs. iPhone'],
-            [
-                'Notes and observations regarding Apple’s announcements from ‘The Beat Goes On’ special event',
-                'Notes and Observations Regarding Apple’s Announcements From ‘The Beat Goes On’ Special Event',
-            ],
-            [
-                'Read markdown_rules.txt to find out how _underscores around words_ will be interpretted',
-                'Read markdown_rules.txt to Find Out How _Underscores Around Words_ Will Be Interpretted',
-            ],
-            [
-                "Q&A with Steve Jobs: 'That's what happens in technology'",
-                "Q&A With Steve Jobs: 'That's What Happens in Technology'",
-            ],
+            ['Notes and observations regarding Apple’s announcements from ‘The Beat Goes On’ special event', 'Notes and Observations Regarding Apple’s Announcements From ‘The Beat Goes On’ Special Event'],
+            ['Read markdown_rules.txt to find out how _underscores around words_ will be interpretted',
+                'Read markdown_rules.txt to Find Out How _Underscores Around Words_ Will Be Interpretted', ],
+            ["Q&A with Steve Jobs: 'That's what happens in technology'", "Q&A With Steve Jobs: 'That's What Happens in Technology'"],
             ["What is AT&T's problem?", "What Is AT&T's Problem?"],
             ['Apple deal with AT&T falls through', 'Apple Deal With AT&T Falls Through'],
             ['this v that', 'This v That'],
@@ -374,38 +296,20 @@ trait ChangeCaseTestProvider
             ['this v. that', 'This v. That'],
             ['this vs. that', 'This vs. That'],
             ["The SEC's Apple probe: what you need to know", "The SEC's Apple Probe: What You Need to Know"],
-            [
-                "'by the way, small word at the start but within quotes.'",
-                "'By the Way, Small Word at the Start but Within Quotes.'",
-            ],
+            ["'by the way, small word at the start but within quotes.'", "'By the Way, Small Word at the Start but Within Quotes.'"],
             ['Small word at end is nothing to be afraid of', 'Small Word at End Is Nothing to Be Afraid Of'],
-            [
-                'Starting sub-phrase with a small word: a trick, perhaps?',
-                'Starting Sub-Phrase With a Small Word: A Trick, Perhaps?',
-            ],
-            [
-                "Sub-phrase with a small word in quotes: 'a trick, perhaps?'",
-                "Sub-Phrase With a Small Word in Quotes: 'A Trick, Perhaps?'",
-            ],
-            [
-                'Sub-phrase with a small word in quotes: "a trick, perhaps?"',
-                'Sub-Phrase With a Small Word in Quotes: "A Trick, Perhaps?"',
-            ],
+            ['Starting sub-phrase with a small word: a trick, perhaps?', 'Starting Sub-Phrase With a Small Word: A Trick, Perhaps?'],
+            ["Sub-phrase with a small word in quotes: 'a trick, perhaps?'", "Sub-Phrase With a Small Word in Quotes: 'A Trick, Perhaps?'"],
+            ['Sub-phrase with a small word in quotes: "a trick, perhaps?"', 'Sub-Phrase With a Small Word in Quotes: "A Trick, Perhaps?"'],
             ['"Nothing to Be Afraid of?"', '"Nothing to Be Afraid Of?"'],
             ['a thing', 'A Thing'],
-            [
-                'Dr. Strangelove (or: how I Learned to Stop Worrying and Love the Bomb)',
-                'Dr. Strangelove (Or: How I Learned to Stop Worrying and Love the Bomb)',
-            ],
+            ['Dr. Strangelove (or: how I Learned to Stop Worrying and Love the Bomb)', 'Dr. Strangelove (Or: How I Learned to Stop Worrying and Love the Bomb)'],
             ['  this is trimming', 'This Is Trimming'],
             ['this is trimming  ', 'This Is Trimming'],
             ['  this is trimming  ', 'This Is Trimming'],
             ['IF IT’S ALL CAPS, FIX IT', 'If It’s All Caps, Fix It'],
             ['What could/should be done about slashes?', 'What Could/Should Be Done About Slashes?'],
-            [
-                'Never touch paths like /var/run before/after /boot',
-                'Never Touch Paths Like /var/run Before/After /boot',
-            ],
+            ['Never touch paths like /var/run before/after /boot', 'Never Touch Paths Like /var/run Before/After /boot'],
         ];
     }
 }
