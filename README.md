@@ -51,14 +51,12 @@ use Realodix\ChangeCase\ChangeCase;
 💡 Support [options](#options)
 
 ```php
-$cc = new ChangeCase;
-
-$cc->camel('test string');
+ChangeCase::camel('test string');
 // 'testString'
 
-$cc->camel('1twoThree');
+ChangeCase::camel('1twoThree');
 // '1twoThree'
-$cc->camel('1twoThree', ['separateNum' => true]);
+ChangeCase::camel('1twoThree', ['separateNum' => true]);
 // '1TwoThree'
 ```
 
@@ -67,8 +65,7 @@ $cc->camel('1twoThree', ['separateNum' => true]);
 > Transform into a space separated string with each word capitalized.
 
 ```php
-$cc = new ChangeCase;
-$cc->capital('test string');
+ChangeCase::capital('test string');
 // 'Test String'
 ```
 
@@ -77,8 +74,7 @@ $cc->capital('test string');
 > Transform into upper case string with an underscore between words.
 
 ```php
-$cc = new ChangeCase;
-$cc->constant('test string');
+ChangeCase::constant('test string');
 // 'TEST_STRING'
 ```
 
@@ -89,8 +85,7 @@ $cc->constant('test string');
 💡 Support [options](#options)
 
 ```php
-$cc = new ChangeCase;
-$cc->dot('test string');
+ChangeCase::dot('test string');
 // 'test.string'
 ```
 
@@ -101,8 +96,7 @@ $cc->dot('test string');
 💡 Support [options](#options)
 
 ```php
-$cc = new ChangeCase;
-$cc->header('test string');
+ChangeCase::header('test string');
 // 'Test-String'
 ```
 
@@ -113,17 +107,15 @@ $cc->header('test string');
 💡 Support [options](#options)
 
 ```php
-$cc = new ChangeCase;
-
-$cc->no('testString');
+ChangeCase::no('testString');
 // 'test string'
 
-$cc->no('minifyURLs', ['delimiter' => '-']);
+ChangeCase::no('minifyURLs', ['delimiter' => '-']);
 // 'minify-urls'
 
-$cc->no('Foo123Bar')
+ChangeCase::no('Foo123Bar')
 // foo123 bar
-$cc->no('Foo123Bar', ['separateNum' => true])
+ChangeCase::no('Foo123Bar', ['separateNum' => true])
 // foo 123 bar
 ```
 
@@ -134,8 +126,7 @@ $cc->no('Foo123Bar', ['separateNum' => true])
 💡 Support [options](#options)
 
 ```php
-$cc = new ChangeCase;
-$cc->pascal('test string');
+ChangeCase::pascal('test string');
 // 'TestString'
 ```
 
@@ -146,8 +137,7 @@ $cc->pascal('test string');
 💡 Support [options](#options)
 
 ```php
-$cc = new ChangeCase;
-$cc->path('test string');
+ChangeCase::path('test string');
 // 'test/string'
 ```
 
@@ -156,8 +146,7 @@ $cc->path('test string');
 > Transform into a lower case with spaces between words, then capitalize the string.
 
 ```php
-$cc = new ChangeCase;
-$cc->sentence('testString');
+ChangeCase::sentence('testString');
 // 'Test string'
 ```
 
@@ -168,14 +157,12 @@ $cc->sentence('testString');
 💡 Support [options](#options)
 
 ```php
-$cc = new ChangeCase;
-
-$cc->snake('test string');
+ChangeCase::snake('test string');
 // 'test_string'
 
-$cc->snake('Foo123Bar');
+ChangeCase::snake('Foo123Bar');
 // 'foo123_bar'
-$cc->snake('Foo123Bar', ['separateNum' => true]);
+ChangeCase::snake('Foo123Bar', ['separateNum' => true]);
 // 'foo_123_bar'
 ```
 
@@ -186,14 +173,12 @@ $cc->snake('Foo123Bar', ['separateNum' => true]);
 💡 Support [options](#options)
 
 ```php
-$cc = new ChangeCase;
-
-$cc->spinal('test string');
+ChangeCase::spinal('test string');
 // 'test-string'
 
-$cc->spinal('Foo123Bar');
+ChangeCase::spinal('Foo123Bar');
 // 'foo123-bar'
-$cc->spinal('Foo123Bar', ['separateNum' => true]);
+ChangeCase::spinal('Foo123Bar', ['separateNum' => true]);
 // 'foo-123-bar'
 ```
 
@@ -203,8 +188,7 @@ $cc->spinal('Foo123Bar', ['separateNum' => true]);
 > Transform a string by swapping every character from upper to lower case, or lower to upper case.
 
 ```php
-$cc = new ChangeCase;
-$cc->swap('Test String');
+ChangeCase::swap('Test String');
 // 'tEST sTRING'
 ```
 
@@ -217,8 +201,7 @@ $cc->swap('Test String');
 `title(string $string, array $ignore = [])`
 
 ```php
-$cc = new ChangeCase;
-$cc->title('a simple test');
+ChangeCase::title('a simple test');
 // 'A Simple Test'
 ```
 

@@ -9,13 +9,6 @@ class ChangeCaseTest extends TestCase
 {
     use ChangeCaseTestProvider;
 
-    private $cc;
-
-    protected function setUp(): void
-    {
-        $this->cc = new ChangeCase;
-    }
-
     /**
      * @test
      * @dataProvider noCaseProvider
