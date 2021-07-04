@@ -6,12 +6,6 @@ use voku\helper\UTF8;
 
 class ChangeCase
 {
-    const ALPHA_RX = '\p{L}|\p{M}';
-
-    const LO_CHAR_RX = '\p{Ll}|\p{M}';
-
-    const UP_CHAR_RX = '\p{Lu}|\p{M}';
-
     /**
      * Transform into a lower cased string with spaces between words.
      *
@@ -29,20 +23,25 @@ class ChangeCase
      */
     public static function no(string $value, array $opt = []): string
     {
+        $alphaRx = '\p{L}|\p{M}';
+        $loCharRx = '\p{Ll}|\p{M}';
+        $upCharRx = '\p{Lu}|\p{M}';
+        $numRx = '\p{N}';
+
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRx = [
-            '/(['.self::LO_CHAR_RX.'\p{N}])(['.self::UP_CHAR_RX.'])/u',
-            '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
+            '/(['.$loCharRx.$numRx.'])(['.$upCharRx.'])/u',
+            '/(['.$upCharRx.'])(['.$upCharRx.']['.$loCharRx.'])/u',
         ];
 
         // Regex to split numbers ("13test" -> "13 test")
         $splitNumRx = array_merge(
             $splitRx,
-            ['/([\p{N}])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])([\p{N}])/u']
+            ['/(['.$numRx.'])(['.$alphaRx.'])/u', '/(['.$alphaRx.'])(['.$numRx.'])/u']
         );
 
         // Remove all non-word characters
-        $stripRx = '/[^'.self::ALPHA_RX.'\p{N}]+/ui';
+        $stripRx = '/[^'.$alphaRx.$numRx.']+/ui';
 
         $opt += [
             'delimiter'   => ' ',
@@ -203,7 +202,9 @@ class ChangeCase
      */
     public static function snake(string $str, array $opt = []): string
     {
-        $stripRx = '/(?!^_*)[^'.self::ALPHA_RX.'\p{N}]+/ui';
+        $alphaNumRx = '\p{L}|\p{M}\p{N}';
+
+        $stripRx = '/(?!^_*)[^'.$alphaNumRx.']+/ui';
 
         return self::no(
             $str,
