@@ -212,6 +212,8 @@ $cc->swap('Test String');
 
 > Transform a string into title case following English rules.
 
+⚠️ Unfortunately, currently `title()` does not support unicode characters (E.g. Nonspacing Mark).
+
 `title(string $string, array $ignore = [])`
 
 ```php
