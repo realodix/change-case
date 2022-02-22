@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['7.4', '8.0', '8.1']
+        php-version: ['7.2', '7.3', '7.4', '8.0']
         stability: [prefer-lowest, prefer-stable]
         include:
-          - php-version: '8.2'
+          - php-version: '8.1'
             flags: "--ignore-platform-req=php"
             stability: prefer-stable
 
