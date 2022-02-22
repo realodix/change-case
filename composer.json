@@ -14,11 +14,11 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "voku/portable-utf8": "^5.4"
+        "voku/portable-utf8": "^6.0"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.14",
-        "phpunit/phpunit": "^9.4",
+        "fakerphp/faker": "^1.19",
+        "phpunit/phpunit": "^9.5",
         "realodix/php-cs-fixer-config": "^3.0"
     },
     "autoload": {
