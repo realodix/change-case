@@ -13,6 +13,8 @@ jobs:
         stability: [prefer-lowest, prefer-stable]
         include:
           - php-version: '8.1'
+            stability: prefer-stable
+          - php-version: '8.2'
             flags: "--ignore-platform-req=php"
             stability: prefer-stable
 
