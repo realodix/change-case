@@ -30,12 +30,11 @@ jobs:
           coverage: xdebug
 
       # https://github.com/actions/cache/blob/main/examples.md#php---composer
-      - name: Get composer cache directory
+      - name: Get Composer Cache Directory
         id: composer-cache
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - name: Cache dependencies
-        uses: actions/cache@v3
+      - uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
