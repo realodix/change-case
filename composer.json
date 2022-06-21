@@ -19,7 +19,7 @@
     "require-dev": {
         "fakerphp/faker": "^1.14",
         "phpunit/phpunit": "^8.5.8|^9.3.3",
-        "realodix/php-cs-fixer-config": "^3.0"
+        "realodix/cs-config": "^1.0"
     },
     "autoload": {
         "psr-4": {
