@@ -15,11 +15,6 @@ class ChangeCase
      * - splitNumberRegexp  (RegExp) Used to split numbers
      * - stripRegexp        (RegExp) Used to remove extraneous characters
      * - separateNumber     (Bool)   Used to separate numbers or not
-     *
-     * @param string $value
-     * @param array  $opt
-     *
-     * @return string
      */
     public function noCase(string $value, array $opt = []): string
     {
@@ -66,11 +61,6 @@ class ChangeCase
 
     /**
      * Transform into a string with the separator denoted by the next word capitalized.
-     *
-     * @param string $string
-     * @param array  $opt
-     *
-     * @return string
      */
     public function camelCase(string $string, array $opt = []): string
     {
@@ -79,10 +69,6 @@ class ChangeCase
 
     /**
      * Transform into a space separated string with each word capitalized.
-     *
-     * @param string $string
-     *
-     * @return string
      */
     public function capitalCase(string $string): string
     {
@@ -97,10 +83,6 @@ class ChangeCase
 
     /**
      * Transform into upper case string with an underscore between words.
-     *
-     * @param string $string
-     *
-     * @return string
      */
     public function constantCase(string $string): string
     {
@@ -109,11 +91,6 @@ class ChangeCase
 
     /**
      * Transform into a lower case string with a period between words.
-     *
-     * @param string $string
-     * @param array  $opt
-     *
-     * @return string
      */
     public function dotCase(string $string, array $opt = []): string
     {
@@ -122,11 +99,6 @@ class ChangeCase
 
     /**
      * Transform into a dash separated string of capitalized words.
-     *
-     * @param string $string
-     * @param array  $opt
-     *
-     * @return string
      */
     public function headerCase(string $string, array $opt = []): string
     {
@@ -141,11 +113,6 @@ class ChangeCase
 
     /**
      * Transform into a string of capitalized words without separators.
-     *
-     * @param string $string
-     * @param array  $opt
-     *
-     * @return string
      */
     public function pascalCase(string $string, array $opt = []): string
     {
@@ -156,11 +123,6 @@ class ChangeCase
 
     /**
      * Transform into a lower case string with slashes between words.
-     *
-     * @param string $string
-     * @param array  $opt
-     *
-     * @return string
      */
     public function pathCase(string $string, array $opt = []): string
     {
@@ -169,10 +131,6 @@ class ChangeCase
 
     /**
      * Transform into a lower case with spaces between words, then capitalize the string.
-     *
-     * @param string $string
-     *
-     * @return string
      */
     public function sentenceCase(string $string): string
     {
@@ -181,11 +139,6 @@ class ChangeCase
 
     /**
      * Transform into a lower case string with underscores between words.
-     *
-     * @param string $string
-     * @param array  $opt
-     *
-     * @return string
      */
     public function snakeCase(string $string, array $opt = []): string
     {
@@ -199,11 +152,6 @@ class ChangeCase
 
     /**
      * Transform into a lower cased string with dashes between words.
-     *
-     * @param string $string
-     * @param array  $opt
-     *
-     * @return string
      */
     public function spinalCase(string $string, array $opt = []): string
     {
@@ -213,10 +161,6 @@ class ChangeCase
     /**
      * Transform a string by swapping every character from upper to lower case, or lower
      * to upper case.
-     *
-     * @param string $string
-     *
-     * @return string
      */
     public function swapCase(string $string): string
     {
@@ -226,10 +170,7 @@ class ChangeCase
     /**
      * Transform a string into title case following English rules.
      *
-     * @param string $string
-     * @param array  $ignore An array of words not to capitalize.
-     *
-     * @return string
+     * @param array $ignore An array of words not to capitalize.
      */
     public function titleCase(string $string, array $ignore = []): string
     {
