@@ -10,16 +10,11 @@ class ChangeCase
      * Transform into a lower cased string with spaces between words.
      *
      * ### Options
-     * - delimiter    (String) Used between words
-     * - splitRx      (Rx) Used to split into word segments
-     * - splitNumRx   (Rx) Used to split numbers
-     * - stripRx      (Rx) Used to remove extraneous characters
-     * - separateNum  (Bool)   Used to separate numbers or not
-     *
-     * @param string $value
-     * @param array  $opt
-     *
-     * @return string
+     * - delimiter          (String) Used between words
+     * - splitRegexp        (RegExp) Used to split into word segments
+     * - splitNumberRegexp  (RegExp) Used to split numbers
+     * - stripRegexp        (RegExp) Used to remove extraneous characters
+     * - separateNumber     (Bool)   Used to separate numbers or not
      */
     public static function no(string $value, array $opt = []): string
     {
@@ -79,11 +74,6 @@ class ChangeCase
 
     /**
      * Transform into a string with the separator denoted by the next word capitalized.
-     *
-     * @param string $str
-     * @param array  $opt
-     *
-     * @return string
      */
     public static function camel(string $str, array $opt = []): string
     {
@@ -92,10 +82,6 @@ class ChangeCase
 
     /**
      * Transform into a space separated string with each word capitalized.
-     *
-     * @param string $str
-     *
-     * @return string
      */
     public static function capital(string $str): string
     {
@@ -110,10 +96,6 @@ class ChangeCase
 
     /**
      * Transform into upper case string with an underscore between words.
-     *
-     * @param string $str
-     *
-     * @return string
      */
     public static function constant(string $str): string
     {
@@ -122,11 +104,6 @@ class ChangeCase
 
     /**
      * Transform into a lower case string with a period between words.
-     *
-     * @param string $str
-     * @param array  $opt
-     *
-     * @return string
      */
     public static function dot(string $str, array $opt = []): string
     {
@@ -135,11 +112,6 @@ class ChangeCase
 
     /**
      * Transform into a dash separated string of capitalized words.
-     *
-     * @param string $str
-     * @param array  $opt
-     *
-     * @return string
      */
     public static function header(string $str, array $opt = []): string
     {
@@ -154,11 +126,6 @@ class ChangeCase
 
     /**
      * Transform into a string of capitalized words without separators.
-     *
-     * @param string $str
-     * @param array  $opt
-     *
-     * @return string
      */
     public static function pascal(string $str, array $opt = []): string
     {
@@ -169,11 +136,6 @@ class ChangeCase
 
     /**
      * Transform into a lower case string with slashes between words.
-     *
-     * @param string $str
-     * @param array  $opt
-     *
-     * @return string
      */
     public static function path(string $str, array $opt = []): string
     {
@@ -182,10 +144,6 @@ class ChangeCase
 
     /**
      * Transform into a lower case with spaces between words, then capitalize the string.
-     *
-     * @param string $str
-     *
-     * @return string
      */
     public static function sentence(string $str): string
     {
@@ -194,11 +152,6 @@ class ChangeCase
 
     /**
      * Transform into a lower case string with underscores between words.
-     *
-     * @param string $str
-     * @param array  $opt
-     *
-     * @return string
      */
     public static function snake(string $str, array $opt = []): string
     {
@@ -214,11 +167,6 @@ class ChangeCase
 
     /**
      * Transform into a lower cased string with dashes between words.
-     *
-     * @param string $str
-     * @param array  $opt
-     *
-     * @return string
      */
     public static function spinal(string $str, array $opt = []): string
     {
@@ -228,10 +176,6 @@ class ChangeCase
     /**
      * Transform a string by swapping every character from upper to lower case, or lower
      * to upper case.
-     *
-     * @param string $str
-     *
-     * @return string
      */
     public static function swap(string $str): string
     {
@@ -246,10 +190,7 @@ class ChangeCase
      * - https://github.com/voku/portable-utf8/blob/4caf5ad/src/voku/helper/UTF8.php#L9090
      * - https://gist.github.com/HipsterJazzbo/2532c93a18db7451b0cec529c95b53c4
      *
-     * @param string $str
-     * @param array  $ignore An array of words not to capitalize.
-     *
-     * @return string
+     * @param array $ignore An array of words not to capitalize.
      */
     public static function title(string $str, array $ignore = []): string
     {
@@ -288,11 +229,6 @@ class ChangeCase
             (_*) \\b                                                                 # 6. With trailing underscore
             ~ux',
 
-            /**
-             * @param string[] $matches
-             *
-             * @return string
-             */
             static function (array $matches): string {
                 // preserve leading underscore
                 $str = $matches[1];
@@ -388,11 +324,6 @@ class ChangeCase
                 (?!	- )              # Negative lookahead for another -
             ~uxi',
 
-            /**
-             * @param string[] $matches
-             *
-             * @return string
-             */
             static function (array $matches): string {
                 return $matches[1].UTF8::ucfirst($matches[2]);
             },
