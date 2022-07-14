@@ -74,7 +74,8 @@ class ChangeCase
     {
         return preg_replace_callback(
             '/^.| ./u',
-            function (array $matches) {
+            function (array $matches)
+            {
                 return strtoupper($matches[0]);
             },
             $this->noCase($string)
@@ -104,7 +105,8 @@ class ChangeCase
     {
         return preg_replace_callback(
             '/^.|-./u',
-            function (array $matches) {
+            function (array $matches)
+            {
                 return strtoupper($matches[0]);
             },
             $this->noCase($string, $opt += ['delimiter' => '-'])
