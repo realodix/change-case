@@ -87,7 +87,8 @@ class ChangeCase
     {
         return preg_replace_callback(
             '/^.| ./u',
-            function (array $matches) {
+            function (array $matches)
+            {
                 return mb_strtoupper($matches[0]);
             },
             self::no($str)
@@ -117,7 +118,8 @@ class ChangeCase
     {
         return preg_replace_callback(
             '/^.|-./u',
-            function (array $matches) {
+            function (array $matches)
+            {
                 return mb_strtoupper($matches[0]);
             },
             self::no($str, $opt += ['delimiter' => '-'])
@@ -228,8 +230,8 @@ class ChangeCase
             )
             (_*) \\b                                                                 # 6. With trailing underscore
             ~ux',
-
-            static function (array $matches): string {
+            static function (array $matches): string
+            {
                 // preserve leading underscore
                 $str = $matches[1];
                 if ($matches[2]) {
@@ -269,7 +271,8 @@ class ChangeCase
              *
              * @return string
              */
-            static function (array $matches): string {
+            static function (array $matches): string
+            {
                 return $matches[1].UTF8::ucfirst($matches[2]);
             },
             $str
@@ -287,7 +290,8 @@ class ChangeCase
              *
              * @return string
              */
-            static function (array $matches): string {
+            static function (array $matches): string
+            {
                 return UTF8::ucfirst($matches[1]);
             },
             $str
@@ -308,7 +312,8 @@ class ChangeCase
              *
              * @return string
              */
-            static function (array $matches): string {
+            static function (array $matches): string
+            {
                 return UTF8::ucfirst($matches[1]);
             },
             $str
@@ -323,8 +328,8 @@ class ChangeCase
                 ('.$smallWordsRx.')  # ...followed by small word
                 (?!	- )              # Negative lookahead for another -
             ~uxi',
-
-            static function (array $matches): string {
+            static function (array $matches): string
+            {
                 return $matches[1].UTF8::ucfirst($matches[2]);
             },
             $str
