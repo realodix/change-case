@@ -228,8 +228,7 @@ class ChangeCase
             )
             (_*) \\b                                                                 # 6. With trailing underscore
             ~ux',
-            static function (array $matches): string
-            {
+            static function (array $matches): string {
                 // preserve leading underscore
                 $str = $matches[1];
                 if ($matches[2]) {
@@ -266,11 +265,8 @@ class ChangeCase
 
             /**
              * @param string[] $matches
-             *
-             * @return string
              */
-            static function (array $matches): string
-            {
+            static function (array $matches): string {
                 return $matches[1].UTF8::ucfirst($matches[2]);
             },
             $str
@@ -285,11 +281,8 @@ class ChangeCase
 
             /**
              * @param string[] $matches
-             *
-             * @return string
              */
-            static function (array $matches): string
-            {
+            static function (array $matches): string {
                 return UTF8::ucfirst($matches[1]);
             },
             $str
@@ -307,11 +300,8 @@ class ChangeCase
 
             /**
              * @param string[] $matches
-             *
-             * @return string
              */
-            static function (array $matches): string
-            {
+            static function (array $matches): string {
                 return UTF8::ucfirst($matches[1]);
             },
             $str
@@ -326,8 +316,7 @@ class ChangeCase
                 ('.$smallWordsRx.')  # ...followed by small word
                 (?!	- )              # Negative lookahead for another -
             ~uxi',
-            static function (array $matches): string
-            {
+            static function (array $matches): string {
                 return $matches[1].UTF8::ucfirst($matches[2]);
             },
             $str
