@@ -87,8 +87,7 @@ class ChangeCase
     {
         return preg_replace_callback(
             '/^.| ./u',
-            function (array $matches)
-            {
+            function (array $matches) {
                 return mb_strtoupper($matches[0]);
             },
             self::no($str)
@@ -118,8 +117,7 @@ class ChangeCase
     {
         return preg_replace_callback(
             '/^.|-./u',
-            function (array $matches)
-            {
+            function (array $matches) {
                 return mb_strtoupper($matches[0]);
             },
             self::no($str, $opt += ['delimiter' => '-'])
