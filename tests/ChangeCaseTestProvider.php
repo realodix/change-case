@@ -266,9 +266,7 @@ trait ChangeCaseTestProvider
             ['this v that', 'This v That'],
             ['Scott Moritz and TheStreet.com’s million iPhone la-la land', 'Scott Moritz and TheStreet.com’s Million iPhone La-La Land'],
             ['Notes and observations regarding Apple’s announcements from ‘The Beat Goes On’ special event', 'Notes and Observations Regarding Apple’s Announcements From ‘The Beat Goes On’ Special Event'],
-            ['the quick brown fox jumps over the lazy dog', 'The Quick Brown Fox Jumps over the Lazy Dog'],
-            ['newcastle upon tyne', 'Newcastle upon Tyne'],
-            ['newcastle *upon* tyne', 'Newcastle *upon* Tyne'],
+            ['follow step-by-step instructions', 'Follow Step-by-Step Instructions'],
 
             /*
              * https://github.com/voku/portable-utf8/blob/4caf5ad/tests/Utf8TestsFromStringyTest.php#L3513
