@@ -87,9 +87,7 @@ class ChangeCase
     {
         return preg_replace_callback(
             '/^.| ./u',
-            function (array $matches) {
-                return mb_strtoupper($matches[0]);
-            },
+            fn (array $matches) => mb_strtoupper($matches[0]),
             self::no($str)
         );
     }
@@ -117,9 +115,7 @@ class ChangeCase
     {
         return preg_replace_callback(
             '/^.|-./u',
-            function (array $matches) {
-                return mb_strtoupper($matches[0]);
-            },
+            fn (array $matches) => mb_strtoupper($matches[0]),
             self::no($str, $opt += ['delimiter' => '-'])
         );
     }
@@ -262,13 +258,7 @@ class ChangeCase
               ('.$smallWordsRx.')    # ...followed by small word
             \\b
             ~uxi',
-
-            /**
-             * @param string[] $matches
-             */
-            static function (array $matches): string {
-                return $matches[1].UTF8::ucfirst($matches[2]);
-            },
+            fn (array $matches): string => $matches[1].UTF8::ucfirst($matches[2]),
             $str
         );
 
@@ -278,13 +268,7 @@ class ChangeCase
                   (?= [[:punct:]]* \Z   # ...at the end of the title...
                   |   [\'"’”)\]] [ ] )  # ...or of an inserted subphrase?
             ~uxi',
-
-            /**
-             * @param string[] $matches
-             */
-            static function (array $matches): string {
-                return UTF8::ucfirst($matches[1]);
-            },
+            fn (array $matches): string => UTF8::ucfirst($matches[1]),
             $str
         );
 
@@ -297,13 +281,7 @@ class ChangeCase
                 ('.$smallWordsRx.')
                 (?= -['.$alphaRx.']+)  # lookahead for "-someword"
             ~uxi',
-
-            /**
-             * @param string[] $matches
-             */
-            static function (array $matches): string {
-                return UTF8::ucfirst($matches[1]);
-            },
+            fn (array $matches) => UTF8::ucfirst($matches[1]),
             $str
         );
 
@@ -316,9 +294,7 @@ class ChangeCase
                 ('.$smallWordsRx.')  # ...followed by small word
                 (?!	- )              # Negative lookahead for another -
             ~uxi',
-            static function (array $matches): string {
-                return $matches[1].UTF8::ucfirst($matches[2]);
-            },
+            fn (array $matches): string => $matches[1].UTF8::ucfirst($matches[2]),
             $str
         );
 
