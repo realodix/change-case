@@ -1,6 +1,6 @@
 # Change Case
 
-![PHPVersion](https://img.shields.io/badge/PHP-^7.4|^8-777BB4.svg?style=flat-square)
+![PHPVersion](https://img.shields.io/badge/PHP-7.4%20|%208-777BB4.svg?style=flat-square)
 ![Tests](https://github.com/realodix/change-case/actions/workflows/tests.yml/badge.svg)
 [![GitHub license](https://img.shields.io/github/license/realodix/change-case)](/LICENSE)
 
@@ -46,7 +46,7 @@ Every method that gets 💡 flag, they can support option
 - `stripRx`: (RegExp) Used to remove extraneous characters.
 - `separateNum`: (bool) Used to separate numbers or not.
 
-Examples 
+Examples
 ```php
 ChangeCase::camel('1twoThree', ['separateNum' => true]);
 // '1TwoThree'
