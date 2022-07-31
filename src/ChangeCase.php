@@ -67,9 +67,8 @@ class ChangeCase
         $slice = UTF8::str_slice($result, $start, $end);
         $split = explode(' ', $slice);
         $toLowerCase = array_map('mb_strtolower', $split);
-        $join = implode($opt['delimiter'], $toLowerCase);
 
-        return $join;
+        return implode($opt['delimiter'], $toLowerCase);
     }
 
     /**
