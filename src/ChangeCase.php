@@ -170,9 +170,17 @@ class ChangeCase
      * Transform a string by swapping every character from upper to lower case, or lower
      * to upper case.
      */
-    public static function swap(string $str): string
+    public static function studly(string $str): string
     {
         return mb_strtolower($str) ^ mb_strtoupper($str) ^ $str;
+    }
+
+    /**
+     * @deprecated Use `studly()` instead.
+     */
+    public static function swap(string $str): string
+    {
+        return self::studly($str);
     }
 
     /**
