@@ -118,6 +118,22 @@ class ChangeCase
     }
 
     /**
+     * Transform into a lower cased string with dashes between words.
+     */
+    public static function kebab(string $str, array $opt = []): string
+    {
+        return self::no($str, $opt += ['delimiter' => '-']);
+    }
+
+    /**
+     * @deprecated Use kebab() instead
+     */
+    public static function spinal(string $str, array $opt = []): string
+    {
+        return self::kebab($str, $opt);
+    }
+
+    /**
      * Transform into a string of capitalized words without separators.
      */
     public static function pascal(string $str, array $opt = []): string
@@ -156,14 +172,6 @@ class ChangeCase
             $str,
             $opt += ['delimiter' => '_', 'stripRx' => $stripRx]
         );
-    }
-
-    /**
-     * Transform into a lower cased string with dashes between words.
-     */
-    public static function spinal(string $str, array $opt = []): string
-    {
-        return self::no($str, $opt += ['delimiter' => '-']);
     }
 
     /**
