@@ -27,12 +27,12 @@ use Realodix\ChangeCase\ChangeCase;
 - [`CONSTANT_CASE`](#constant_case)
 - [`dot.case`](#dotcase)
 - [`Header-Case`](#header-case)
+- [`kebab-case`](#kebab-case)
 - [`no case`](#no-case)
 - [`PascalCase`](#pascalcase)
 - [`path/case`](#pathcase)
 - [`Sentence case`](#sentence-case)
 - [`snake_case`](#snake_case)
-- [`spinal-case`](#spinal-case)
 - [`swapCase`](#swapcase)
 - [`titleCase`](#titlecase)
 
@@ -108,6 +108,22 @@ ChangeCase::header('test string');
 // 'Test-String'
 ```
 
+#### kebab-case
+
+> Transform into a lower cased string with dashes between words.
+
+💡 Support [options](#options)
+
+```php
+ChangeCase::spinal('test string');
+// 'test-string'
+
+ChangeCase::spinal('Foo123Bar');
+// 'foo123-bar'
+ChangeCase::spinal('Foo123Bar', ['separateNum' => true]);
+// 'foo-123-bar'
+```
+
 #### no case
 
 > Transform into a lower cased string with spaces between words.
@@ -173,23 +189,6 @@ ChangeCase::snake('Foo123Bar');
 ChangeCase::snake('Foo123Bar', ['separateNum' => true]);
 // 'foo_123_bar'
 ```
-
-#### spinal-case
-
-> Transform into a lower cased string with dashes between words.
-
-💡 Support [options](#options)
-
-```php
-ChangeCase::spinal('test string');
-// 'test-string'
-
-ChangeCase::spinal('Foo123Bar');
-// 'foo123-bar'
-ChangeCase::spinal('Foo123Bar', ['separateNum' => true]);
-// 'foo-123-bar'
-```
-
 
 #### swapCase
 

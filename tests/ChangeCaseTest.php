@@ -139,6 +139,18 @@ class ChangeCaseTest extends TestCase
 
     /**
      * @test
+     * @dataProvider kebabCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
+     */
+    public function kebab($expected, $actual)
+    {
+        $this->assertSame($expected, ChangeCase::kebab($actual));
+    }
+
+    /**
+     * @test
      * @dataProvider pascalCaseProvider
      *
      * @param mixed $expected
@@ -213,18 +225,6 @@ class ChangeCaseTest extends TestCase
             'foo_123_bar',
             ChangeCase::snake('Foo123Bar', $options)
         );
-    }
-
-    /**
-     * @test
-     * @dataProvider spinalCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
-     */
-    public function spinal($expected, $actual)
-    {
-        $this->assertSame($expected, ChangeCase::spinal($actual));
     }
 
     /** @test */
