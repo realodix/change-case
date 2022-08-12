@@ -134,9 +134,6 @@ ChangeCase::spinal('Foo123Bar', ['separateNum' => true]);
 ChangeCase::no('testString');
 // 'test string'
 
-ChangeCase::no('minifyURLs', ['delimiter' => '-']);
-// 'minify-urls'
-
 ChangeCase::no('Foo123Bar')
 // foo123 bar
 ChangeCase::no('Foo123Bar', ['separateNum' => true])
