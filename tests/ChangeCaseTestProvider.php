@@ -66,7 +66,7 @@ trait ChangeCaseTestProvider
             ['capitalCase', 'Capital Case'],
             ['constantCase', 'CONSTANT_CASE'],
             ['dotCase', 'dot.case'],
-            ['spinalCase', 'spinal-case'],
+            ['kebabCase', 'kebab-case'],
             ['pascalCase', 'PascalCase'],
             ['pathCase', 'path/case'],
             ['snakeCase', 'snake_case'],
@@ -83,7 +83,7 @@ trait ChangeCaseTestProvider
             ['Capital Case', 'Capital Case'],
             ['Constant Case', 'CONSTANT_CASE'],
             ['Dot Case', 'dot.case'],
-            ['Spinal Case', 'spinal-case'],
+            ['Kebab Case', 'kebab-case'],
             ['Pascal Case', 'PascalCase'],
             ['Path Case', 'path/case'],
             ['Snake Case', 'snake_case'],
@@ -99,7 +99,7 @@ trait ChangeCaseTestProvider
             ['CAMEL_CASE', 'CAMELCase'],
             ['CAPITAL_CASE', 'Capital Case'],
             ['DOT_CASE', 'dot.case'],
-            ['SPINAL_CASE', 'spinal-case'],
+            ['KEBAB_CASE', 'kebab-case'],
             ['PASCAL_CASE', 'PascalCase'],
             ['PATH_CASE', 'path/case'],
             ['SNAKE_CASE', 'snake_case'],
@@ -115,7 +115,7 @@ trait ChangeCaseTestProvider
             ['camel.case', 'CAMELCase'],
             ['capital.case', 'Capital Case'],
             ['constant.case', 'CONSTANT_CASE'],
-            ['spinal.case', 'spinal-case'],
+            ['kebab.case', 'kebab-case'],
             ['pascal.case', 'PascalCase'],
             ['path.case', 'path/case'],
             ['snake.case', 'snake_case'],
@@ -136,6 +136,21 @@ trait ChangeCaseTestProvider
         ];
     }
 
+    public function kebabCaseProvider()
+    {
+        return [
+            ['string', 'string'],
+            ['camel-case', 'camelCase'],
+            ['camel-case', 'CAMELCase'],
+            ['capital-case', 'Capital Case'],
+            ['constant-case', 'CONSTANT_CASE'],
+            ['dot-case', 'dot.case'],
+            ['path-case', 'path/case'],
+            ['snake-case', 'snake_case'],
+            ['version-1-2-10', 'version 1.2.10'],
+        ];
+    }
+
     public function pascalCaseProvider()
     {
         return [
@@ -145,7 +160,7 @@ trait ChangeCaseTestProvider
             ['CapitalCase', 'Capital Case'],
             ['ConstantCase', 'CONSTANT_CASE'],
             ['DotCase', 'dot.case'],
-            ['SpinalCase', 'spinal-case'],
+            ['KebabCase', 'kebab-case'],
             ['PathCase', 'path/case'],
             ['SnakeCase', 'snake_case'],
             ['Version1210', 'version 1.2.10'],
@@ -161,7 +176,7 @@ trait ChangeCaseTestProvider
             ['capital/case', 'Capital Case'],
             ['constant/case', 'CONSTANT_CASE'],
             ['dot/case', 'dot.case'],
-            ['spinal/case', 'spinal-case'],
+            ['kebab/case', 'kebab-case'],
             ['pascal/case', 'PascalCase'],
             ['snake/case', 'snake_case'],
             ['version/1/2/10', 'version 1.2.10'],
@@ -177,7 +192,7 @@ trait ChangeCaseTestProvider
             ['Capital case', 'Capital Case'],
             ['Constant case', 'CONSTANT_CASE'],
             ['Dot case', 'dot.case'],
-            ['Spinal case', 'spinal-case'],
+            ['Kebab case', 'kebab-case'],
             ['Pascal case', 'PascalCase'],
             ['Path case', 'path/case'],
             ['Snake case', 'snake_case'],
@@ -195,25 +210,10 @@ trait ChangeCaseTestProvider
             ['constant_case', 'CONSTANT_CASE'],
             ['dot_case', 'dot.case'],
             ['path_case', 'path/case'],
-            ['spinal_case', 'spinal-case'],
+            ['kebab_case', 'kebab-case'],
             ['version_1_2_10', 'version 1.2.10'],
             ['version_1_21_0', 'version 1.21.0'],
             ['__typename', '__typename'],
-        ];
-    }
-
-    public function spinalCaseProvider()
-    {
-        return [
-            ['string', 'string'],
-            ['camel-case', 'camelCase'],
-            ['camel-case', 'CAMELCase'],
-            ['capital-case', 'Capital Case'],
-            ['constant-case', 'CONSTANT_CASE'],
-            ['dot-case', 'dot.case'],
-            ['path-case', 'path/case'],
-            ['snake-case', 'snake_case'],
-            ['version-1-2-10', 'version 1.2.10'],
         ];
     }
 
