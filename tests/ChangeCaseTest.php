@@ -149,6 +149,21 @@ class ChangeCaseTest extends TestCase
         $this->assertSame($expected, ChangeCase::kebab($actual));
     }
 
+    /** @test */
+    public function kebabCaseWithOpt()
+    {
+        $options = ['separateNum' => true];
+
+        $this->assertSame(
+            'version-v-1-2-10',
+            ChangeCase::kebab('version v1.2.10', $options)
+        );
+        $this->assertSame(
+            'foo-123-bar',
+            ChangeCase::kebab('Foo123Bar', $options)
+        );
+    }
+
     /**
      * @test
      * @dataProvider pascalCaseProvider
@@ -227,20 +242,7 @@ class ChangeCaseTest extends TestCase
         );
     }
 
-    /** @test */
-    public function spinalCaseWithOpt()
-    {
-        $options = ['separateNum' => true];
 
-        $this->assertSame(
-            'version-v-1-2-10',
-            ChangeCase::spinal('version v1.2.10', $options)
-        );
-        $this->assertSame(
-            'foo-123-bar',
-            ChangeCase::spinal('Foo123Bar', $options)
-        );
-    }
 
     /**
      * @test
