@@ -204,7 +204,7 @@ class ChangeCase
     }
 
     /**
-     * Transform a string into title case following English rules.
+     * Convert the given string to title case.
      */
     public static function title(string $str): string
     {
