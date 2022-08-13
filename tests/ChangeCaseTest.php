@@ -266,18 +266,6 @@ class ChangeCaseTest extends TestCase
         $this->assertSame($expected, ChangeCase::swap($actual));
     }
 
-    /**
-     * @test
-     * @dataProvider titleCaseProvider
-     *
-     * @param mixed $actual
-     * @param mixed $expected
-     */
-    public function title($actual, $expected)
-    {
-        $this->assertSame($expected, ChangeCase::title($actual));
-    }
-
     /** @test */
     public function title()
     {
