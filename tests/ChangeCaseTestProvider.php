@@ -136,6 +136,46 @@ trait ChangeCaseTestProvider
         ];
     }
 
+    public function headlineCaseProvider()
+    {
+        return [
+            ['', ''],
+            ['Test', 'test'],
+            ['Test String', 'test string'],
+            ['Test String', 'Test String'],
+            ['Test V2', 'TestV2'],
+            ['Version 1.2.10', 'version 1.2.10'],
+            ['Version 1.21.0', 'version 1.21.0'],
+
+            ['Jefferson Costella', 'jefferson costella'],
+            ['Jefferson Costella', 'jefFErson coSTella'],
+            ['Jefferson Costella Uses Laravel', 'jefferson_costella uses-_Laravel'],
+            ['Jefferson Costella Uses Laravel', 'jefferson_costella uses__Laravel'],
+
+            ['Laravel P H P Framework', 'laravel_p_h_p_framework'],
+            ['Laravel P H P Framework', 'laravel _p _h _p _framework'],
+            ['Laravel Php Framework', 'laravel_php_framework'],
+            ['Laravel Ph P Framework', 'laravel-phP-framework'],
+            ['Laravel Php Framework', 'laravel  -_-  php   -_-   framework   '],
+
+            ['Foo Bar', 'fooBar'],
+            ['Foo Bar', 'foo_bar'],
+            ['Foo Bar Baz', 'foo-barBaz'],
+            ['Foo Bar Baz', 'foo-bar_baz'],
+
+            ['Öffentliche Überraschungen', 'öffentliche-überraschungen'],
+            ['Öffentliche Überraschungen', '-_öffentliche_überraschungen_-'],
+            ['Öffentliche Überraschungen', '-öffentliche überraschungen'],
+
+            ['Sind Öde Und So', 'sindÖdeUndSo'],
+
+            ['Orwell 1984', 'orwell 1984'],
+            ['Orwell 1984', 'orwell   1984'],
+            ['Orwell 1984', '-orwell-1984 -'],
+            ['Orwell 1984', ' orwell_- 1984 '],
+        ];
+    }
+
     public function kebabCaseProvider()
     {
         return [

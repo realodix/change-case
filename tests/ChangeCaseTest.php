@@ -139,6 +139,18 @@ class ChangeCaseTest extends TestCase
 
     /**
      * @test
+     * @dataProvider headlineCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
+     */
+    public function headline($expected, $actual)
+    {
+        $this->assertSame($expected, ChangeCase::headline($actual));
+    }
+
+    /**
+     * @test
      * @dataProvider kebabCaseProvider
      *
      * @param mixed $expected
@@ -241,8 +253,6 @@ class ChangeCaseTest extends TestCase
             ChangeCase::snake('Foo123Bar', $options)
         );
     }
-
-
 
     /**
      * @test
