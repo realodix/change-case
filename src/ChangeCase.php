@@ -44,6 +44,7 @@ class ChangeCase
             'splitNumRx'  => $splitNumRx,
             'stripRx'     => $stripRx,
             'separateNum' => false,
+            'callback'    => 'mb_strtolower',
         ];
 
         $splitRx = $opt['separateNum'] ? $opt['splitNumRx'] : $opt['splitRx'];
@@ -66,7 +67,7 @@ class ChangeCase
 
         $slice = UTF8::str_slice($result, $start, $end);
         $split = explode(' ', $slice);
-        $toLowerCase = array_map('mb_strtolower', $split);
+        $toLowerCase = array_map($opt['callback'], $split);
 
         return implode($opt['delimiter'], $toLowerCase);
     }
@@ -115,6 +116,25 @@ class ChangeCase
             fn (array $matches) => mb_strtoupper($matches[0]),
             self::no($str, $opt += ['delimiter' => '-'])
         );
+    }
+
+    /**
+     * Transform into a space separated string of capitalized words.
+     */
+    public static function headline(string $str): string
+    {
+        $parts = explode(' ', $str);
+
+        $parts = count($parts) > 1
+            ? array_map([static::class, 'title'], $parts)
+            : array_map(
+                [static::class, 'title'],
+                preg_split('/(?=\p{Lu})/u', implode('_', $parts), -1, PREG_SPLIT_NO_EMPTY)
+            );
+
+        $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
+
+        return implode(' ', array_filter(explode('_', $collapsed)));
     }
 
     /**
@@ -186,8 +206,8 @@ class ChangeCase
     /**
      * Transform a string into title case following English rules.
      */
-    public static function title(string $str, array $ignore = []): string
+    public static function title(string $str): string
     {
-        return UTF8::str_titleize_for_humans($str, $ignore);
+        return mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
     }
 }

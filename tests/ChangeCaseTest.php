@@ -139,6 +139,18 @@ class ChangeCaseTest extends TestCase
 
     /**
      * @test
+     * @dataProvider headlineCaseProvider
+     *
+     * @param mixed $expected
+     * @param mixed $actual
+     */
+    public function headline($expected, $actual)
+    {
+        $this->assertSame($expected, ChangeCase::headline($actual));
+    }
+
+    /**
+     * @test
      * @dataProvider kebabCaseProvider
      *
      * @param mixed $expected
@@ -261,27 +273,27 @@ class ChangeCaseTest extends TestCase
      * @param mixed $actual
      * @param mixed $expected
      */
-    public function title($actual, $expected)
-    {
-        $this->assertSame($expected, ChangeCase::title($actual));
-    }
+    // public function title($actual, $expected)
+    // {
+    //     $this->assertSame($expected, ChangeCase::title($actual));
+    // }
 
     /** @test */
-    public function titleCaseWithIgnore()
-    {
-        $this->assertSame(
-            'Do re Mi',
-            ChangeCase::title('do re mi', ['re'])
-        );
+    // public function titleCaseWithIgnore()
+    // {
+    //     $this->assertSame(
+    //         'Do re Mi',
+    //         ChangeCase::title('do re mi', ['re'])
+    //     );
 
-        $this->assertSame(
-            'I Like to watch DVDs at Home',
-            ChangeCase::title(
-                'i like to watch DVDs at home',
-                ['watch']
-            )
-        );
-    }
+    //     $this->assertSame(
+    //         'I Like to watch DVDs at Home',
+    //         ChangeCase::title(
+    //             'i like to watch DVDs at home',
+    //             ['watch']
+    //         )
+    //     );
+    // }
 
     /** @test */
     public function unicode()

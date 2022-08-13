@@ -136,6 +136,19 @@ trait ChangeCaseTestProvider
         ];
     }
 
+    public function headlineCaseProvider()
+    {
+        return [
+            ['', ''],
+            ['Test', 'test'],
+            ['Test String', 'test string'],
+            ['Test String', 'Test String'],
+            ['Test V2', 'TestV2'],
+            ['Version 1.2.10', 'version 1.2.10'],
+            ['Version 1.21.0', 'version 1.21.0'],
+        ];
+    }
+
     public function kebabCaseProvider()
     {
         return [
