@@ -111,7 +111,7 @@ ChangeCase::header('test string');
 
 #### Head Line Case
 
-> Transform a strings delimited by casing, hyphens, or underscores into a space delimited string with each word's first letter capitalized:
+> Transform a strings delimited by casing, hyphens, or underscores into a space delimited string with each word's first letter capitalized.
 
 ```php
 ChangeCase::headline('test string');
