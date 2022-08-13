@@ -254,8 +254,6 @@ class ChangeCaseTest extends TestCase
         );
     }
 
-
-
     /**
      * @test
      * @dataProvider swapCaseProvider
