@@ -198,11 +198,7 @@ ChangeCase::swap('Test String');
 
 #### titleCase
 
-> Transform a string into title case following English rules.
-
-`title(string $string, array $ignore = [])`
-
-⚠️ Unfortunately, currently `title()` does not support unicode characters (E.g. Nonspacing Mark).
+> Transform the given string to `Title Case`:
 
 ```php
 ChangeCase::title('a simple test');

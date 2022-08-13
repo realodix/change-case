@@ -184,10 +184,10 @@ class ChangeCase
     }
 
     /**
-     * Transform a string into title case following English rules.
+     * Convert the given string to title case.
      */
-    public static function title(string $str, array $ignore = []): string
+    public static function title(string $str): string
     {
-        return UTF8::str_titleize_for_humans($str, $ignore);
+        return mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
     }
 }
