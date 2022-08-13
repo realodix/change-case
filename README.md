@@ -27,6 +27,7 @@ use Realodix\ChangeCase\ChangeCase;
 - [`CONSTANT_CASE`](#constant_case)
 - [`dot.case`](#dotcase)
 - [`Header-Case`](#header-case)
+- [`Head Line Case`](#head-line-case)
 - [`kebab-case`](#kebab-case)
 - [`no case`](#no-case)
 - [`PascalCase`](#pascalcase)
@@ -108,7 +109,7 @@ ChangeCase::header('test string');
 // 'Test-String'
 ```
 
-#### Header-Case
+#### Head Line Case
 
 > Transform a strings delimited by casing, hyphens, or underscores into a space delimited string with each word's first letter capitalized:
 
