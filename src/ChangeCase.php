@@ -73,7 +73,8 @@ class ChangeCase
     }
 
     /**
-     * Transform into a string with the separator denoted by the next word capitalized.
+     * Transform into a string with the separator denoted by the next word
+     * capitalized.
      */
     public static function camel(string $str, array $opt = []): string
     {
@@ -172,7 +173,8 @@ class ChangeCase
     }
 
     /**
-     * Transform into a lower case with spaces between words, then capitalize the string.
+     * Transform into a lower case with spaces between words, then capitalize
+     * the string.
      */
     public static function sentence(string $str): string
     {
@@ -195,8 +197,8 @@ class ChangeCase
     }
 
     /**
-     * Transform a string by swapping every character from upper to lower case, or lower
-     * to upper case.
+     * Transform a string by swapping every character from upper to lower case,
+     * or lower to upper case.
      */
     public static function swap(string $str): string
     {
