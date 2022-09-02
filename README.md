@@ -43,7 +43,6 @@ Every method that gets 💡 flag, they can support option
 
 - `delimiter`: (string) This character separates each chunk of data within the text string.
 - `splitRx`: (RegExp) Used to split into word segments.
-- `splitNumRx`: (RegExp) Used to split numbers.
 - `stripRx`: (RegExp) Used to remove extraneous characters.
 - `separateNum`: (bool) Used to separate numbers or not.
 
