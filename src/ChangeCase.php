@@ -41,12 +41,11 @@ class ChangeCase
         $opt += [
             'delimiter'   => ' ',
             'splitRx'     => $splitRx,
-            'splitNumRx'  => $splitNumRx,
             'stripRx'     => $stripRx,
             'separateNum' => false,
         ];
 
-        $splitRx = $opt['separateNum'] ? $opt['splitNumRx'] : $opt['splitRx'];
+        $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
 
         $result = preg_replace(
             $opt['stripRx'],
