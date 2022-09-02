@@ -63,11 +63,15 @@ class ChangeCase
             $end--;
         }
 
-        $slice = UTF8::str_slice($result, $start, $end);
-        $split = explode(' ', $slice);
-        $toLowerCase = array_map('mb_strtolower', $split);
+        $toLowerCase = implode(
+            $opt['delimiter'],
+            array_map(
+                'mb_strtolower',
+                explode(' ', UTF8::str_slice($result, $start, $end))
+            )
+        );
 
-        return implode($opt['delimiter'], $toLowerCase);
+        return $toLowerCase;
     }
 
     /**
