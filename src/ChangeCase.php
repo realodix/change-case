@@ -41,13 +41,11 @@ class ChangeCase
         $opt += [
             'delimiter'   => ' ',
             'splitRx'     => $splitRx,
-            'splitNumRx'  => $splitNumRx,
             'stripRx'     => $stripRx,
             'separateNum' => false,
-            'callback'    => 'mb_strtolower',
         ];
 
-        $splitRx = $opt['separateNum'] ? $opt['splitNumRx'] : $opt['splitRx'];
+        $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
 
         $result = preg_replace(
             $opt['stripRx'],
@@ -67,7 +65,7 @@ class ChangeCase
 
         $slice = UTF8::str_slice($result, $start, $end);
         $split = explode(' ', $slice);
-        $toLowerCase = array_map($opt['callback'], $split);
+        $toLowerCase = array_map('mb_strtolower', $split);
 
         return implode($opt['delimiter'], $toLowerCase);
     }
