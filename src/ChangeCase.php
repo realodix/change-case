@@ -2,10 +2,29 @@
 
 namespace Realodix\ChangeCase;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use voku\helper\UTF8;
 
 class ChangeCase
 {
+    /**
+     * The default options for the methods.
+     *
+     * @return array
+     */
+    public static function options(array $opt = [])
+    {
+        $resolver = new OptionsResolver;
+        $resolver->setDefaults([
+            'delimiter'   => ' ',
+            'splitRx'     => [],
+            'stripRx'     => [],
+            'separateNum' => false,
+        ]);
+
+        return $resolver->resolve($opt);
+    }
+
     /**
      * Transform into a lower cased string with spaces between words.
      *
