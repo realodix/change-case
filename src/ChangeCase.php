@@ -136,7 +136,7 @@ class ChangeCase
 
         $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
 
-        return implode(' ', array_filter(explode('_', $collapsed)));
+        return collect(explode('_', $collapsed))->filter()->implode(' ');
     }
 
     /**
