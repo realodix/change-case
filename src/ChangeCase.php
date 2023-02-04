@@ -7,20 +7,48 @@ use voku\helper\UTF8;
 
 class ChangeCase
 {
+    const ALPHA_RX = '\p{L}|\p{M}';
+
+    const NUM_RX = '\p{N}';
+
     /**
      * The default options for the methods.
+     *
+     * ### Options
+     * - delimiter: (string) This character separates each chunk of data within the text string.
+     * - splitRx: (RegExp) Used to split into word segments.
+     * - stripRx: (RegExp) Used to remove extraneous characters.
+     * - separateNum: (bool) Used to separate numbers or not.
      *
      * @return array
      */
     public static function options(array $opt = [])
     {
+        $alphaRx = self::ALPHA_RX;
+        $numRx = self::NUM_RX;
+        $loCharRx = '\p{Ll}|\p{M}';
+        $upCharRx = '\p{Lu}|\p{M}';
+
+        // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
+        $splitRx = [
+            '/(['.$loCharRx.$numRx.'])(['.$upCharRx.'])/u',
+            '/(['.$upCharRx.'])(['.$upCharRx.']['.$loCharRx.'])/u',
+        ];
+
+        // Remove all non-word characters
+        $stripRx = '/[^'.$alphaRx.$numRx.']+/ui';
+
         $resolver = new OptionsResolver;
         $resolver->setDefaults([
             'delimiter'   => ' ',
-            'splitRx'     => '',
-            'stripRx'     => '',
+            'splitRx'     => $splitRx,
+            'stripRx'     => $stripRx,
             'separateNum' => false,
         ]);
+        $resolver->setAllowedTypes('delimiter', 'string')
+            ->setAllowedTypes('splitRx', ['string', 'string[]'])
+            ->setAllowedTypes('stripRx', ['string', 'string[]'])
+            ->setAllowedTypes('separateNum', 'bool');
 
         return $resolver->resolve($opt);
     }
@@ -36,32 +64,13 @@ class ChangeCase
      */
     public static function no(string $value, array $opt = []): string
     {
-        $alphaRx = '\p{L}|\p{M}';
-        $loCharRx = '\p{Ll}|\p{M}';
-        $upCharRx = '\p{Lu}|\p{M}';
-        $numRx = '\p{N}';
-
-        // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-        $splitRx = [
-            '/(['.$loCharRx.$numRx.'])(['.$upCharRx.'])/u',
-            '/(['.$upCharRx.'])(['.$upCharRx.']['.$loCharRx.'])/u',
-        ];
+        $opt = self::options($opt);
 
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumRx = array_merge(
-            $splitRx,
-            ['/(['.$numRx.'])(['.$alphaRx.'])/u', '/(['.$alphaRx.'])(['.$numRx.'])/u']
-        );
-
-        // Remove all non-word characters
-        $stripRx = '/[^'.$alphaRx.$numRx.']+/ui';
-
-        $opt += [
-            'delimiter'   => ' ',
-            'splitRx'     => $splitRx,
-            'stripRx'     => $stripRx,
-            'separateNum' => false,
-        ];
+        $splitNumRx = collect(
+            ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
+                '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
+        )->merge($opt['splitRx'])->all();
 
         $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
 
@@ -81,15 +90,11 @@ class ChangeCase
             $end--;
         }
 
-        $toLowerCase = implode(
-            $opt['delimiter'],
-            array_map(
-                'mb_strtolower',
-                explode(' ', UTF8::str_slice($result, $start, $end))
-            )
-        );
+        $data = collect(explode(' ', UTF8::str_slice($result, $start, $end)))
+            ->map(fn ($item) => mb_strtolower($item)) // Convert to lower case.
+            ->implode($opt['delimiter']);
 
-        return $toLowerCase;
+        return $data;
     }
 
     /**
@@ -155,7 +160,7 @@ class ChangeCase
 
         $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
 
-        return implode(' ', array_filter(explode('_', $collapsed)));
+        return collect(explode('_', $collapsed))->filter()->implode(' ');
     }
 
     /**
