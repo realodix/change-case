@@ -160,7 +160,7 @@ class ChangeCase
      */
     public static function pascal(string $str, array $opt = []): string
     {
-        $value = UTF8::ucwords(self::no($str, $opt));
+        $value = self::headline(self::no($str, $opt));
 
         return str_ireplace(' ', '', $value);
     }
