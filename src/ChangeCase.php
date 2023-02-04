@@ -84,11 +84,9 @@ class ChangeCase
             $end--;
         }
 
-        $data = collect(explode(' ', UTF8::str_slice($result, $start, $end)))
+        return collect(explode(' ', UTF8::str_slice($result, $start, $end)))
             ->map(fn ($item) => mb_strtolower($item)) // Convert to lower case.
             ->implode($opt['delimiter']);
-
-        return $data;
     }
 
     /**
