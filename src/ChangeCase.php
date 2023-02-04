@@ -147,10 +147,7 @@ class ChangeCase
 
         $parts = count($parts) > 1
             ? array_map([static::class, 'title'], $parts)
-            : array_map(
-                [static::class, 'title'],
-                preg_split('/(?=\p{Lu})/u', implode('_', $parts), -1, PREG_SPLIT_NO_EMPTY)
-            );
+            : array_map([static::class, 'title'], self::ucsplit(implode('_', $parts)));
 
         $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
 
@@ -231,5 +228,23 @@ class ChangeCase
     public static function title(string $str): string
     {
         return mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
+    }
+
+    /**
+     * Split a string into pieces by uppercase characters.
+     *
+     * Example:
+     * - "FooBar" => ["Foo", "Bar"]
+     * - "Foo_Bar" => ["Foo_", "Bar"]
+     * - "Foo_B_a_r_baz" => ["Foo_", "B_a_r_baz"]
+     * - "fooBARBaz" => ["foo", "B", "A", "R", "Baz"]
+     * - "Foo-baR-baz" => ["Foo-ba", "R-baz"]
+     *
+     * @param string $string
+     * @return string[]
+     */
+    private static function ucsplit($string)
+    {
+        return preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
     }
 }
