@@ -62,15 +62,9 @@ class ChangeCase
             $end--;
         }
 
-        $toLowerCase = implode(
-            $opt['delimiter'],
-            array_map(
-                'mb_strtolower',
-                explode(' ', UTF8::str_slice($result, $start, $end))
-            )
-        );
-
-        return $toLowerCase;
+        return collect(explode(' ', UTF8::str_slice($result, $start, $end)))
+            ->map(fn ($item) => mb_strtolower($item)) // Convert to lower case.
+            ->implode($opt['delimiter']);
     }
 
     /**
@@ -136,7 +130,7 @@ class ChangeCase
 
         $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
 
-        return implode(' ', array_filter(explode('_', $collapsed)));
+        return collect(explode('_', $collapsed))->filter()->implode(' ');
     }
 
     /**
