@@ -7,7 +7,7 @@ class Helper
     /**
      * Make a string's first character lowercase.
      *
-     * @param  string  $string
+     * @param string $string
      * @return string
      */
     public static function lcfirst($string)
@@ -48,5 +48,30 @@ class Helper
     public static function ucsplit($string)
     {
         return preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
+    }
+
+    /**
+     * Returns the substring beginning at $start, and up to, but not including
+     * the index specified by $end. If $end is omitted, the function extracts
+     * the remaining string. If $end is negative, it is computed from the end
+     * of the string.
+     *
+     * @param int      $start Initial index from which to begin extraction.
+     * @param int|null $end   Index at which to end extraction.
+     * @return string
+     */
+    public static function str_slice(string $str, int $start, int $end = null)
+    {
+        if ($end === null) {
+            $length = (int) \mb_strlen($str);
+        } elseif ($end >= 0 && $end <= $start) {
+            return '';
+        } elseif ($end < 0) {
+            $length = (int) \mb_strlen($str) + $end - $start;
+        } else {
+            $length = $end - $start;
+        }
+
+        return \mb_substr($str, $start, $length);
     }
 }

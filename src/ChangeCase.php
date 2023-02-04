@@ -66,7 +66,7 @@ class ChangeCase
             $opt['delimiter'],
             array_map(
                 'mb_strtolower',
-                explode(' ', UTF8::str_slice($result, $start, $end))
+                explode(' ', Helper::str_slice($result, $start, $end))
             )
         );
 
@@ -188,7 +188,7 @@ class ChangeCase
 
         return self::no($str, $opt += [
             'delimiter' => '_',
-            'stripRx'   => '/(?!^_*)[^'.$alphaNumRx.']+/ui'
+            'stripRx'   => '/(?!^_*)[^'.$alphaNumRx.']+/ui',
         ]);
     }
 
