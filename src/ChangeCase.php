@@ -2,7 +2,7 @@
 
 namespace Realodix\ChangeCase;
 
-use voku\helper\UTF8;
+use Realodix\ChangeCase\Support\Str;
 
 class ChangeCase
 {
@@ -66,7 +66,7 @@ class ChangeCase
             $opt['delimiter'],
             array_map(
                 'mb_strtolower',
-                explode(' ', UTF8::str_slice($result, $start, $end))
+                explode(' ', Str::str_slice($result, $start, $end))
             )
         );
 
@@ -79,7 +79,7 @@ class ChangeCase
      */
     public static function camel(string $str, array $opt = []): string
     {
-        return UTF8::lcfirst(self::pascal($str, $opt));
+        return Str::lcfirst(self::pascal($str, $opt));
     }
 
     /**
@@ -129,10 +129,7 @@ class ChangeCase
 
         $parts = count($parts) > 1
             ? array_map([static::class, 'title'], $parts)
-            : array_map(
-                [static::class, 'title'],
-                preg_split('/(?=\p{Lu})/u', implode('_', $parts), -1, PREG_SPLIT_NO_EMPTY)
-            );
+            : array_map([static::class, 'title'], Str::ucsplit(implode('_', $parts)));
 
         $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
 
@@ -179,7 +176,7 @@ class ChangeCase
      */
     public static function sentence(string $str): string
     {
-        return UTF8::ucfirst(self::no($str));
+        return Str::ucfirst(self::no($str));
     }
 
     /**
