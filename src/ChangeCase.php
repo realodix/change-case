@@ -55,24 +55,16 @@ class ChangeCase
 
     /**
      * Transform into a lower cased string with spaces between words.
-     *
-     * ### Options
-     * - delimiter: (string) This character separates each chunk of data within the text string.
-     * - splitRx: (RegExp) Used to split into word segments.
-     * - stripRx: (RegExp) Used to remove extraneous characters.
-     * - separateNum: (bool) Used to separate numbers or not.
      */
     public static function no(string $value, array $opt = []): string
     {
         $opt = self::options($opt);
 
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumRx = collect(
-            [
-                '/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
-                '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u',
-            ]
-        )->merge($opt['splitRx'])->all();
+        $splitNumRx = collect([
+            '/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
+            '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u',
+        ])->merge($opt['splitRx'])->all();
 
         $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
 
