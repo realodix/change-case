@@ -63,12 +63,11 @@ class Str
     public static function str_slice(string $str, int $start, int $end = null)
     {
         $length = $end - $start;
+
         if ($end === null) {
-            $length = (int) \mb_strlen($str);
+            $length = \mb_strlen($str);
         } elseif ($end >= 0 && $end <= $start) {
             return '';
-        } elseif ($end < 0) {
-            $length = (int) \mb_strlen($str) + $end - $start;
         }
 
         return \mb_substr($str, $start, $length);
