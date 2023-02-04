@@ -129,10 +129,7 @@ class ChangeCase
 
         $parts = count($parts) > 1
             ? array_map([static::class, 'title'], $parts)
-            : array_map(
-                [static::class, 'title'],
-                preg_split('/(?=\p{Lu})/u', implode('_', $parts), -1, PREG_SPLIT_NO_EMPTY)
-            );
+            : array_map([static::class, 'title'], Helper::ucsplit(implode('_', $parts)));
 
         $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
 
