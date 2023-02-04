@@ -174,6 +174,11 @@ class ChangeCaseTest extends TestCase
             'foo-123-bar',
             ChangeCase::kebab('Foo123Bar', $options)
         );
+
+        $this->assertSame(
+            'foo123.bar',
+            ChangeCase::kebab('Foo123Bar', ['delimiter' => '.'])
+        );
     }
 
     /**

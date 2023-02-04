@@ -173,6 +173,8 @@ trait ChangeCaseTestProvider
             ['Orwell 1984', 'orwell   1984'],
             ['Orwell 1984', '-orwell-1984 -'],
             ['Orwell 1984', ' orwell_- 1984 '],
+
+            ['Iñt Ërn Âti Ônà Liz Æti Øn', 'iñt ërn âTi ônà liz æti øn'],
         ];
     }
 
@@ -204,6 +206,7 @@ trait ChangeCaseTestProvider
             ['PathCase', 'path/case'],
             ['SnakeCase', 'snake_case'],
             ['Version1210', 'version 1.2.10'],
+            ['IñtËrnÂTiÔnàLizÆtiØn', 'iñt ërn âTi ônà liz æti øn'],
         ];
     }
 

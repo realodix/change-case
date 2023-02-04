@@ -2,8 +2,8 @@
 
 namespace Realodix\ChangeCase;
 
+use Realodix\ChangeCase\Support\Str;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use voku\helper\UTF8;
 
 class ChangeCase
 {
@@ -75,14 +75,14 @@ class ChangeCase
         // Trim the delimiter from around the output string.
         $start = 0;
         $end = mb_strlen($result);
-        while (UTF8::char_at($result, $start) === ' ') {
+        while (mb_substr($result, $start, 1) === ' ') {
             $start++;
         }
-        while (UTF8::char_at($result, $end - 1) === ' ') {
+        while (mb_substr($result, $end - 1, 1) === ' ') {
             $end--;
         }
 
-        return collect(explode(' ', UTF8::str_slice($result, $start, $end)))
+        return collect(explode(' ', Str::str_slice($result, $start, $end)))
             ->map(fn ($item) => mb_strtolower($item)) // Convert to lower case.
             ->implode($opt['delimiter']);
     }
@@ -93,7 +93,7 @@ class ChangeCase
      */
     public static function camel(string $str, array $opt = []): string
     {
-        return UTF8::lcfirst(self::pascal($str, $opt));
+        return Str::lcfirst(self::pascal($str, $opt));
     }
 
     /**
@@ -147,7 +147,7 @@ class ChangeCase
 
         $parts = count($parts) > 1
             ? array_map([static::class, 'title'], $parts)
-            : array_map([static::class, 'title'], self::ucsplit(implode('_', $parts)));
+            : array_map([static::class, 'title'], Str::ucsplit(implode('_', $parts)));
 
         $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
 
@@ -159,9 +159,7 @@ class ChangeCase
      */
     public static function kebab(string $str, array $opt = []): string
     {
-        $options = array_merge($opt, ['delimiter' => '-']);
-
-        return self::no($str, $options);
+        return self::no($str, $opt += ['delimiter' => '-']);
     }
 
     /**
@@ -177,7 +175,7 @@ class ChangeCase
      */
     public static function pascal(string $str, array $opt = []): string
     {
-        $value = UTF8::ucwords(self::no($str, $opt));
+        $value = self::headline(self::no($str, $opt));
 
         return str_ireplace(' ', '', $value);
     }
@@ -198,7 +196,7 @@ class ChangeCase
      */
     public static function sentence(string $str): string
     {
-        return UTF8::ucfirst(self::no($str));
+        return Str::ucfirst(self::no($str));
     }
 
     /**
@@ -207,10 +205,11 @@ class ChangeCase
     public static function snake(string $str, array $opt = []): string
     {
         $alphaNumRx = '\p{L}|\p{M}\p{N}';
-        $stripRx = '/(?!^_*)[^'.$alphaNumRx.']+/ui';
-        $options = array_merge($opt, ['delimiter' => '_', 'stripRx' => $stripRx]);
 
-        return self::no($str, $options);
+        return self::no($str, $opt += [
+            'delimiter' => '_',
+            'stripRx'   => '/(?!^_*)[^'.$alphaNumRx.']+/ui',
+        ]);
     }
 
     /**
@@ -228,23 +227,5 @@ class ChangeCase
     public static function title(string $str): string
     {
         return mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
-    }
-
-    /**
-     * Split a string into pieces by uppercase characters.
-     *
-     * Example:
-     * - "FooBar" => ["Foo", "Bar"]
-     * - "Foo_Bar" => ["Foo_", "Bar"]
-     * - "Foo_B_a_r_baz" => ["Foo_", "B_a_r_baz"]
-     * - "fooBARBaz" => ["foo", "B", "A", "R", "Baz"]
-     * - "Foo-baR-baz" => ["Foo-ba", "R-baz"]
-     *
-     * @param string $string
-     * @return string[]
-     */
-    private static function ucsplit($string)
-    {
-        return preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
     }
 }
