@@ -108,6 +108,8 @@ class ChangeCaseTest extends TestCase
     public function dotCaseWithOpt()
     {
         $this->assertSame('f.0.obar', ChangeCase::dot('f0obar', ['separateNum' => true]));
+        // Change default options
+        $this->assertSame('camel:case', ChangeCase::dot('camelCase', ['delimiter' => ':']));
     }
 
     /**
@@ -135,6 +137,9 @@ class ChangeCaseTest extends TestCase
             'Foo-123-Bar',
             ChangeCase::header('Foo123Bar', $options)
         );
+
+        // Change default options
+        $this->assertSame('Foo:bar', ChangeCase::header('FooBar', ['delimiter' => ':']));
     }
 
     /**
@@ -175,10 +180,8 @@ class ChangeCaseTest extends TestCase
             ChangeCase::kebab('Foo123Bar', $options)
         );
 
-        $this->assertSame(
-            'foo123.bar',
-            ChangeCase::kebab('Foo123Bar', ['delimiter' => '.'])
-        );
+        // Change default options
+        $this->assertSame('foo:bar', ChangeCase::kebab('FooBar', ['delimiter' => ':']));
     }
 
     /**
@@ -218,6 +221,9 @@ class ChangeCaseTest extends TestCase
             'foo/123/bar',
             ChangeCase::path('Foo123Bar', $options)
         );
+
+        // Change default options
+        $this->assertSame('foo:bar', ChangeCase::path('FooBar', ['delimiter' => ':']));
     }
 
     /**
@@ -257,6 +263,9 @@ class ChangeCaseTest extends TestCase
             'foo_123_bar',
             ChangeCase::snake('Foo123Bar', $options)
         );
+
+        // Change default options
+        $this->assertSame('foo:bar', ChangeCase::snake('FooBar', ['delimiter' => ':']));
     }
 
     /**
