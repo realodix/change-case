@@ -159,14 +159,6 @@ class ChangeCase
     }
 
     /**
-     * @deprecated Use kebab() instead
-     */
-    public static function spinal(string $str, array $opt = []): string
-    {
-        return self::kebab($str, $opt);
-    }
-
-    /**
      * Transform into a string of capitalized words without separators.
      */
     public static function pascal(string $str, array $opt = []): string
