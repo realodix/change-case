@@ -188,7 +188,7 @@ class ChangeCase
 
         return self::no($str, $opt += [
             'delimiter' => '_',
-            'stripRx' => '/(?!^_*)[^'.$alphaNumRx.']+/ui'
+            'stripRx'   => '/(?!^_*)[^'.$alphaNumRx.']+/ui'
         ]);
     }
 
