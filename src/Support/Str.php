@@ -51,8 +51,8 @@ class Str
     }
 
     /**
-     * Returns the substring beginning at $start, and up to, but not including
-     * the index specified by $end. If $end is omitted, the function extracts
+     * Extracts a section of a string and returns it as a new string, without
+     * modifying the original string. If $end is omitted, the function extracts
      * the remaining string. If $end is negative, it is computed from the end
      * of the string.
      *
@@ -62,14 +62,13 @@ class Str
      */
     public static function str_slice(string $str, int $start, int $end = null)
     {
+        $length = $end - $start;
         if ($end === null) {
             $length = (int) \mb_strlen($str);
         } elseif ($end >= 0 && $end <= $start) {
             return '';
         } elseif ($end < 0) {
             $length = (int) \mb_strlen($str) + $end - $start;
-        } else {
-            $length = $end - $start;
         }
 
         return \mb_substr($str, $start, $length);
