@@ -22,7 +22,7 @@ class ChangeCase
      *
      * @return array
      */
-    public static function options(array $opt = [])
+    private static function options(array $opt = [])
     {
         $alphaRx = self::ALPHA_RX;
         $numRx = self::NUM_RX;
