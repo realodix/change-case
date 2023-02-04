@@ -119,9 +119,7 @@ class ChangeCase
      */
     public static function dot(string $str, array $opt = []): string
     {
-        $options = array_merge($opt, ['delimiter' => '.']);
-
-        return self::no($str, $options);
+        return self::no($str, $opt += ['delimiter' => '.']);
     }
 
     /**
@@ -129,12 +127,10 @@ class ChangeCase
      */
     public static function header(string $str, array $opt = []): string
     {
-        $options = array_merge($opt, ['delimiter' => '-']);
-
         return preg_replace_callback(
             '/^.|-./u',
             fn (array $matches) => mb_strtoupper($matches[0]),
-            self::no($str, $options)
+            self::no($str, $opt += ['delimiter' => '-'])
         );
     }
 
@@ -185,9 +181,7 @@ class ChangeCase
      */
     public static function path(string $str, array $opt = []): string
     {
-        $options = array_merge($opt, ['delimiter' => '/']);
-
-        return self::no($str, $options);
+        return self::no($str, $opt += ['delimiter' => '/']);
     }
 
     /**
