@@ -79,7 +79,7 @@ class ChangeCase
      */
     public static function camel(string $str, array $opt = []): string
     {
-        return UTF8::lcfirst(self::pascal($str, $opt));
+        return Helper::lcfirst(self::pascal($str, $opt));
     }
 
     /**
@@ -176,7 +176,7 @@ class ChangeCase
      */
     public static function sentence(string $str): string
     {
-        return UTF8::ucfirst(self::no($str));
+        return Helper::ucfirst(self::no($str));
     }
 
     /**
