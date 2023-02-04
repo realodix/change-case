@@ -2,47 +2,67 @@
 
 namespace Realodix\ChangeCase;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use voku\helper\UTF8;
 
 class ChangeCase
 {
+    const ALPHA_RX = '\p{L}|\p{M}';
+
+    const NUM_RX = '\p{N}';
+
     /**
-     * Transform into a lower cased string with spaces between words.
+     * The default options for the methods.
      *
      * ### Options
      * - delimiter: (string) This character separates each chunk of data within the text string.
      * - splitRx: (RegExp) Used to split into word segments.
      * - stripRx: (RegExp) Used to remove extraneous characters.
      * - separateNum: (bool) Used to separate numbers or not.
+     *
+     * @return array
      */
-    public static function no(string $value, array $opt = []): string
+    private static function options(array $opt = [])
     {
-        $alphaRx = '\p{L}|\p{M}';
         $loCharRx = '\p{Ll}|\p{M}';
         $upCharRx = '\p{Lu}|\p{M}';
-        $numRx = '\p{N}';
 
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRx = [
-            '/(['.$loCharRx.$numRx.'])(['.$upCharRx.'])/u',
+            '/(['.$loCharRx.self::NUM_RX.'])(['.$upCharRx.'])/u',
             '/(['.$upCharRx.'])(['.$upCharRx.']['.$loCharRx.'])/u',
         ];
 
-        // Regex to split numbers ("13test" -> "13 test")
-        $splitNumRx = array_merge(
-            $splitRx,
-            ['/(['.$numRx.'])(['.$alphaRx.'])/u', '/(['.$alphaRx.'])(['.$numRx.'])/u']
-        );
-
         // Remove all non-word characters
-        $stripRx = '/[^'.$alphaRx.$numRx.']+/ui';
+        $stripRx = '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui';
 
-        $opt += [
+        $resolver = new OptionsResolver;
+        $resolver->setDefaults([
             'delimiter'   => ' ',
             'splitRx'     => $splitRx,
             'stripRx'     => $stripRx,
             'separateNum' => false,
-        ];
+        ]);
+        $resolver->setAllowedTypes('delimiter', 'string')
+            ->setAllowedTypes('splitRx', ['string', 'string[]'])
+            ->setAllowedTypes('stripRx', ['string', 'string[]'])
+            ->setAllowedTypes('separateNum', 'bool');
+
+        return $resolver->resolve($opt);
+    }
+
+    /**
+     * Transform into a lower cased string with spaces between words.
+     */
+    public static function no(string $value, array $opt = []): string
+    {
+        $opt = self::options($opt);
+
+        // Regex to split numbers ("13test" -> "13 test")
+        $splitNumRx = collect([
+            '/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
+            '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u',
+        ])->merge($opt['splitRx'])->all();
 
         $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
 
@@ -99,7 +119,9 @@ class ChangeCase
      */
     public static function dot(string $str, array $opt = []): string
     {
-        return self::no($str, $opt += ['delimiter' => '.']);
+        $options = array_merge($opt, ['delimiter' => '.']);
+
+        return self::no($str, $options);
     }
 
     /**
@@ -107,10 +129,12 @@ class ChangeCase
      */
     public static function header(string $str, array $opt = []): string
     {
+        $options = array_merge($opt, ['delimiter' => '-']);
+
         return preg_replace_callback(
             '/^.|-./u',
             fn (array $matches) => mb_strtoupper($matches[0]),
-            self::no($str, $opt += ['delimiter' => '-'])
+            self::no($str, $options)
         );
     }
 
@@ -138,7 +162,9 @@ class ChangeCase
      */
     public static function kebab(string $str, array $opt = []): string
     {
-        return self::no($str, $opt += ['delimiter' => '-']);
+        $options = array_merge($opt, ['delimiter' => '-']);
+
+        return self::no($str, $options);
     }
 
     /**
@@ -164,7 +190,9 @@ class ChangeCase
      */
     public static function path(string $str, array $opt = []): string
     {
-        return self::no($str, $opt += ['delimiter' => '/']);
+        $options = array_merge($opt, ['delimiter' => '/']);
+
+        return self::no($str, $options);
     }
 
     /**
@@ -182,13 +210,10 @@ class ChangeCase
     public static function snake(string $str, array $opt = []): string
     {
         $alphaNumRx = '\p{L}|\p{M}\p{N}';
-
         $stripRx = '/(?!^_*)[^'.$alphaNumRx.']+/ui';
+        $options = array_merge($opt, ['delimiter' => '_', 'stripRx' => $stripRx]);
 
-        return self::no(
-            $str,
-            $opt += ['delimiter' => '_', 'stripRx' => $stripRx]
-        );
+        return self::no($str, $options);
     }
 
     /**
