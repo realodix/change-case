@@ -10,11 +10,10 @@ class ChangeCase
      * Transform into a lower cased string with spaces between words.
      *
      * ### Options
-     * - delimiter          (String) Used between words
-     * - splitRegexp        (RegExp) Used to split into word segments
-     * - splitNumberRegexp  (RegExp) Used to split numbers
-     * - stripRegexp        (RegExp) Used to remove extraneous characters
-     * - separateNumber     (Bool)   Used to separate numbers or not
+     * - delimiter: (string) This character separates each chunk of data within the text string.
+     * - splitRx: (RegExp) Used to split into word segments.
+     * - stripRx: (RegExp) Used to remove extraneous characters.
+     * - separateNum: (bool) Used to separate numbers or not.
      */
     public static function no(string $value, array $opt = []): string
     {
