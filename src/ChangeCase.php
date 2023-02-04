@@ -68,8 +68,10 @@ class ChangeCase
 
         // Regex to split numbers ("13test" -> "13 test")
         $splitNumRx = collect(
-            ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
-                '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
+            [
+                '/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
+                '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u',
+            ]
         )->merge($opt['splitRx'])->all();
 
         $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
