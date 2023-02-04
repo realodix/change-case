@@ -6,7 +6,9 @@
     "authors": [{"name": "Budi Hermawan", "role": "Developer" }],
     "homepage": "https://github.com/realodix/change-case",
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
+        "illuminate/collections": "^9.50",
+        "symfony/options-resolver": "^6.0",
         "voku/portable-utf8": "^6.0"
     },
     "require-dev": {

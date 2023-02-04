@@ -298,4 +298,30 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('Ââ ⅰⅰ', ChangeCase::sentence('ÂÂ ⅠⅠ'));
         $this->assertSame('âÂ õÕ', ChangeCase::swap('Ââ Õõ'));
     }
+
+    /**
+     * Options with wrong parameters.
+     *
+     * @test
+     */
+    public function wrongOptionsParameter()
+    {
+        $this->expectException(\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException::class);
+        $this->expectExceptionMessage('The option "foo" does not exist');
+
+        ChangeCase::camel('Foo123Bar', ['foo' => 'bar']);
+    }
+
+    /**
+     * Options with wrong parameters value type.
+     *
+     * @test
+     */
+    public function wrongOptionsParameterValueType()
+    {
+        $this->expectException(\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "separateNum" with value "foo" is expected to be of type "bool"');
+
+        ChangeCase::camel('Foo123Bar', ['separateNum' => 'foo']);
+    }
 }
