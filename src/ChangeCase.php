@@ -24,19 +24,17 @@ class ChangeCase
      */
     private static function options(array $opt = [])
     {
-        $alphaRx = self::ALPHA_RX;
-        $numRx = self::NUM_RX;
         $loCharRx = '\p{Ll}|\p{M}';
         $upCharRx = '\p{Lu}|\p{M}';
 
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRx = [
-            '/(['.$loCharRx.$numRx.'])(['.$upCharRx.'])/u',
+            '/(['.$loCharRx.self::NUM_RX.'])(['.$upCharRx.'])/u',
             '/(['.$upCharRx.'])(['.$upCharRx.']['.$loCharRx.'])/u',
         ];
 
         // Remove all non-word characters
-        $stripRx = '/[^'.$alphaRx.$numRx.']+/ui';
+        $stripRx = '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui';
 
         $resolver = new OptionsResolver;
         $resolver->setDefaults([
@@ -121,7 +119,9 @@ class ChangeCase
      */
     public static function dot(string $str, array $opt = []): string
     {
-        return self::no($str, $opt += ['delimiter' => '.']);
+        $options = array_merge($opt, ['delimiter' => '.']);
+
+        return self::no($str, $options);
     }
 
     /**
@@ -129,10 +129,12 @@ class ChangeCase
      */
     public static function header(string $str, array $opt = []): string
     {
+        $options = array_merge($opt, ['delimiter' => '-']);
+
         return preg_replace_callback(
             '/^.|-./u',
             fn (array $matches) => mb_strtoupper($matches[0]),
-            self::no($str, $opt += ['delimiter' => '-'])
+            self::no($str, $options)
         );
     }
 
@@ -160,7 +162,9 @@ class ChangeCase
      */
     public static function kebab(string $str, array $opt = []): string
     {
-        return self::no($str, $opt += ['delimiter' => '-']);
+        $options = array_merge($opt, ['delimiter' => '-']);
+
+        return self::no($str, $options);
     }
 
     /**
@@ -186,7 +190,9 @@ class ChangeCase
      */
     public static function path(string $str, array $opt = []): string
     {
-        return self::no($str, $opt += ['delimiter' => '/']);
+        $options = array_merge($opt, ['delimiter' => '/']);
+
+        return self::no($str, $options);
     }
 
     /**
@@ -204,13 +210,10 @@ class ChangeCase
     public static function snake(string $str, array $opt = []): string
     {
         $alphaNumRx = '\p{L}|\p{M}\p{N}';
-
         $stripRx = '/(?!^_*)[^'.$alphaNumRx.']+/ui';
+        $options = array_merge($opt, ['delimiter' => '_', 'stripRx' => $stripRx]);
 
-        return self::no(
-            $str,
-            $opt += ['delimiter' => '_', 'stripRx' => $stripRx]
-        );
+        return self::no($str, $options);
     }
 
     /**
