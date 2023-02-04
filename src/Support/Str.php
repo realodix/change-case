@@ -1,8 +1,8 @@
 <?php
 
-namespace Realodix\ChangeCase;
+namespace Realodix\ChangeCase\Support;
 
-class Helper
+class Str
 {
     /**
      * Make a string's first character lowercase.
