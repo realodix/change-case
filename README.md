@@ -128,12 +128,12 @@ ChangeCase::headline('EmailNotificationSent');
 💡 Support [options](#options)
 
 ```php
-ChangeCase::spinal('test string');
+ChangeCase::kebab('test string');
 // 'test-string'
 
-ChangeCase::spinal('Foo123Bar');
+ChangeCase::kebab('Foo123Bar');
 // 'foo123-bar'
-ChangeCase::spinal('Foo123Bar', ['separateNum' => true]);
+ChangeCase::kebab('Foo123Bar', ['separateNum' => true]);
 // 'foo-123-bar'
 ```
 

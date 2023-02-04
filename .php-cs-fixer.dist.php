@@ -4,6 +4,10 @@ use Realodix\Relax\Config;
 use Realodix\Relax\Finder;
 
 $localRules = [
+    'native_function_invocation' => [
+        'include' => ['@internal'],
+    ],
+
     // Realodix
     'binary_operator_spaces' => [
         'operators' => [

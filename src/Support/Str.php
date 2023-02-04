@@ -12,8 +12,8 @@ class Str
      */
     public static function lcfirst($string)
     {
-        $str_p1 = mb_strtolower(mb_substr($string, 0, 1));
-        $str_p2 = mb_substr($string, 1);
+        $str_p1 = \mb_strtolower(\mb_substr($string, 0, 1));
+        $str_p2 = \mb_substr($string, 1);
 
         return $str_p1.$str_p2;
     }
@@ -26,8 +26,8 @@ class Str
      */
     public static function ucfirst($string)
     {
-        $str_p1 = mb_strtoupper(mb_substr($string, 0, 1));
-        $str_p2 = mb_substr($string, 1);
+        $str_p1 = \mb_strtoupper(\mb_substr($string, 0, 1));
+        $str_p2 = \mb_substr($string, 1);
 
         return $str_p1.$str_p2;
     }
@@ -47,7 +47,7 @@ class Str
      */
     public static function ucsplit($string)
     {
-        return preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
+        return \preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
     }
 
     /**
