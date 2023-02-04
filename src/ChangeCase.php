@@ -189,12 +189,10 @@ class ChangeCase
     {
         $alphaNumRx = '\p{L}|\p{M}\p{N}';
 
-        $stripRx = '/(?!^_*)[^'.$alphaNumRx.']+/ui';
-
-        return self::no(
-            $str,
-            $opt += ['delimiter' => '_', 'stripRx' => $stripRx]
-        );
+        return self::no($str, $opt += [
+            'delimiter' => '_',
+            'stripRx' => '/(?!^_*)[^'.$alphaNumRx.']+/ui'
+        ]);
     }
 
     /**
