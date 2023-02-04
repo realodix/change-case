@@ -29,7 +29,7 @@ class ChangeCase
         ];
 
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumRx = array_merge(
+        $splitNumRx = \array_merge(
             $splitRx,
             ['/(['.$numRx.'])(['.$alphaRx.'])/u', '/(['.$alphaRx.'])(['.$numRx.'])/u']
         );
@@ -46,27 +46,27 @@ class ChangeCase
 
         $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
 
-        $result = preg_replace(
+        $result = \preg_replace(
             $opt['stripRx'],
             $opt['delimiter'],
-            preg_replace($splitRx, '$1 $2', $value)
+            \preg_replace($splitRx, '$1 $2', $value)
         );
 
         // Trim the delimiter from around the output string.
         $start = 0;
-        $end = mb_strlen($result);
-        while (mb_substr($result, $start, 1) === ' ') {
+        $end = \mb_strlen($result);
+        while (\mb_substr($result, $start, 1) === ' ') {
             $start++;
         }
-        while (mb_substr($result, $end - 1, 1) === ' ') {
+        while (\mb_substr($result, $end - 1, 1) === ' ') {
             $end--;
         }
 
-        $toLowerCase = implode(
+        $toLowerCase = \implode(
             $opt['delimiter'],
-            array_map(
+            \array_map(
                 'mb_strtolower',
-                explode(' ', Str::str_slice($result, $start, $end))
+                \explode(' ', Str::str_slice($result, $start, $end))
             )
         );
 
@@ -87,9 +87,9 @@ class ChangeCase
      */
     public static function capital(string $str): string
     {
-        $strToUpper = fn (array $matches) => mb_strtoupper($matches[0]);
+        $strToUpper = fn (array $matches) => \mb_strtoupper($matches[0]);
 
-        return preg_replace_callback('/^.| ./u', $strToUpper, self::no($str));
+        return \preg_replace_callback('/^.| ./u', $strToUpper, self::no($str));
     }
 
     /**
@@ -97,7 +97,7 @@ class ChangeCase
      */
     public static function constant(string $str): string
     {
-        return mb_strtoupper(self::snake($str));
+        return \mb_strtoupper(self::snake($str));
     }
 
     /**
@@ -113,9 +113,9 @@ class ChangeCase
      */
     public static function header(string $str, array $opt = []): string
     {
-        return preg_replace_callback(
+        return \preg_replace_callback(
             '/^.|-./u',
-            fn (array $matches) => mb_strtoupper($matches[0]),
+            fn (array $matches) => \mb_strtoupper($matches[0]),
             self::no($str, $opt += ['delimiter' => '-'])
         );
     }
@@ -125,15 +125,15 @@ class ChangeCase
      */
     public static function headline(string $str): string
     {
-        $parts = explode(' ', $str);
+        $parts = \explode(' ', $str);
 
-        $parts = count($parts) > 1
-            ? array_map([static::class, 'title'], $parts)
-            : array_map([static::class, 'title'], Str::ucsplit(implode('_', $parts)));
+        $parts = \count($parts) > 1
+            ? \array_map([static::class, 'title'], $parts)
+            : \array_map([static::class, 'title'], Str::ucsplit(\implode('_', $parts)));
 
-        $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
+        $collapsed = \str_replace(['-', '_', ' '], '_', \implode('_', $parts));
 
-        return implode(' ', array_filter(explode('_', $collapsed)));
+        return \implode(' ', \array_filter(\explode('_', $collapsed)));
     }
 
     /**
@@ -159,7 +159,7 @@ class ChangeCase
     {
         $value = self::headline(self::no($str, $opt));
 
-        return str_ireplace(' ', '', $value);
+        return \str_ireplace(' ', '', $value);
     }
 
     /**
@@ -198,7 +198,7 @@ class ChangeCase
      */
     public static function swap(string $str): string
     {
-        return mb_strtolower($str) ^ mb_strtoupper($str) ^ $str;
+        return \mb_strtolower($str) ^ \mb_strtoupper($str) ^ $str;
     }
 
     /**
@@ -206,6 +206,6 @@ class ChangeCase
      */
     public static function title(string $str): string
     {
-        return mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
+        return \mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
     }
 }
