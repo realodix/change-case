@@ -55,10 +55,10 @@ class ChangeCase
         // Trim the delimiter from around the output string.
         $start = 0;
         $end = mb_strlen($result);
-        while (UTF8::char_at($result, $start) === ' ') {
+        while (mb_substr($result, $start, 1) === ' ') {
             $start++;
         }
-        while (UTF8::char_at($result, $end - 1) === ' ') {
+        while (mb_substr($result, $end - 1, 1) === ' ') {
             $end--;
         }
 
