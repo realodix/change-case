@@ -59,10 +59,10 @@ class ChangeCase
         $opt = self::options($opt);
 
         // Regex to split numbers ("13test" -> "13 test")
-        $splitNumRx = collect([
-            '/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
-            '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u',
-        ])->merge($opt['splitRx'])->all();
+        $splitNumRx = \array_merge(
+            (array) $opt['splitRx'],
+            ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
+        );
 
         $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
 
