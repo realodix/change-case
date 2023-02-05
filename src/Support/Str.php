@@ -47,7 +47,12 @@ class Str
      */
     public static function ucsplit($string)
     {
-        return \preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
+        $splitedString = \preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
+
+        if ($splitedString === false) {
+            return [''];
+        }
+        return $splitedString;
     }
 
     /**
