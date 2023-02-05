@@ -8,11 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ChangeCase
 {
     const ALPHA_RX = '\p{L}|\p{M}';
-
     const NUM_RX = '\p{N}';
-
     const LO_CHAR_RX = '\p{Ll}|\p{M}';
-
     const UP_CHAR_RX = '\p{Lu}|\p{M}';
 
     /**
@@ -193,11 +190,9 @@ class ChangeCase
      */
     public static function snake(string $str, array $opt = []): string
     {
-        $alphaNumRx = '\p{L}|\p{M}\p{N}';
-
         $options = [
             'delimiter' => '_',
-            'stripRx'   => '/(?!^_*)[^'.$alphaNumRx.']+/ui',
+            'stripRx'   => '/(?!^_*)[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
         ];
 
         return self::no($str, \array_merge($options, $opt));

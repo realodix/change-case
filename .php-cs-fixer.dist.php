@@ -4,6 +4,9 @@ use Realodix\Relax\Config;
 use Realodix\Relax\Finder;
 
 $localRules = [
+    'class_attributes_separation' => [
+        'elements' => ['const' => 'only_if_meta'],
+    ],
     'native_function_invocation' => [
         'include' => ['@internal'],
     ],
