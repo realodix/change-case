@@ -21,13 +21,10 @@ class ChangeCase
      */
     private static function options(array $opt = []): array
     {
-        $loCharRx = '\p{Ll}|\p{M}';
-        $upCharRx = '\p{Lu}|\p{M}';
-
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRx = [
-            '/(['.$loCharRx.self::NUM_RX.'])(['.$upCharRx.'])/u',
-            '/(['.$upCharRx.'])(['.$upCharRx.']['.$loCharRx.'])/u',
+            '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
+            '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
         ];
 
         // Remove all non-word characters
@@ -60,13 +57,17 @@ class ChangeCase
         // Allow apostrophes to be included in words
         $stripRx = $opt['apostrophe'] ? '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui' : $opt['stripRx'];
 
+        // Replace all non-word characters with the delimiter (default or user supplied)
+        // Like "foo-bar" -> "foo bar" or "foo_bar" -> "foo bar".
         $result = \preg_replace(
             $stripRx,
             $opt['delimiter'],
             \preg_replace($splitRx, '$1 $2', $value)
         );
 
-        // Trim the delimiter from around the output string.
+        // Trim the delimiter from around the output string. This is done to ensure that
+        // the output is not " foo bar ". This is also done to ensure that the output is
+        // not "foo bar " (note the extra space at the end).
         $start = 0;
         $end = \mb_strlen($result);
         while (\mb_substr($result, $start, 1) === ' ') {
@@ -75,16 +76,12 @@ class ChangeCase
         while (\mb_substr($result, $end - 1, 1) === ' ') {
             $end--;
         }
+        $result = \mb_substr($result, $start, $end - $start);
 
-        $toLowerCase = \implode(
-            $opt['delimiter'],
-            \array_map(
-                'mb_strtolower',
-                \explode(' ', Str::str_slice($result, $start, $end))
-            )
-        );
+        // Change the delimiter with the user's choice
+        $result = \implode($opt['delimiter'], \explode(' ', $result));
 
-        return $toLowerCase;
+        return \mb_strtolower($result);
     }
 
     /**
@@ -198,11 +195,9 @@ class ChangeCase
      */
     public static function snake(string $str, array $opt = []): string
     {
-        $alphaNumRx = '\p{L}|\p{M}\p{N}';
-
         return self::no($str, $opt += [
             'delimiter' => '_',
-            'stripRx'   => '/(?!^_*)[^'.$alphaNumRx.']+/ui',
+            'stripRx'   => '/(?!^_*)[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
         ]);
     }
 
