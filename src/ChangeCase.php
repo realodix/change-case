@@ -42,6 +42,7 @@ class ChangeCase
             'splitRx'     => $splitRx,
             'stripRx'     => $stripRx,
             'separateNum' => false,
+            'apostrophe'  => false,
         ]);
         $resolver->setAllowedTypes('delimiter', 'string')
             ->setAllowedTypes('splitRx', ['string', 'string[]'])
