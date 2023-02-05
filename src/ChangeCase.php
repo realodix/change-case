@@ -121,7 +121,7 @@ class ChangeCase
      */
     public static function dot(string $str, array $opt = []): string
     {
-        return self::no($str, $opt += ['delimiter' => '.']);
+        return self::no($str, \array_merge(['delimiter' => '.'], $opt));
     }
 
     /**
@@ -132,7 +132,7 @@ class ChangeCase
         return \preg_replace_callback(
             '/^.|-./u',
             fn (array $matches) => \mb_strtoupper($matches[0]),
-            self::no($str, $opt += ['delimiter' => '-'])
+            self::no($str, \array_merge(['delimiter' => '-'], $opt))
         );
     }
 
@@ -157,7 +157,7 @@ class ChangeCase
      */
     public static function kebab(string $str, array $opt = []): string
     {
-        return self::no($str, $opt += ['delimiter' => '-']);
+        return self::no($str, \array_merge(['delimiter' => '-'], $opt));
     }
 
     /**
@@ -175,7 +175,7 @@ class ChangeCase
      */
     public static function path(string $str, array $opt = []): string
     {
-        return self::no($str, $opt += ['delimiter' => '/']);
+        return self::no($str, \array_merge(['delimiter' => '/'], $opt));
     }
 
     /**
