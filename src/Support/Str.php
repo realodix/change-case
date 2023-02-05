@@ -52,6 +52,7 @@ class Str
         if ($splitedString === false) {
             return [''];
         }
+
         return $splitedString;
     }
 
