@@ -12,11 +12,8 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider noCaseProvider
-     *
-     * @param mixed $actual
-     * @param mixed $expected
      */
-    public function no($actual, $expected)
+    public function no($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::no($actual));
     }
@@ -49,9 +46,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider camelCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function camel($expected, $actual)
     {
@@ -71,9 +65,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider capitalCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function capital($expected, $actual)
     {
@@ -83,9 +74,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider constantCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function constant($expected, $actual)
     {
@@ -95,9 +83,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider dotCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function dot($expected, $actual)
     {
@@ -115,9 +100,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider headerCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function header($expected, $actual)
     {
@@ -145,9 +127,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider headlineCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function headline($expected, $actual)
     {
@@ -157,9 +136,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider kebabCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function kebab($expected, $actual)
     {
@@ -187,9 +163,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider pascalCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function pascal($expected, $actual)
     {
@@ -199,9 +172,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider pathCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function path($expected, $actual)
     {
@@ -229,9 +199,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider sentenceCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function sentence($expected, $actual)
     {
@@ -241,9 +208,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider snakeCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function snake($expected, $actual)
     {
@@ -271,9 +235,6 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider swapCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function swap($expected, $actual)
     {
@@ -283,13 +244,25 @@ class ChangeCaseTest extends TestCase
     /**
      * @test
      * @dataProvider titleCaseProvider
-     *
-     * @param mixed $expected
-     * @param mixed $actual
      */
     public function title($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::title($actual));
+    }
+
+    /** @test */
+    public function apostrophe()
+    {
+        $options = ['apostrophe' => true];
+
+        $this->assertSame("assistant's name", ChangeCase::no("Assistant's name", $options));
+        $this->assertSame("assistant'sName", ChangeCase::camel("Assistant's name", $options));
+        $this->assertSame("assistant's.name", ChangeCase::dot("Assistant's name", $options));
+        $this->assertSame("Assistant's-Name", ChangeCase::header("Assistant's name", $options));
+        $this->assertSame("assistant's-name", ChangeCase::kebab("Assistant's name", $options));
+        $this->assertSame("Assistant'sName", ChangeCase::pascal("Assistant's name", $options));
+        $this->assertSame("assistant's/name", ChangeCase::path("Assistant's name", $options));
+        $this->assertSame("assistant's_name", ChangeCase::snake("Assistant's name", $options));
     }
 
     /** @test */

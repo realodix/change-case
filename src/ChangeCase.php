@@ -63,11 +63,12 @@ class ChangeCase
             (array) $opt['splitRx'],
             ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
         );
-
         $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
+        // Allow apostrophes to be included in words
+        $stripRx = $opt['apostrophe'] ? '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui' : $opt['stripRx'];
 
         $result = \preg_replace(
-            $opt['stripRx'],
+            $stripRx,
             $opt['delimiter'],
             \preg_replace($splitRx, '$1 $2', $value)
         );

@@ -41,10 +41,11 @@ use Realodix\ChangeCase\ChangeCase;
 
 Every method that gets 💡 flag, they can support option
 
-- `delimiter`: (string) This character separates each chunk of data within the text string.
+- `delimiter`: (string) This character separates each chunk of data within the text string. Default: singgle space.
 - `splitRx`: (RegExp) Used to split into word segments.
 - `stripRx`: (RegExp) Used to remove extraneous characters.
-- `separateNum`: (bool) Used to separate numbers or not.
+- `separateNum`: (bool) Used to separate numbers or not. Default: false.
+- `apostrophe`: (bool) Default: false.
 
 Examples
 ```php
