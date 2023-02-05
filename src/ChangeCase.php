@@ -194,10 +194,12 @@ class ChangeCase
     {
         $alphaNumRx = '\p{L}|\p{M}\p{N}';
 
-        return self::no($str, $opt += [
+        $options = [
             'delimiter' => '_',
             'stripRx'   => '/(?!^_*)[^'.$alphaNumRx.']+/ui',
-        ]);
+        ];
+
+        return self::no($str, array_merge($options, $opt));
     }
 
     /**
