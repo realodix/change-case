@@ -6,8 +6,12 @@ use Realodix\ChangeCase\Support\Str;
 
 class ChangeCase
 {
+    const ALPHA_RX = '\p{L}|\p{M}';
+
+    const NUM_RX = '\p{N}';
+
     /**
-     * Transform into a lower cased string with spaces between words.
+     * The default options for the methods.
      *
      * ### Options
      * - delimiter: (string) This character separates each chunk of data within the text string.
@@ -15,27 +19,19 @@ class ChangeCase
      * - stripRx: (RegExp) Used to remove extraneous characters.
      * - separateNum: (bool) Used to separate numbers or not.
      */
-    public static function no(string $value, array $opt = []): string
+    private static function options(array $opt = []): array
     {
-        $alphaRx = '\p{L}|\p{M}';
         $loCharRx = '\p{Ll}|\p{M}';
         $upCharRx = '\p{Lu}|\p{M}';
-        $numRx = '\p{N}';
 
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRx = [
-            '/(['.$loCharRx.$numRx.'])(['.$upCharRx.'])/u',
+            '/(['.$loCharRx.self::NUM_RX.'])(['.$upCharRx.'])/u',
             '/(['.$upCharRx.'])(['.$upCharRx.']['.$loCharRx.'])/u',
         ];
 
-        // Regex to split numbers ("13test" -> "13 test")
-        $splitNumRx = \array_merge(
-            $splitRx,
-            ['/(['.$numRx.'])(['.$alphaRx.'])/u', '/(['.$alphaRx.'])(['.$numRx.'])/u']
-        );
-
         // Remove all non-word characters
-        $stripRx = '/[^'.$alphaRx.$numRx.']+/ui';
+        $stripRx = '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui';
 
         $opt += [
             'delimiter'   => ' ',
@@ -43,6 +39,22 @@ class ChangeCase
             'stripRx'     => $stripRx,
             'separateNum' => false,
         ];
+
+        return $opt;
+    }
+
+    /**
+     * Transform into a lower cased string with spaces between words.
+     */
+    public static function no(string $value, array $opt = []): string
+    {
+        $opt = self::options($opt);
+
+        // Regex to split numbers ("13test" -> "13 test")
+        $splitNumRx = \array_merge(
+            (array) $opt['splitRx'],
+            ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
+        );
 
         $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
 
