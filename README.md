@@ -45,6 +45,7 @@ Every method that gets 💡 flag, they can support option
 - `splitRx`: (RegExp) Used to split into word segments.
 - `stripRx`: (RegExp) Used to remove extraneous characters.
 - `separateNum`: (bool) Used to separate numbers or not. Default: false.
+- `apostrophe`: (bool) Default: false.
 
 Examples
 ```php

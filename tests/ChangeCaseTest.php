@@ -293,6 +293,21 @@ class ChangeCaseTest extends TestCase
     }
 
     /** @test */
+    public function apostrophe()
+    {
+        $options = ['apostrophe' => true];
+
+        $this->assertSame("assistant's name", ChangeCase::no("Assistant's name", $options));
+        $this->assertSame("assistant'sName", ChangeCase::camel("Assistant's name", $options));
+        $this->assertSame("assistant's.name", ChangeCase::dot("Assistant's name", $options));
+        $this->assertSame("Assistant's-Name", ChangeCase::header("Assistant's name", $options));
+        $this->assertSame("assistant's-name", ChangeCase::kebab("Assistant's name", $options));
+        $this->assertSame("Assistant'sName", ChangeCase::pascal("Assistant's name", $options));
+        $this->assertSame("assistant's/name", ChangeCase::path("Assistant's name", $options));
+        $this->assertSame("assistant's_name", ChangeCase::snake("Assistant's name", $options));
+    }
+
+    /** @test */
     public function unicode()
     {
         // Mark
