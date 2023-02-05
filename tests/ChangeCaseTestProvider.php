@@ -208,8 +208,8 @@ trait ChangeCaseTestProvider
             ['Version1210', 'version 1.2.10'],
             ['IñtËrnÂTiÔnàLizÆtiØn', 'iñt ërn âTi ônà liz æti øn'],
             // https://github.com/blakeembrey/change-case/issues/291
-            ['İstanbul', 'İSTANBUL'],
-            ['İzmir', 'İZMİR'],
+            ['İzmi̇r', 'İZMİR'], // Not İzmir
+            ['İstanbul', 'İSTANBUL'], // Not İstanbul
         ];
     }
 
