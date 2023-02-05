@@ -271,4 +271,46 @@ trait ChangeCaseTestProvider
             ['sWaP cAsE', 'SwAp CaSe'],
         ];
     }
+
+    public function titleCaseProvider()
+    {
+        return [
+            ['', ''],
+            ['Test', 'test'],
+            ['Test String', 'test string'],
+            ['Test String', 'Test String'],
+            ['Testv2', 'TestV2'],
+            ['Version 1.2.10', 'version 1.2.10'],
+            ['Version 1.21.0', 'version 1.21.0'],
+
+            ['Jefferson Costella', 'jefferson costella'],
+            ['Jefferson Costella', 'jefFErson coSTella'],
+            ['Jefferson_Costella Uses-_Laravel', 'jefferson_costella uses-_Laravel'],
+            ['Jefferson_Costella Uses__Laravel', 'jefferson_costella uses__Laravel'],
+
+            ['Laravel_P_H_P_Framework', 'laravel_p_h_p_framework'],
+            ['Laravel _P _H _P _Framework', 'laravel _p _h _p _framework'],
+            ['Laravel_Php_Framework', 'laravel_php_framework'],
+            ['Laravel-Php-Framework', 'laravel-phP-framework'],
+            ['Laravel  -_-  Php   -_-   Framework   ', 'laravel  -_-  php   -_-   framework   '],
+
+            ['Foobar', 'fooBar'],
+            ['Foo_Bar', 'foo_bar'],
+            ['Foo-Barbaz', 'foo-barBaz'],
+            ['Foo-Bar_Baz', 'foo-bar_baz'],
+
+            ['Öffentliche-Überraschungen', 'öffentliche-überraschungen'],
+            ['-_Öffentliche_Überraschungen_-', '-_öffentliche_überraschungen_-'],
+            ['-Öffentliche Überraschungen', '-öffentliche überraschungen'],
+
+            ['Sindödeundso', 'sindÖdeUndSo'],
+
+            ['Orwell 1984', 'orwell 1984'],
+            ['Orwell   1984', 'orwell   1984'],
+            ['-Orwell-1984 -', '-orwell-1984 -'],
+            [' Orwell_- 1984 ', ' orwell_- 1984 '],
+
+            ['Iñt Ërn Âti Ônà Liz Æti Øn', 'iñt ërn âTi ônà liz æti øn'],
+        ];
+    }
 }
