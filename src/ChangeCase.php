@@ -11,6 +11,10 @@ class ChangeCase
 
     const NUM_RX = '\p{N}';
 
+    const LO_CHAR_RX = '\p{Ll}|\p{M}';
+
+    const UP_CHAR_RX = '\p{Lu}|\p{M}';
+
     /**
      * The default options for the methods.
      *
@@ -24,13 +28,10 @@ class ChangeCase
      */
     private static function options(array $opt = [])
     {
-        $loCharRx = '\p{Ll}|\p{M}';
-        $upCharRx = '\p{Lu}|\p{M}';
-
         // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
         $splitRx = [
-            '/(['.$loCharRx.self::NUM_RX.'])(['.$upCharRx.'])/u',
-            '/(['.$upCharRx.'])(['.$upCharRx.']['.$loCharRx.'])/u',
+            '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
+            '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
         ];
 
         // Remove all non-word characters
@@ -199,7 +200,7 @@ class ChangeCase
             'stripRx'   => '/(?!^_*)[^'.$alphaNumRx.']+/ui',
         ];
 
-        return self::no($str, array_merge($options, $opt));
+        return self::no($str, \array_merge($options, $opt));
     }
 
     /**
