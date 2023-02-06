@@ -61,7 +61,8 @@ class ChangeCase
     }
 
     /**
-     * Transform into a lower cased string with spaces between words.
+     * Transform into a lower cased string with spaces between words, and clean
+     * up the string from non-word characters.
      */
     public static function no(string $value, array $opt = []): string
     {
