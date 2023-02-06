@@ -66,11 +66,8 @@ class ChangeCase
         // Allow apostrophes to be included in words
         $stripRx = $opt['apostrophe'] ? '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui' : $opt['stripRx'];
 
-        // Split into words and join with the delimiter. Also trim any extra spaces. This
-        // is done to ensure that the first and last words are not trimmed. This is important
-        // for cases like "  foo bar  ". Without this, the output would be "  foo bar  ".
-        // With this, the output is "foo bar". This is also done to ensure that the output
-        // is not "foo bar " (note the extra space at the end).
+        // Replace all non-word characters with the delimiter.
+        // Like "foo-bar" -> "foo bar" or "foo_bar" -> "foo bar".
         $result = \preg_replace(
             $stripRx,
             $opt['delimiter'],
