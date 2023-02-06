@@ -42,26 +42,20 @@ class ChangeCase
             ->setAllowedTypes('stripRx', ['string', 'string[]'])
             ->setAllowedTypes('separateNum', 'bool');
 
-        return self::additionalOptions($resolver->resolve($opt));
-    }
+        $options = $resolver->resolve($opt);
 
-    /**
-     * Additional options
-     */
-    private static function additionalOptions(array $opt): array
-    {
-        if ($opt['separateNum'] === true) {
-            $opt['splitRx'] = \array_merge(
-                $opt['splitRx'],
+        if ($options['separateNum'] === true) {
+            $options['splitRx'] = \array_merge(
+                $options['splitRx'],
                 ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
             );
         }
 
-        if ($opt['apostrophe'] === true) {
-            $opt['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
+        if ($options['apostrophe'] === true) {
+            $options['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
         }
 
-        return $opt;
+        return $options;
     }
 
     /**
