@@ -3,6 +3,7 @@
 namespace Realodix\ChangeCase;
 
 use Realodix\ChangeCase\Support\Str;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ChangeCase
 {
@@ -12,7 +13,8 @@ class ChangeCase
     const UP_CHAR_RX = '\p{Lu}|\p{M}';
 
     /**
-     * The default options for the methods.
+     * The default options for the methods. These are merged with the user supplied options.
+     * The user supplied options take precedence.
      *
      * ### Options
      * - delimiter: (string) This character separates each chunk of data within the text string.
@@ -23,7 +25,8 @@ class ChangeCase
      */
     private static function defaultOptions(array $opt = []): array
     {
-        $opt += [
+        $resolver = new OptionsResolver;
+        $resolver->setDefaults([
             'delimiter'   => ' ',
             'splitRx'     => [
                 // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
@@ -34,28 +37,27 @@ class ChangeCase
             'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
             'separateNum' => false,
             'apostrophe'  => false,
-        ];
+        ]);
+        $resolver->setAllowedTypes('delimiter', 'string')
+            ->setAllowedTypes('splitRx', ['string', 'string[]'])
+            ->setAllowedTypes('stripRx', ['string', 'string[]'])
+            ->setAllowedTypes('separateNum', 'bool');
 
-        return self::additionalOptions($opt);
-    }
+        // Merge the user supplied options with the defaults.
+        $options = $resolver->resolve($opt);
 
-    /**
-     * Additional options
-     */
-    private static function additionalOptions(array $opt): array
-    {
-        if ($opt['separateNum'] === true) {
-            $opt['splitRx'] = \array_merge(
-                $opt['splitRx'],
+        if ($options['separateNum'] === true) {
+            $options['splitRx'] = \array_merge(
+                $options['splitRx'],
                 ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
             );
         }
 
-        if ($opt['apostrophe'] === true) {
-            $opt['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
+        if ($options['apostrophe'] === true) {
+            $options['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
         }
 
-        return $opt;
+        return $options;
     }
 
     /**
