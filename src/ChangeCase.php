@@ -22,10 +22,8 @@ class ChangeCase
      * - stripRx: (RegExp) Used to remove extraneous characters.
      * - separateNum: (bool) Used to separate numbers or not.
      * - apostrophe: (bool) Used to separate apostrophe or not.
-     *
-     * @return array
      */
-    private static function defaultOptions(array $opt = [])
+    private static function defaultOptions(array $opt = []): array
     {
         $resolver = new OptionsResolver;
         $resolver->setDefaults([
