@@ -13,7 +13,8 @@ class ChangeCase
     const UP_CHAR_RX = '\p{Lu}|\p{M}';
 
     /**
-     * The default options for the methods.
+     * The default options for the methods. These are merged with the user supplied options.
+     * The user supplied options take precedence.
      *
      * ### Options
      * - delimiter: (string) This character separates each chunk of data within the text string.
@@ -44,30 +45,21 @@ class ChangeCase
             ->setAllowedTypes('stripRx', ['string', 'string[]'])
             ->setAllowedTypes('separateNum', 'bool');
 
-        return self::additionalOptions($resolver->resolve($opt));
-    }
+        // Merge the user supplied options with the defaults.
+        $options = $resolver->resolve($opt);
 
-    /**
-     * Add additional options to the default options.
-     */
-    private static function additionalOptions(array $opt): array
-    {
-        $opt = collect($opt);
-
-        // Allow apostrophes to be included in words
-        if ($opt->get('apostrophe')) {
-            $opt->put('stripRx', '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui');
-        }
-
-        // Regex to split numbers ("13test" -> "13 test")
-        if ($opt->get('separateNum')) {
-            $opt->put('splitRx', \array_merge(
-                $opt->get('splitRx'),
+        if ($options['separateNum'] === true) {
+            $options['splitRx'] = \array_merge(
+                $options['splitRx'],
                 ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
-            ));
+            );
         }
 
-        return $opt->all();
+        if ($options['apostrophe'] === true) {
+            $options['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
+        }
+
+        return $options;
     }
 
     /**
