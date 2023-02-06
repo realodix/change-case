@@ -23,22 +23,18 @@ class ChangeCase
      *
      * @return array
      */
-    private static function options(array $opt = [])
+    private static function defaultOptions(array $opt = [])
     {
-        // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-        $splitRx = [
-            '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
-            '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
-        ];
-
-        // Remove all non-word characters
-        $stripRx = '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui';
-
         $resolver = new OptionsResolver;
         $resolver->setDefaults([
             'delimiter'   => ' ',
-            'splitRx'     => $splitRx,
-            'stripRx'     => $stripRx,
+            'splitRx'     => [
+                // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
+                '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
+                '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
+            ],
+            // Remove all non-word characters
+            'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
             'separateNum' => false,
             'apostrophe'  => false,
         ]);
@@ -47,7 +43,30 @@ class ChangeCase
             ->setAllowedTypes('stripRx', ['string', 'string[]'])
             ->setAllowedTypes('separateNum', 'bool');
 
-        return $resolver->resolve($opt);
+        return self::additionalOptions($resolver->resolve($opt));
+    }
+
+    /**
+     * Add additional options to the default options.
+     */
+    private static function additionalOptions(array $opt): array
+    {
+        $opt = collect($opt);
+
+        // Allow apostrophes to be included in words
+        if ($opt->get('apostrophe')) {
+            $opt->put('stripRx', '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui');
+        }
+
+        // Regex to split numbers ("13test" -> "13 test")
+        if ($opt->get('separateNum')) {
+            $opt->put('splitRx', \array_merge(
+                $opt->get('splitRx'),
+                ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
+            ));
+        }
+
+        return $opt->all();
     }
 
     /**
@@ -55,21 +74,12 @@ class ChangeCase
      */
     public static function no(string $value, array $opt = []): string
     {
-        $opt = self::options($opt);
-
-        // Regex to split numbers ("13test" -> "13 test")
-        $splitNumRx = \array_merge(
-            (array) $opt['splitRx'],
-            ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
-        );
-        $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
-        // Allow apostrophes to be included in words
-        $stripRx = $opt['apostrophe'] ? '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui' : $opt['stripRx'];
+        $opt = self::defaultOptions($opt);
 
         $result = \preg_replace(
-            $stripRx,
+            $opt['stripRx'],
             $opt['delimiter'],
-            \preg_replace($splitRx, '$1 $2', $value)
+            \preg_replace($opt['splitRx'], '$1 $2', $value)
         );
 
         // Trim the delimiter from around the output string.
