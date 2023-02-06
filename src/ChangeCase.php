@@ -13,7 +13,8 @@ class ChangeCase
     const UP_CHAR_RX = '\p{Lu}|\p{M}';
 
     /**
-     * The default options for the methods.
+     * The default options for the methods. These are merged with the user supplied options.
+     * The user supplied options take precedence.
      *
      * ### Options
      * - delimiter: (string) This character separates each chunk of data within the text string.
