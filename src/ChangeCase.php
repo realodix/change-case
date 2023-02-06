@@ -76,6 +76,7 @@ class ChangeCase
     {
         $opt = self::defaultOptions($opt);
 
+        // Replace all non-word characters with the delimiter.
         $result = \preg_replace(
             $opt['stripRx'],
             $opt['delimiter'],
