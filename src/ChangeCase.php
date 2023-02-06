@@ -3,6 +3,7 @@
 namespace Realodix\ChangeCase;
 
 use Realodix\ChangeCase\Support\Str;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ChangeCase
 {
@@ -23,7 +24,8 @@ class ChangeCase
      */
     private static function defaultOptions(array $opt = []): array
     {
-        $opt += [
+        $resolver = new OptionsResolver;
+        $resolver->setDefaults([
             'delimiter'   => ' ',
             'splitRx'     => [
                 // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
@@ -34,9 +36,13 @@ class ChangeCase
             'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
             'separateNum' => false,
             'apostrophe'  => false,
-        ];
+        ]);
+        $resolver->setAllowedTypes('delimiter', 'string')
+            ->setAllowedTypes('splitRx', ['string', 'string[]'])
+            ->setAllowedTypes('stripRx', ['string', 'string[]'])
+            ->setAllowedTypes('separateNum', 'bool');
 
-        return self::additionalOptions($opt);
+        return self::additionalOptions($resolver->resolve($opt));
     }
 
     /**
