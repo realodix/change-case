@@ -86,11 +86,13 @@ class ChangeCase
         while (\mb_substr($result, $end - 1, 1) === ' ') {
             $end--;
         }
+        $result = \mb_substr($result, $start, $end - $start);
 
-        return \implode($opt['delimiter'], \array_map(
-            'mb_strtolower',
-            \explode(' ', Str::str_slice($result, $start, $end))
-        ));
+        // Change the delimiter with the user's choice
+        $result = \explode(' ', $result);
+        $result = \implode($opt['delimiter'], $result);
+
+        return \mb_strtolower($result);
     }
 
     /**
