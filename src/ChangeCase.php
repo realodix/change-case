@@ -20,24 +20,39 @@ class ChangeCase
      * - stripRx: (RegExp) Used to remove extraneous characters.
      * - separateNum: (bool) Used to separate numbers or not.
      */
-    private static function options(array $opt = []): array
+    private static function defaultOptions(array $opt = []): array
     {
-        // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-        $splitRx = [
-            '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
-            '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
-        ];
-
-        // Remove all non-word characters
-        $stripRx = '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui';
-
         $opt += [
             'delimiter'   => ' ',
-            'splitRx'     => $splitRx,
-            'stripRx'     => $stripRx,
+            'splitRx'     => [
+                // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
+                '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
+                '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
+            ],
+            // Remove all non-word characters
+            'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
             'separateNum' => false,
             'apostrophe'  => false,
         ];
+
+        return self::additionalOptions($opt);
+    }
+
+    /**
+     * Additional options
+     */
+    private static function additionalOptions(array $opt): array
+    {
+        if ($opt['separateNum'] === true) {
+            $opt['splitRx'] = \array_merge(
+                $opt['splitRx'],
+                ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
+            );
+        }
+
+        if ($opt['apostrophe'] === true) {
+            $opt['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
+        }
 
         return $opt;
     }
@@ -47,23 +62,14 @@ class ChangeCase
      */
     public static function no(string $value, array $opt = []): string
     {
-        $opt = self::options($opt);
-
-        // Regex to split numbers ("13test" -> "13 test")
-        $splitNumRx = \array_merge(
-            (array) $opt['splitRx'],
-            ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
-        );
-        $splitRx = $opt['separateNum'] ? $splitNumRx : $opt['splitRx'];
-        // Allow apostrophes to be included in words
-        $stripRx = $opt['apostrophe'] ? '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui' : $opt['stripRx'];
+        $opt = self::defaultOptions($opt);
 
         // Replace all non-word characters with the delimiter.
         // Like "foo-bar" -> "foo bar" or "foo_bar" -> "foo bar".
         $result = \preg_replace(
-            $stripRx,
+            $opt['stripRx'],
             $opt['delimiter'],
-            \preg_replace($splitRx, '$1 $2', $value)
+            \preg_replace($opt['splitRx'], '$1 $2', $value)
         );
 
         // Trim the delimiter from around the output string. This is done to ensure that
