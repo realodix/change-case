@@ -44,16 +44,18 @@ class Str
      *
      * @param string $string
      * @return string[]
+     *
+     * @throws \RuntimeException Regex failed, e.g. because of invalid UTF-8 in the string
      */
     public static function ucsplit($string)
     {
-        $splitedString = \preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
+        $substrings = \preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
 
-        if ($splitedString === false) {
-            return [''];
+        if ($substrings === false) {
+            throw new \RuntimeException('Error while splitting string');
         }
 
-        return $splitedString;
+        return $substrings;
     }
 
     /**
