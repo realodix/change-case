@@ -84,7 +84,6 @@ class ChangeCase
             $end--;
         }
 
-        // Convert the string to lower case. This is done after the trim to ensure that.
         return \implode($opt['delimiter'], \array_map(
             'mb_strtolower',
             \explode(' ', Str::str_slice($result, $start, $end))
