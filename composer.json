@@ -7,7 +7,6 @@
     "homepage": "https://github.com/realodix/change-case",
     "require": {
         "php": "^8.0",
-        "illuminate/collections": "^9.50",
         "symfony/options-resolver": "^6.0"
     },
     "require-dev": {
