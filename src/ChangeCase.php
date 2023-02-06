@@ -96,7 +96,6 @@ class ChangeCase
             $end--;
         }
 
-        // Convert the string to lower case. This is done after the trim to ensure that.
         return collect(\explode(' ', Str::str_slice($result, $start, $end)))
             ->map(fn ($item) => \mb_strtolower($item)) // Convert to lower case.
             ->implode($opt['delimiter']);
