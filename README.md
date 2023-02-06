@@ -152,7 +152,7 @@ ChangeCase::kebab('Foo123Bar', ['separateNum' => true]);
 
 #### no case
 
-> Transform into a lower cased string with spaces between words.
+> Transform into a lower cased string with spaces between words, and clean up the string from non-word characters.
 
 💡 Support [options](#options)
 

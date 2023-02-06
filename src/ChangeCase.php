@@ -61,13 +61,14 @@ class ChangeCase
     }
 
     /**
-     * Transform into a lower cased string with spaces between words.
+     * Transform into a lower cased string with spaces between words, and clean
+     * up the string from non-word characters.
      */
     public static function no(string $value, array $opt = []): string
     {
         $opt = self::defaultOptions($opt);
 
-        // Replace all non-word characters with the delimiter.
+        // Replace all non-word characters with the delimiter (default or user supplied)
         // Like "foo-bar" -> "foo bar" or "foo_bar" -> "foo bar".
         $result = \preg_replace(
             $opt['stripRx'],
