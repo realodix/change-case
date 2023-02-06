@@ -43,6 +43,7 @@ class ChangeCase
             ->setAllowedTypes('stripRx', ['string', 'string[]'])
             ->setAllowedTypes('separateNum', 'bool');
 
+        // Merge the user supplied options with the defaults.
         $options = $resolver->resolve($opt);
 
         if ($options['separateNum'] === true) {
