@@ -89,8 +89,7 @@ class ChangeCase
         $result = \mb_substr($result, $start, $end - $start);
 
         // Change the delimiter with the user's choice
-        $result = \explode(' ', $result);
-        $result = \implode($opt['delimiter'], $result);
+        $result = \implode($opt['delimiter'], \explode(' ', $result));
 
         return \mb_strtolower($result);
     }
