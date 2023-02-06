@@ -20,6 +20,7 @@ class ChangeCase
      * - splitRx: (RegExp) Used to split into word segments.
      * - stripRx: (RegExp) Used to remove extraneous characters.
      * - separateNum: (bool) Used to separate numbers or not.
+     * - apostrophe: (bool) Used to separate apostrophe or not.
      *
      * @return array
      */
