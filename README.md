@@ -4,7 +4,7 @@
 ![Tests](https://github.com/realodix/change-case/actions/workflows/tests.yml/badge.svg)
 [![GitHub license](https://img.shields.io/github/license/realodix/change-case)](/LICENSE)
 
-> Transform a string between `camelCase`, `PascalCase`, `Capital Case`, `snake_case`, `param-case`, `CONSTANT_CASE` and others.
+> Transform a string between `camelCase`, `PascalCase`, `Headline Case`, `snake_case`, `param-case`, `CONSTANT_CASE` and others.
 
 ## Installation
 
@@ -27,7 +27,7 @@ use Realodix\ChangeCase\ChangeCase;
 - [`CONSTANT_CASE`](#constant_case)
 - [`dot.case`](#dotcase)
 - [`Header-Case`](#header-case)
-- [`Head Line Case`](#head-line-case)
+- [`Headline Case`](#headline-case)
 - [`kebab-case`](#kebab-case)
 - [`no case`](#no-case)
 - [`PascalCase`](#pascalcase)
@@ -96,7 +96,7 @@ ChangeCase::header('test string');
 // 'Test-String'
 ```
 
-#### Head Line Case
+#### Headline Case
 > Transform a strings delimited by casing, hyphens, or underscores into a space delimited string with each word's first letter capitalized.
 
 ```php

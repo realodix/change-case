@@ -1,6 +1,6 @@
 {
     "name": "realodix/change-case",
-    "description": "Convert strings between camelCase, PascalCase, Capital Case, snake_case and more.",
+    "description": "Convert strings between camelCase, PascalCase, Headline Case, snake_case and more.",
     "license": "MIT",
     "keywords": ["lowercase", "uppercase", "camel-case", "snake-case", "pascal-case", "change-case", "constant-case"],
     "authors": [{"name": "Budi Hermawan", "role": "Developer" }],
