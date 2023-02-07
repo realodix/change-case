@@ -106,6 +106,8 @@ class ChangeCase
 
     /**
      * Transform into a space separated string with each word capitalized.
+     *
+     * @deprecated Will be removed in v4.0.0
      */
     public static function capital(string $str): string
     {
@@ -143,7 +145,7 @@ class ChangeCase
     }
 
     /**
-     * Transform into a space separated string of capitalized words.
+     * Convert the given string to title case for each word.
      */
     public static function headline(string $str): string
     {
