@@ -74,23 +74,6 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function capitalCaseProvider()
-    {
-        return [
-            ['String', 'string'],
-            ['Camel Case', 'camelCase'],
-            ['Camel Case', 'CAMELCase'],
-            ['Capital Case', 'Capital Case'],
-            ['Constant Case', 'CONSTANT_CASE'],
-            ['Dot Case', 'dot.case'],
-            ['Kebab Case', 'kebab-case'],
-            ['Pascal Case', 'PascalCase'],
-            ['Path Case', 'path/case'],
-            ['Snake Case', 'snake_case'],
-            ['Version 1 2 10', 'version 1.2.10'],
-        ];
-    }
-
     public function constantCaseProvider()
     {
         return [
