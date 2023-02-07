@@ -77,18 +77,8 @@ class ChangeCase
             \preg_replace($opt['splitRx'], '$1 $2', $value)
         );
 
-        // Trim the delimiter from around the output string. This is done to ensure that
-        // the output is not " foo bar ". This is also done to ensure that the output is
-        // not "foo bar " (note the extra space at the end).
-        $start = 0;
-        $end = \mb_strlen($result);
-        while (\mb_substr($result, $start, 1) === ' ') {
-            $start++;
-        }
-        while (\mb_substr($result, $end - 1, 1) === ' ') {
-            $end--;
-        }
-        $result = \mb_substr($result, $start, $end - $start);
+        // Clean up excess delimiters
+        $result = trim(preg_replace('/\s+/',' ', $result));
 
         // Change the delimiter with the user's choice
         $result = \implode($opt['delimiter'], \explode(' ', $result));

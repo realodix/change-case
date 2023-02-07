@@ -55,6 +55,14 @@ trait ChangeCaseTestProvider
             // https://github.com/blakeembrey/change-case/issues/21
             ['amazon s3 data', 'amazon s3 data'],
             ['foo 13 bar', 'foo_13_bar'],
+
+            // Clean up excess delimiters
+            ['foo', '      foo           '],
+            ['foo bar', '      foo      bar     '],
+            ['constant case', 'CONSTANT________CASE'],
+            ['dot case', 'dot.case'],
+            ['kebab case', 'kebab--------------------case'],
+            ['snake case', 'snake___________case'],
         ];
     }
 
