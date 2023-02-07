@@ -64,15 +64,6 @@ class ChangeCaseTest extends TestCase
 
     /**
      * @test
-     * @dataProvider capitalCaseProvider
-     */
-    public function capital($expected, $actual)
-    {
-        $this->assertSame($expected, ChangeCase::capital($actual));
-    }
-
-    /**
-     * @test
      * @dataProvider constantCaseProvider
      */
     public function constant($expected, $actual)
@@ -273,7 +264,6 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('ââ êê', ChangeCase::no('ÂÂ ÊÊ'));
         $this->assertSame('ââÊê', ChangeCase::camel('ÂÂ êê'));
         $this->assertSame('ââÊê', ChangeCase::camel('ââ ÊÊ'));
-        $this->assertSame('Ââ Êê', ChangeCase::capital('ÂÂ ÊÊ'));
         $this->assertSame('ÂÂ_ÊÊ', ChangeCase::constant('ÂÂ ÊÊ'));
         $this->assertSame('Ââ-Êê', ChangeCase::header('ÂÂ ÊÊ'));
         $this->assertSame('ââ/êê', ChangeCase::path('ÂÂ ÊÊ'));
@@ -283,7 +273,6 @@ class ChangeCaseTest extends TestCase
         // Mark + Number
         $this->assertSame('ââ ⅰⅰ', ChangeCase::no('"ÂÂ ⅠⅠ"'));
         $this->assertSame('ââ ⅰⅰ', ChangeCase::no('ÂÂ ⅠⅠ'));
-        $this->assertSame('Ââ Ⅰⅰ', ChangeCase::capital('ÂÂ ⅠⅠ'));
         $this->assertSame('ÂÂ_ⅠⅠ', ChangeCase::constant('ÂÂ ⅠⅠ'));
         $this->assertSame('Ââ-Ⅰⅰ', ChangeCase::header('ÂÂ ⅠⅠ'));
         $this->assertSame('ââ/ⅰⅰ', ChangeCase::path('ÂÂ ⅠⅠ'));
@@ -294,10 +283,6 @@ class ChangeCaseTest extends TestCase
     /** @test */
     public function punctuationMark()
     {
-        $this->assertSame('Dr H C Ir H Soekarno', ChangeCase::capital('Dr. (H.C.) Ir. H. Soekarno'));
-        $this->assertSame('Prof Dr Ing Ir H Bacharuddin Jusuf Habibie', ChangeCase::capital('prof. dr.-ing. ir. h. bacharuddin jusuf habibie'));
-        $this->assertSame('Ir H Joko Widodo', ChangeCase::capital('Ir. H. Joko Widodo'));
-
         $this->assertSame('Dr. (H.c.) Ir. H. Soekarno', ChangeCase::headline('dr. (h.c.) ir. h. soekarno'));
         $this->assertSame('Prof. Dr. Ing. Ir. H. Bacharuddin Jusuf Habibie', ChangeCase::headline('prof. dr.-ing. ir. h. bacharuddin jusuf habibie'));
         $this->assertSame('Ir. H. Joko Widodo', ChangeCase::headline('IR. H. JOKO WIDODO'));

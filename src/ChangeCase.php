@@ -105,18 +105,6 @@ class ChangeCase
     }
 
     /**
-     * Transform into a space separated string with each word capitalized.
-     *
-     * @deprecated Will be removed in v4.0.0
-     */
-    public static function capital(string $str): string
-    {
-        $strToUpper = fn (array $matches) => \mb_strtoupper($matches[0]);
-
-        return \preg_replace_callback('/^.| ./u', $strToUpper, self::no($str));
-    }
-
-    /**
      * Transform into upper case string with an underscore between words.
      */
     public static function constant(string $str): string

@@ -68,16 +68,6 @@ ChangeCase::camel('1twoThree', ['separateNum' => true]);
 // '1TwoThree'
 ```
 
-#### Capital Case
-> Transform into a space separated string with each word capitalized.
-
-⚠️ deprecated, will be removed in v4.0.0
-
-```php
-ChangeCase::capital('test string');
-// 'Test String'
-```
-
 #### CONSTANT_CASE
 > Transform into upper case string with an underscore between words.
 
