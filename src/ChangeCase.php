@@ -41,7 +41,8 @@ class ChangeCase
         $resolver->setAllowedTypes('delimiter', 'string')
             ->setAllowedTypes('splitRx', ['string', 'string[]'])
             ->setAllowedTypes('stripRx', ['string', 'string[]'])
-            ->setAllowedTypes('separateNum', 'bool');
+            ->setAllowedTypes('separateNum', 'bool')
+            ->setAllowedTypes('apostrophe', 'bool');
 
         // Merge the user supplied options with the defaults.
         $options = $resolver->resolve($opt);
