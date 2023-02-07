@@ -167,11 +167,14 @@ trait ChangeCaseTestProvider
             ['Pascal Case', 'PascalCase'],
             ['Path/Case', 'path/case'],
             ['Snake Case', 'snake_case'],
-            ['Version 1.2.10', 'version 1.2.10'],
 
             ['Dr. (H.c.) Ir. H. Soekarno', 'dr. (h.c.) ir. h. soekarno'],
             ['Prof. Dr. Ing. Ir. H. Bacharuddin Jusuf Habibie', 'prof. dr.-ing. ir. h. bacharuddin jusuf habibie'],
             ['Ir. H. Joko Widodo', 'IR. H. JOKO WIDODO'],
+
+            ['Black Panther: Wakanda Forever (2022)', 'Black Panther: Wakanda Forever (2022)'],
+            ['Adobe Lightroom Classic 2022 V11.4.1', 'Adobe Lightroom Classic 2022 v11.4.1'],
+            ['Original Windows 10 Pro + Office 365 + Adobe', 'Original Windows 10 Pro + Office 365 + Adobe'],
         ];
     }
 
@@ -274,7 +277,10 @@ trait ChangeCaseTestProvider
             ['Pascal case', 'PascalCase'],
             ['Path case', 'path/case'],
             ['Snake case', 'snake_case'],
-            ['Version 1 2 10', 'version 1.2.10'],
+
+            ['Black panther wakanda forever 2022', 'Black Panther: Wakanda Forever (2022)'],
+            ['Adobe lightroom classic 2022 v11 4 1', 'Adobe Lightroom Classic 2022 v11.4.1'],
+            ['Original windows 10 pro office 365 adobe', 'Original Windows 10 Pro + Office 365 + Adobe'],
         ];
     }
 
@@ -361,6 +367,10 @@ trait ChangeCaseTestProvider
             ['Dr. (H.c.) Ir. H. Soekarno', 'dr. (h.c.) ir. h. soekarno'],
             ['Prof. Dr.-Ing. Ir. H. Bacharuddin Jusuf Habibie', 'prof. dr.-ing. ir. h. bacharuddin jusuf habibie'],
             ['Ir. H. Joko Widodo', 'IR. H. JOKO WIDODO'],
+
+            ['Black Panther: Wakanda Forever (2022)', 'Black Panther: Wakanda Forever (2022)'],
+            ['Adobe Lightroom Classic 2022 V11.4.1', 'Adobe Lightroom Classic 2022 v11.4.1'],
+            ['Original Windows 10 Pro + Office 365 + Adobe', 'Original Windows 10 Pro + Office 365 + Adobe'],
         ];
     }
 }
