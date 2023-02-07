@@ -198,9 +198,9 @@ class ChangeCase
      * Transform into a lower case with spaces between words, then capitalize
      * the string.
      */
-    public static function sentence(string $str): string
+    public static function sentence(string $str, array $opt = []): string
     {
-        return Str::ucfirst(self::no($str));
+        return Str::ucfirst(self::no($str, $opt));
     }
 
     /**
