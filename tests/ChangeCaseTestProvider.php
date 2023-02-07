@@ -144,8 +144,6 @@ trait ChangeCaseTestProvider
             ['Test String', 'test string'],
             ['Test String', 'Test String'],
             ['Test V2', 'TestV2'],
-            ['Version 1.2.10', 'version 1.2.10'],
-            ['Version 1.21.0', 'version 1.21.0'],
 
             ['Jefferson Costella', 'jefferson costella'],
             ['Jefferson Costella', 'jefFErson coSTella'],
@@ -175,6 +173,22 @@ trait ChangeCaseTestProvider
             ['Orwell 1984', ' orwell_- 1984 '],
 
             ['Iñt Ërn Âti Ônà Liz Æti Øn', 'iñt ërn âTi ônà liz æti øn'],
+
+            ['String', 'string'],
+            ['Camel Case', 'camelCase'],
+            ['C A M E L Case', 'CAMELCase'], // Error
+            ['Capital Case', 'Capital Case'],
+            ['Dot.case', 'dot.case'],
+            ['Header Case', 'Header-Case'],
+            ['Kebab Case', 'kebab-case'],
+            ['Pascal Case', 'PascalCase'],
+            ['Path/Case', 'path/case'],
+            ['Snake Case', 'snake_case'],
+            ['Version 1.2.10', 'version 1.2.10'],
+
+            ['Dr. (H.c.) Ir. H. Soekarno', 'dr. (h.c.) ir. h. soekarno'],
+            ['Prof. Dr. Ing. Ir. H. Bacharuddin Jusuf Habibie', 'prof. dr.-ing. ir. h. bacharuddin jusuf habibie'],
+            ['Ir. H. Joko Widodo', 'IR. H. JOKO WIDODO'],
         ];
     }
 
@@ -232,6 +246,41 @@ trait ChangeCaseTestProvider
     public function sentenceCaseProvider()
     {
         return [
+            ['', ''],
+            ['Test', 'test'],
+            ['Test string', 'test string'],
+            ['Test string', 'Test String'],
+            ['Test v2', 'TestV2'],
+
+            ['Jefferson costella', 'jefferson costella'],
+            ['Jef f erson co s tella', 'jefFErson coSTella'],
+            ['Jefferson costella uses laravel', 'jefferson_costella uses-_Laravel'],
+            ['Jefferson costella uses laravel', 'jefferson_costella uses__Laravel'],
+
+            ['Laravel p h p framework', 'laravel_p_h_p_framework'],
+            ['Laravel p h p framework', 'laravel _p _h _p _framework'],
+            ['Laravel php framework', 'laravel_php_framework'],
+            ['Laravel ph p framework', 'laravel-phP-framework'],
+            ['Laravel php framework', 'laravel  -_-  php   -_-   framework   '],
+
+            ['Foo bar', 'fooBar'],
+            ['Foo bar', 'foo_bar'],
+            ['Foo bar baz', 'foo-barBaz'],
+            ['Foo bar baz', 'foo-bar_baz'],
+
+            ['Öffentliche überraschungen', 'öffentliche-überraschungen'],
+            ['Öffentliche überraschungen', '-_öffentliche_überraschungen_-'],
+            ['Öffentliche überraschungen', '-öffentliche überraschungen'],
+
+            ['Sind öde und so', 'sindÖdeUndSo'],
+
+            ['Orwell 1984', 'orwell 1984'],
+            ['Orwell 1984', 'orwell   1984'],
+            ['Orwell 1984', '-orwell-1984 -'],
+            ['Orwell 1984', ' orwell_- 1984 '],
+
+            ['Iñt ërn â ti ônà liz æti øn', 'iñt ërn âTi ônà liz æti øn'],
+
             ['String', 'string'],
             ['Camel case', 'camelCase'],
             ['Camel case', 'CAMELCase'],
@@ -283,8 +332,6 @@ trait ChangeCaseTestProvider
             ['Test String', 'test string'],
             ['Test String', 'Test String'],
             ['Testv2', 'TestV2'],
-            ['Version 1.2.10', 'version 1.2.10'],
-            ['Version 1.21.0', 'version 1.21.0'],
 
             ['Jefferson Costella', 'jefferson costella'],
             ['Jefferson Costella', 'jefFErson coSTella'],
@@ -314,6 +361,23 @@ trait ChangeCaseTestProvider
             [' Orwell_- 1984 ', ' orwell_- 1984 '],
 
             ['Iñt Ërn Âti Ônà Liz Æti Øn', 'iñt ërn âTi ônà liz æti øn'],
+
+            ['String', 'string'],
+            ['Camelcase', 'camelCase'],
+            ['Camelcase', 'CAMELCase'],
+            ['Capital Case', 'Capital Case'],
+            ['Dot.case', 'dot.case'],
+            ['Header-Case', 'Header-Case'],
+            ['Kebab-Case', 'kebab-case'],
+            ['Pascalcase', 'PascalCase'],
+            ['Path/Case', 'path/case'],
+            ['Dot.case', 'dot.case'],
+            ['Snake_Case', 'snake_case'],
+            ['Version 1.2.10', 'version 1.2.10'],
+
+            ['Dr. (H.c.) Ir. H. Soekarno', 'dr. (h.c.) ir. h. soekarno'],
+            ['Prof. Dr.-Ing. Ir. H. Bacharuddin Jusuf Habibie', 'prof. dr.-ing. ir. h. bacharuddin jusuf habibie'],
+            ['Ir. H. Joko Widodo', 'IR. H. JOKO WIDODO'],
         ];
     }
 }

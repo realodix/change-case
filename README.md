@@ -174,6 +174,8 @@ ChangeCase::path('test string');
 #### Sentence case
 > Transform into a lower case with spaces between words, then capitalize the string.
 
+💡 Support [options](#options)
+
 ```php
 ChangeCase::sentence('testString');
 // 'Test string'

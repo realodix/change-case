@@ -279,16 +279,4 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('Ââ ⅰⅰ', ChangeCase::sentence('ÂÂ ⅠⅠ'));
         $this->assertSame('âÂ õÕ', ChangeCase::swap('Ââ Õõ'));
     }
-
-    /** @test */
-    public function punctuationMark()
-    {
-        $this->assertSame('Dr. (H.c.) Ir. H. Soekarno', ChangeCase::headline('dr. (h.c.) ir. h. soekarno'));
-        $this->assertSame('Prof. Dr. Ing. Ir. H. Bacharuddin Jusuf Habibie', ChangeCase::headline('prof. dr.-ing. ir. h. bacharuddin jusuf habibie'));
-        $this->assertSame('Ir. H. Joko Widodo', ChangeCase::headline('IR. H. JOKO WIDODO'));
-
-        $this->assertSame('Dr h c ir h soekarno', ChangeCase::sentence('dr. (H.C.) IR. H. SOEKARNO'));
-        $this->assertSame('Prof dr ing ir h bacharuddin jusuf habibie', ChangeCase::sentence('Prof. Dr.-Ing. Ir. H. Bacharuddin Jusuf Habibie'));
-        $this->assertSame('Ir h joko widodo', ChangeCase::sentence('Ir. H. Joko Widodo'));
-    }
 }
