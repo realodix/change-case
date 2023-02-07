@@ -143,7 +143,7 @@ class ChangeCase
     }
 
     /**
-     * Transform into a space separated string of capitalized words.
+     * Convert the given string to title case for each word.
      */
     public static function headline(string $str): string
     {

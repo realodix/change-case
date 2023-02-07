@@ -54,7 +54,6 @@ ChangeCase::camel('1twoThree', ['separateNum' => true]);
 ```
 
 #### camelCase
-
 > Transform into a string with the separator denoted by the next word capitalized.
 
 💡 Support [options](#options)
@@ -70,7 +69,6 @@ ChangeCase::camel('1twoThree', ['separateNum' => true]);
 ```
 
 #### Capital Case
-
 > Transform into a space separated string with each word capitalized.
 
 ```php
@@ -79,7 +77,6 @@ ChangeCase::capital('test string');
 ```
 
 #### CONSTANT_CASE
-
 > Transform into upper case string with an underscore between words.
 
 ```php
@@ -88,7 +85,6 @@ ChangeCase::constant('test string');
 ```
 
 #### dot.case
-
 > Transform into a lower case string with a period between words.
 
 💡 Support [options](#options)
@@ -99,7 +95,6 @@ ChangeCase::dot('test string');
 ```
 
 #### Header-Case
-
 > Transform into a dash separated string of capitalized words.
 
 💡 Support [options](#options)
@@ -110,8 +105,8 @@ ChangeCase::header('test string');
 ```
 
 #### Head Line Case
-
 > Transform a strings delimited by casing, hyphens, or underscores into a space delimited string with each word's first letter capitalized.
+
 ```php
 ChangeCase::headline('test string');
 // 'Test String'
@@ -135,7 +130,6 @@ ChangeCase::title('_foo_');    // '_Foo_'
 ```
 
 #### kebab-case
-
 > Transform into a lower cased string with dashes between words.
 
 💡 Support [options](#options)
@@ -151,7 +145,6 @@ ChangeCase::kebab('Foo123Bar', ['separateNum' => true]);
 ```
 
 #### no case
-
 > Transform into a lower cased string with spaces between words, and clean up the string from non-word characters.
 
 💡 Support [options](#options)
@@ -167,7 +160,6 @@ ChangeCase::no('Foo123Bar', ['separateNum' => true])
 ```
 
 #### PascalCase
-
 > Transform into a string of capitalized words without separators.
 
 💡 Support [options](#options)
@@ -178,7 +170,6 @@ ChangeCase::pascal('test string');
 ```
 
 #### path/case
-
 > Transform into a lower case string with slashes between words.
 
 💡 Support [options](#options)
@@ -189,7 +180,6 @@ ChangeCase::path('test string');
 ```
 
 #### Sentence case
-
 > Transform into a lower case with spaces between words, then capitalize the string.
 
 ```php
@@ -198,7 +188,6 @@ ChangeCase::sentence('testString');
 ```
 
 #### snake_case
-
 > Transform into a lower case string with underscores between words.
 
 💡 Support [options](#options)
@@ -214,7 +203,6 @@ ChangeCase::snake('Foo123Bar', ['separateNum' => true]);
 ```
 
 #### swapCase
-
 > Transform a string by swapping every character from upper to lower case, or lower to upper case.
 
 ```php
@@ -223,7 +211,6 @@ ChangeCase::swap('Test String');
 ```
 
 #### titleCase
-
 > Transform the given string to `Title Case`:
 
 ```php
