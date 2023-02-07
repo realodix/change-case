@@ -78,15 +78,7 @@ class ChangeCase
         );
 
         // Clean up excess delimiters
-        $start = 0;
-        $end = \mb_strlen($result);
-        while (\mb_substr($result, $start, 1) === ' ') {
-            $start++;
-        }
-        while (\mb_substr($result, $end - 1, 1) === ' ') {
-            $end--;
-        }
-        $result = \mb_substr($result, $start, $end - $start);
+        $result = trim(preg_replace('/\s+/',' ', $result));
 
         // Change the delimiter with the user's choice
         $result = \implode($opt['delimiter'], \explode(' ', $result));
