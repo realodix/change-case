@@ -7,10 +7,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ChangeCase
 {
-    const ALPHA_RX = '\p{L}|\p{M}';
+    const ALPHA_RX = '\p{L}\p{M}';
     const NUM_RX = '\p{N}';
-    const LO_CHAR_RX = '\p{Ll}|\p{M}';
-    const UP_CHAR_RX = '\p{Lu}|\p{M}';
+    const LO_CHAR_RX = '\p{Ll}\p{M}';
+    const UP_CHAR_RX = '\p{Lu}\p{M}';
 
     /**
      * The default options for the methods. These are merged with the user supplied options.
