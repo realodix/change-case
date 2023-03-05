@@ -4,7 +4,7 @@ namespace Realodix\ChangeCase\Test;
 
 trait ChangeCaseTestProvider
 {
-    public function noCaseProvider()
+    public static function noCaseProvider()
     {
         return [
             // Single words.
@@ -66,7 +66,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function camelCaseProvider()
+    public static function camelCaseProvider()
     {
         return [
             ['string', 'string'],
@@ -82,7 +82,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function constantCaseProvider()
+    public static function constantCaseProvider()
     {
         return [
             ['STRING', 'string'],
@@ -98,7 +98,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function dotCaseProvider()
+    public static function dotCaseProvider()
     {
         return [
             ['string', 'string'],
@@ -114,7 +114,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function headerCaseProvider()
+    public static function headerCaseProvider()
     {
         return [
             ['', ''],
@@ -127,7 +127,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function headlineCaseProvider()
+    public static function headlineCaseProvider()
     {
         return [
             ['', ''],
@@ -166,7 +166,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function kebabCaseProvider()
+    public static function kebabCaseProvider()
     {
         return [
             ['string', 'string'],
@@ -181,7 +181,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function pascalCaseProvider()
+    public static function pascalCaseProvider()
     {
         return [
             ['String', 'string'],
@@ -201,7 +201,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function pathCaseProvider()
+    public static function pathCaseProvider()
     {
         return [
             ['string', 'string'],
@@ -217,7 +217,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function sentenceCaseProvider()
+    public static function sentenceCaseProvider()
     {
         return [
             ['', ''],
@@ -252,7 +252,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function snakeCaseProvider()
+    public static function snakeCaseProvider()
     {
         return [
             ['string', 'string'],
@@ -269,7 +269,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function swapCaseProvider()
+    public static function swapCaseProvider()
     {
         return [
             ['', ''],
@@ -281,7 +281,7 @@ trait ChangeCaseTestProvider
         ];
     }
 
-    public function titleCaseProvider()
+    public static function titleCaseProvider()
     {
         return [
             ['', ''],
