@@ -39,4 +39,4 @@ jobs:
               composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress ${{ matrix.flags }}
 
       - name: Execute tests
-        run: ./vendor/bin/phpunit --verbose
+        run: ./vendor/bin/phpunit
