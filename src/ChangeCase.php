@@ -78,7 +78,7 @@ class ChangeCase
         );
 
         // Clean up excess delimiters
-        $result = trim(preg_replace('/\s+/',' ', $result));
+        $result = \trim(\preg_replace('/\s+/', ' ', $result));
 
         // Change the delimiter with the user's choice
         $result = \implode($opt['delimiter'], \explode(' ', $result));
