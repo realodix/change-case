@@ -23,7 +23,6 @@ use Realodix\ChangeCase\ChangeCase;
 ### Methods Available
 
 - [`camelCase`](#camelcase)
-- [`Capital Case`](#capital-case)
 - [`CONSTANT_CASE`](#constant_case)
 - [`dot.case`](#dotcase)
 - [`Header-Case`](#header-case)
