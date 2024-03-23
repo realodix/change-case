@@ -68,7 +68,7 @@ class Str
      * @param int|null $end   Index at which to end extraction.
      * @return string
      */
-    public static function str_slice(string $str, int $start, int $end = null)
+    public static function str_slice(string $str, int $start, ?int $end = null)
     {
         $length = $end - $start;
 
