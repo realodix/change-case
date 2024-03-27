@@ -9,10 +9,8 @@ class OptionsResolverTest extends TestCase
 {
     /**
      * Options with wrong parameters.
-     *
-     * @test
      */
-    public function wrongOptionsParameter()
+    public function testWrongOptionsParameter()
     {
         $this->expectException(\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException::class);
         $this->expectExceptionMessage('The option "foo" does not exist');
@@ -22,10 +20,8 @@ class OptionsResolverTest extends TestCase
 
     /**
      * Options with wrong parameters value type.
-     *
-     * @test
      */
-    public function wrongOptionsParameterValueType()
+    public function testWrongOptionsParameterValueType()
     {
         $this->expectException(\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException::class);
         $this->expectExceptionMessage('The option "separateNum" with value "foo" is expected to be of type "bool"');
