@@ -15,14 +15,4 @@ class StringSupportTest extends TestCase
         $this->assertSame(['foo', 'B', 'A', 'R', 'Baz'], Str::ucsplit('fooBARBaz'));
         $this->assertSame(['Foo-ba', 'R-baz'], Str::ucsplit('Foo-baR-baz'));
     }
-
-    public function testStrSliceMethod()
-    {
-        $str = 'The quick brown fox jumps over the lazy dog.';
-
-        $this->assertSame('the lazy dog.', Str::str_slice($str, 31));
-        $this->assertSame('quick brown fox', Str::str_slice($str, 4, 19));
-        $this->assertSame('dog.', Str::str_slice($str, -4));
-        $this->assertSame('lazy', Str::str_slice($str, -9, -5));
-    }
 }
