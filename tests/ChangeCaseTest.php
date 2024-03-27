@@ -2,6 +2,7 @@
 
 namespace Realodix\ChangeCase\Test;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Realodix\ChangeCase\ChangeCase;
 
@@ -9,17 +10,13 @@ class ChangeCaseTest extends TestCase
 {
     use ChangeCaseTestProvider;
 
-    /**
-     * @test
-     * @dataProvider noCaseProvider
-     */
-    public function no($expected, $actual)
+    #[DataProvider('noCaseProvider')]
+    public function testNoCaseMothod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::no($actual));
     }
 
-    /** @test */
-    public function noCaseWithOpt()
+    public function testNoCaseMothodWithOpt()
     {
         $options = ['delimiter' => '#'];
         $this->assertSame('camel#case', ChangeCase::no('camelCase', $options));
@@ -43,17 +40,13 @@ class ChangeCaseTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     * @dataProvider camelCaseProvider
-     */
-    public function camel($expected, $actual)
+    #[DataProvider('camelCaseProvider')]
+    public function testCamelCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::camel($actual));
     }
 
-    /** @test */
-    public function camelCaseWithOpt()
+    public function testCamelCaseMethodWithOpt()
     {
         // Separate Numbers
         $this->assertSame('1TwoThree', ChangeCase::camel('1twoThree', ['separateNum' => true]));
@@ -62,43 +55,32 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('helloWorld', ChangeCase::camel('hello__world', ['splitRx' => '/(__)/']));
     }
 
-    /**
-     * @test
-     * @dataProvider constantCaseProvider
-     */
-    public function constant($expected, $actual)
+    #[DataProvider('constantCaseProvider')]
+    public function testConstantCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::constant($actual));
     }
 
-    /**
-     * @test
-     * @dataProvider dotCaseProvider
-     */
-    public function dot($expected, $actual)
+    #[DataProvider('dotCaseProvider')]
+    public function testDotCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::dot($actual));
     }
 
-    /** @test */
-    public function dotCaseWithOpt()
+    public function testDotCaseMethodWithOpt()
     {
         $this->assertSame('f.0.obar', ChangeCase::dot('f0obar', ['separateNum' => true]));
         // Change default options
         $this->assertSame('camel:case', ChangeCase::dot('camelCase', ['delimiter' => ':']));
     }
 
-    /**
-     * @test
-     * @dataProvider headerCaseProvider
-     */
-    public function header($expected, $actual)
+    #[DataProvider('headerCaseProvider')]
+    public function testHeaderCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::header($actual));
     }
 
-    /** @test */
-    public function headerWithOpt()
+    public function testHeaderCaseMethodWithOpt()
     {
         $options = ['separateNum' => true];
 
@@ -115,26 +97,19 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('Foo:bar', ChangeCase::header('FooBar', ['delimiter' => ':']));
     }
 
-    /**
-     * @test
-     * @dataProvider headlineCaseProvider
-     */
-    public function headline($expected, $actual)
+    #[DataProvider('headlineCaseProvider')]
+    public function testHeadlineCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::headline($actual));
     }
 
-    /**
-     * @test
-     * @dataProvider kebabCaseProvider
-     */
-    public function kebab($expected, $actual)
+    #[DataProvider('kebabCaseProvider')]
+    public function testKebabCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::kebab($actual));
     }
 
-    /** @test */
-    public function kebabCaseWithOpt()
+    public function testKebabCaseMethodWithOpt()
     {
         $options = ['separateNum' => true];
 
@@ -151,26 +126,19 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('foo:bar', ChangeCase::kebab('FooBar', ['delimiter' => ':']));
     }
 
-    /**
-     * @test
-     * @dataProvider pascalCaseProvider
-     */
-    public function pascal($expected, $actual)
+    #[DataProvider('pascalCaseProvider')]
+    public function testPascalCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::pascal($actual));
     }
 
-    /**
-     * @test
-     * @dataProvider pathCaseProvider
-     */
-    public function path($expected, $actual)
+    #[DataProvider('pathCaseProvider')]
+    public function testPathCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::path($actual));
     }
 
-    /** @test */
-    public function pathWithOpt()
+    public function testPathCaseMethodWithOpt()
     {
         $options = ['separateNum' => true];
 
@@ -187,26 +155,19 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('foo:bar', ChangeCase::path('FooBar', ['delimiter' => ':']));
     }
 
-    /**
-     * @test
-     * @dataProvider sentenceCaseProvider
-     */
-    public function sentence($expected, $actual)
+    #[DataProvider('sentenceCaseProvider')]
+    public function testSentenceCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::sentence($actual));
     }
 
-    /**
-     * @test
-     * @dataProvider snakeCaseProvider
-     */
-    public function snake($expected, $actual)
+    #[DataProvider('snakeCaseProvider')]
+    public function testSnakeCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::snake($actual));
     }
 
-    /** @test */
-    public function snakeCaseWithOpt()
+    public function testSnakeCaseMethodWithOpt()
     {
         $options = ['separateNum' => true];
 
@@ -223,26 +184,19 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('foo:bar', ChangeCase::snake('FooBar', ['delimiter' => ':']));
     }
 
-    /**
-     * @test
-     * @dataProvider swapCaseProvider
-     */
-    public function swap($expected, $actual)
+    #[DataProvider('swapCaseProvider')]
+    public function testSwapCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::swap($actual));
     }
 
-    /**
-     * @test
-     * @dataProvider titleCaseProvider
-     */
-    public function title($expected, $actual)
+    #[DataProvider('titleCaseProvider')]
+    public function testTitleCaseMethod($expected, $actual)
     {
         $this->assertSame($expected, ChangeCase::title($actual));
     }
 
-    /** @test */
-    public function apostrophe()
+    public function testApostrophe()
     {
         $options = ['apostrophe' => true];
 
@@ -256,8 +210,7 @@ class ChangeCaseTest extends TestCase
         $this->assertSame("assistant's_name", ChangeCase::snake("Assistant's name", $options));
     }
 
-    /** @test */
-    public function unicode()
+    public function testUnicode()
     {
         // Mark
         $this->assertSame('ââ êê', ChangeCase::no('"ÂÂ ÊÊ"'));
