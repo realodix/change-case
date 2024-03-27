@@ -58,26 +58,4 @@ class Str
         return $substrings;
     }
 
-    /**
-     * Extracts a section of a string and returns it as a new string, without
-     * modifying the original string. If $end is omitted, the function extracts
-     * the remaining string. If $end is negative, it is computed from the end
-     * of the string.
-     *
-     * @param int      $start Initial index from which to begin extraction.
-     * @param int|null $end   Index at which to end extraction.
-     * @return string
-     */
-    public static function str_slice(string $str, int $start, ?int $end = null)
-    {
-        $length = $end - $start;
-
-        if ($end === null) {
-            $length = \mb_strlen($str);
-        } elseif ($end >= 0 && $end <= $start) {
-            return '';
-        }
-
-        return \mb_substr($str, $start, $length);
-    }
 }
