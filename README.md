@@ -48,8 +48,8 @@ Every method that gets 💡 flag, they can support option
 
 Examples
 ```php
-ChangeCase::camel('1twoThree', ['separateNum' => true]);
-// '1TwoThree'
+ChangeCase::header('TestV2', ['separateNum' => true]);
+// 'Test-V-2'
 ```
 
 #### camelCase
