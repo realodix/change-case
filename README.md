@@ -34,7 +34,6 @@ use Realodix\ChangeCase\ChangeCase;
 - [`Sentence case`](#sentence-case)
 - [`snake_case`](#snake_case)
 - [`swapCase`](#swapcase)
-- [`Title Case`](#titlecase)
 
 ### Options
 
@@ -105,19 +104,6 @@ ChangeCase::headline('steve_jobs');
 // Steve Jobs
 ChangeCase::headline('EmailNotificationSent');
 // Email Notification Sent
-```
-
-The difference with the [`title`](#titlecase):
-
-```php
-ChangeCase::headline('php_v8.3'); // 'Php V8.3'
-ChangeCase::title('php_v8.3');    // 'Php_V8.3'
-
-ChangeCase::headline('phpV8.3'); // 'Php V8.3'
-ChangeCase::title('phpV8.3');    // 'Phpv8.3'
-
-ChangeCase::headline('_foo_'); // 'Foo'
-ChangeCase::title('_foo_');    // '_Foo_'
 ```
 
 #### kebab-case
@@ -201,27 +187,6 @@ ChangeCase::snake('Foo123Bar', ['separateNum' => true]);
 ```php
 ChangeCase::swap('Test String');
 // 'tEST sTRING'
-```
-
-#### titleCase
-> Transform the given string to `Title Case`:
-
-```php
-ChangeCase::title('a simple test');
-// 'A Simple Test'
-```
-
-The difference with the [`headline`](#head-line-case):
-
-```php
-ChangeCase::headline('php_v8.3'); // 'Php V8.3'
-ChangeCase::title('php_v8.3');    // 'Php_V8.3'
-
-ChangeCase::headline('phpV8.3'); // 'Php V8.3'
-ChangeCase::title('phpV8.3');    // 'Phpv8.3'
-
-ChangeCase::headline('_foo_'); // 'Foo'
-ChangeCase::title('_foo_');    // '_Foo_'
 ```
 
 ## License

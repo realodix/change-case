@@ -124,15 +124,17 @@ class ChangeCase
     }
 
     /**
-     * Convert the given string to title case for each word.
+     * This method will convert strings delimited by casing, hyphens, or underscores
+     * into a space delimited string with each word's first letter capitalized
      */
     public static function headline(string $str): string
     {
         $parts = \explode(' ', $str);
+        $titleCase = fn ($str) => \mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
 
         $parts = \count($parts) > 1
-            ? \array_map([static::class, 'title'], $parts)
-            : \array_map([static::class, 'title'], Str::ucsplit(\implode('_', $parts)));
+            ? \array_map($titleCase, $parts)
+            : \array_map($titleCase, Str::ucsplit(\implode('_', $parts)));
 
         $collapsed = \str_replace(['-', '_', ' '], '_', \implode('_', $parts));
 
@@ -194,13 +196,5 @@ class ChangeCase
     public static function swap(string $str): string
     {
         return \mb_strtolower($str) ^ \mb_strtoupper($str) ^ $str;
-    }
-
-    /**
-     * Convert the given string to title case.
-     */
-    public static function title(string $str): string
-    {
-        return \mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
     }
 }

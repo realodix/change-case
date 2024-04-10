@@ -190,12 +190,6 @@ class ChangeCaseTest extends TestCase
         $this->assertSame($expected, ChangeCase::swap($actual));
     }
 
-    #[DataProvider('titleCaseProvider')]
-    public function testTitleCaseMethod($expected, $actual)
-    {
-        $this->assertSame($expected, ChangeCase::title($actual));
-    }
-
     public function testApostrophe()
     {
         $options = ['apostrophe' => true];
