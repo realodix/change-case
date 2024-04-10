@@ -2,6 +2,9 @@
 
 namespace Realodix\ChangeCase\Support;
 
+/**
+ * @internal
+ */
 class Str
 {
     /**
