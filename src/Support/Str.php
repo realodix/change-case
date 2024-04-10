@@ -57,5 +57,4 @@ class Str
 
         return $substrings;
     }
-
 }
