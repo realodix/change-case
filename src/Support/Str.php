@@ -5,7 +5,7 @@ namespace Realodix\ChangeCase\Support;
 /**
  * @internal
  */
-class Str
+final class Str
 {
     /**
      * Make a string's first character lowercase.
