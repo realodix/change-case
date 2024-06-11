@@ -198,6 +198,8 @@ class ChangeCase
 
     /**
      * Convert the given string to title case.
+     *
+     * @deprecated Use `mb_convert_case($str, MB_CASE_TITLE)` instead.
      */
     public static function title(string $str): string
     {
