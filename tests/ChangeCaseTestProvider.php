@@ -280,42 +280,4 @@ trait ChangeCaseTestProvider
             ['sWaP cAsE', 'SwAp CaSe'],
         ];
     }
-
-    public static function titleCaseProvider()
-    {
-        return [
-            ['', ''],
-            ['Test', 'test'],
-            ['Test String', 'test string'],
-            ['Test String', 'Test String'],
-            ['Testv2', 'TestV2'],
-
-            ['Laravel_P_H_P_Framework', 'laravel_p_h_p_framework'],
-            ['Laravel _P _H _P _Framework', 'laravel _p _h _p _framework'],
-            ['Laravel_Php_Framework', 'laravel_php_framework'],
-            ['Laravel-Php-Framework', 'laravel-phP-framework'],
-            ['Laravel  -_-  Php   -_-   Framework   ', 'laravel  -_-  php   -_-   framework   '],
-
-            ['String', 'string'],
-            ['Camelcase', 'camelCase'],
-            ['Camelcase', 'CAMELCase'],
-            ['Headline Case', 'Headline Case'],
-            ['Dot.case', 'dot.case'],
-            ['Header-Case', 'Header-Case'],
-            ['Kebab-Case', 'kebab-case'],
-            ['Pascalcase', 'PascalCase'],
-            ['Path/Case', 'path/case'],
-            ['Dot.case', 'dot.case'],
-            ['Snake_Case', 'snake_case'],
-            ['Version 1.2.10', 'version 1.2.10'],
-
-            ['Dr. (H.c.) Ir. H. Soekarno', 'dr. (h.c.) ir. h. soekarno'],
-            ['Prof. Dr.-Ing. Ir. H. Bacharuddin Jusuf Habibie', 'prof. dr.-ing. ir. h. bacharuddin jusuf habibie'],
-            ['Ir. H. Joko Widodo', 'IR. H. JOKO WIDODO'],
-
-            ['Black Panther: Wakanda Forever (2022)', 'Black Panther: Wakanda Forever (2022)'],
-            ['Adobe Lightroom Classic 2022 V11.4.1', 'Adobe Lightroom Classic 2022 v11.4.1'],
-            ['Original Windows 10 Pro + Office 365 + Adobe', 'Original Windows 10 Pro + Office 365 + Adobe'],
-        ];
-    }
 }

@@ -130,10 +130,11 @@ class ChangeCase
     public static function headline(string $str): string
     {
         $parts = \explode(' ', $str);
+        $titleCase = fn ($str) => \mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
 
         $parts = \count($parts) > 1
-            ? \array_map([static::class, 'title'], $parts)
-            : \array_map([static::class, 'title'], Str::ucsplit(\implode('_', $parts)));
+            ? \array_map($titleCase, $parts)
+            : \array_map($titleCase, Str::ucsplit(\implode('_', $parts)));
 
         $collapsed = \str_replace(['-', '_', ' '], '_', \implode('_', $parts));
 
@@ -199,6 +200,8 @@ class ChangeCase
 
     /**
      * Convert the given string to title case.
+     *
+     * @deprecated Use `mb_convert_case($str, MB_CASE_TITLE)` instead.
      */
     public static function title(string $str): string
     {
