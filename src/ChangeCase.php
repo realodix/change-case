@@ -124,7 +124,8 @@ class ChangeCase
     }
 
     /**
-     * Convert the given string to title case for each word.
+     * This method will convert strings delimited by casing, hyphens, or underscores
+     * into a space delimited string with each word's first letter capitalized.
      */
     public static function headline(string $str): string
     {
