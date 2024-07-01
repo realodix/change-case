@@ -118,7 +118,7 @@ class ChangeCase
     {
         return \preg_replace_callback(
             '/^.|-./u',
-            fn (array $matches) => \mb_strtoupper($matches[0]),
+            fn(array $matches) => \mb_strtoupper($matches[0]),
             self::no($str, \array_merge(['delimiter' => '-'], $opt))
         );
     }
@@ -130,7 +130,7 @@ class ChangeCase
     public static function headline(string $str): string
     {
         $parts = \explode(' ', $str);
-        $titleCase = fn ($str) => \mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
+        $titleCase = fn($str) => \mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
 
         $parts = \count($parts) > 1
             ? \array_map($titleCase, $parts)
