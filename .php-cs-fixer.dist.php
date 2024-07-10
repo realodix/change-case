@@ -20,6 +20,7 @@ $localRules = [
 ];
 
 $finder = Finder::base()
+    ->in(__DIR__)
     ->append(['.php-cs-fixer.dist.php']);
 
 return Config::create('Realodix')
