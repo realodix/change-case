@@ -8,8 +8,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ChangeCase
 {
     const ALPHA_RX = '\p{L}\p{M}';
+
     const NUM_RX = '\p{N}';
+
     const LO_CHAR_RX = '\p{Ll}\p{M}';
+
     const UP_CHAR_RX = '\p{Lu}\p{M}';
 
     /**
