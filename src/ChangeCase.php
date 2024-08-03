@@ -8,11 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ChangeCase
 {
     const ALPHA_RX = '\p{L}\p{M}';
-
     const NUM_RX = '\p{N}';
-
     const LO_CHAR_RX = '\p{Ll}\p{M}';
-
     const UP_CHAR_RX = '\p{Lu}\p{M}';
 
     /**
@@ -33,11 +30,11 @@ class ChangeCase
             'delimiter'   => ' ',
             'splitRx'     => [
                 // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-                '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
-                '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
+                '/([' . self::LO_CHAR_RX . self::NUM_RX . '])([' . self::UP_CHAR_RX . '])/u',
+                '/([' . self::UP_CHAR_RX . '])([' . self::UP_CHAR_RX . '][' . self::LO_CHAR_RX . '])/u',
             ],
             // Remove all non-word characters
-            'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
+            'stripRx'     => '/[^' . self::ALPHA_RX . self::NUM_RX . ']+/ui',
             'separateNum' => false,
             'apostrophe'  => false,
         ]);
@@ -53,12 +50,12 @@ class ChangeCase
         if ($options['separateNum'] === true) {
             $options['splitRx'] = \array_merge(
                 $options['splitRx'],
-                ['/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u', '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u']
+                ['/([' . self::NUM_RX . '])([' . self::ALPHA_RX . '])/u', '/([' . self::ALPHA_RX . '])([' . self::NUM_RX . '])/u'],
             );
         }
 
         if ($options['apostrophe'] === true) {
-            $options['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
+            $options['stripRx'] = '/[^' . self::ALPHA_RX . self::NUM_RX . '\']+/ui';
         }
 
         return $options;
@@ -77,7 +74,7 @@ class ChangeCase
         $result = \preg_replace(
             $opt['stripRx'],
             $opt['delimiter'],
-            \preg_replace($opt['splitRx'], '$1 $2', $value)
+            \preg_replace($opt['splitRx'], '$1 $2', $value),
         );
 
         // Clean up excess delimiters
@@ -122,7 +119,7 @@ class ChangeCase
         return \preg_replace_callback(
             '/^.|-./u',
             fn(array $matches) => \mb_strtoupper($matches[0]),
-            self::no($str, \array_merge(['delimiter' => '-'], $opt))
+            self::no($str, \array_merge(['delimiter' => '-'], $opt)),
         );
     }
 
@@ -186,7 +183,7 @@ class ChangeCase
     {
         $options = [
             'delimiter' => '_',
-            'stripRx'   => '/(?!^_*)[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
+            'stripRx'   => '/(?!^_*)[^' . self::ALPHA_RX . self::NUM_RX . ']+/ui',
         ];
 
         return self::no($str, \array_merge($options, $opt));

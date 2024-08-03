@@ -25,7 +25,7 @@ class ChangeCaseTest extends TestCase
         // Custom splitRegexp
         $this->assertSame(
             'minify urls',
-            ChangeCase::no('minifyURLs', ['splitRx' => '/([a-z])([A-Z0-9])/'])
+            ChangeCase::no('minifyURLs', ['splitRx' => '/([a-z])([A-Z0-9])/']),
         );
 
         // Separate Numbers
@@ -36,7 +36,7 @@ class ChangeCaseTest extends TestCase
         $this->assertSame('v1 test', ChangeCase::no('V1Test'));
         $this->assertSame(
             'v 1 test with separate number',
-            ChangeCase::no('V1Test with separateNumber', $options)
+            ChangeCase::no('V1Test with separateNumber', $options),
         );
     }
 
@@ -86,11 +86,11 @@ class ChangeCaseTest extends TestCase
 
         $this->assertSame(
             'Test-V-2',
-            ChangeCase::header('TestV2', $options)
+            ChangeCase::header('TestV2', $options),
         );
         $this->assertSame(
             'Foo-123-Bar',
-            ChangeCase::header('Foo123Bar', $options)
+            ChangeCase::header('Foo123Bar', $options),
         );
 
         // Change default options
@@ -115,11 +115,11 @@ class ChangeCaseTest extends TestCase
 
         $this->assertSame(
             'version-v-1-2-10',
-            ChangeCase::kebab('version v1.2.10', $options)
+            ChangeCase::kebab('version v1.2.10', $options),
         );
         $this->assertSame(
             'foo-123-bar',
-            ChangeCase::kebab('Foo123Bar', $options)
+            ChangeCase::kebab('Foo123Bar', $options),
         );
 
         // Change default options
@@ -144,11 +144,11 @@ class ChangeCaseTest extends TestCase
 
         $this->assertSame(
             'test/v/2',
-            ChangeCase::path('TestV2', $options)
+            ChangeCase::path('TestV2', $options),
         );
         $this->assertSame(
             'foo/123/bar',
-            ChangeCase::path('Foo123Bar', $options)
+            ChangeCase::path('Foo123Bar', $options),
         );
 
         // Change default options
@@ -173,11 +173,11 @@ class ChangeCaseTest extends TestCase
 
         $this->assertSame(
             'test_v_2',
-            ChangeCase::snake('TestV2', $options)
+            ChangeCase::snake('TestV2', $options),
         );
         $this->assertSame(
             'foo_123_bar',
-            ChangeCase::snake('Foo123Bar', $options)
+            ChangeCase::snake('Foo123Bar', $options),
         );
 
         // Change default options
