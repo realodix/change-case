@@ -17,7 +17,7 @@ final class Str
         $str_p1 = \mb_strtolower(\mb_substr($string, 0, 1));
         $str_p2 = \mb_substr($string, 1);
 
-        return $str_p1.$str_p2;
+        return $str_p1 . $str_p2;
     }
 
     /**
@@ -30,7 +30,7 @@ final class Str
         $str_p1 = \mb_strtoupper(\mb_substr($string, 0, 1));
         $str_p2 = \mb_substr($string, 1);
 
-        return $str_p1.$str_p2;
+        return $str_p1 . $str_p2;
     }
 
     /**
