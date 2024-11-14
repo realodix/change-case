@@ -9,13 +9,11 @@ parameters:
     tmpDir: .tmp/PHPStan
     editorUrl: 'vscode://file/%%file%%:%%line%%'
     editorUrlTitle: '%%file%%:%%line%%'
-    checkAlwaysTrueCheckTypeFunctionCall: true
-    checkAlwaysTrueInstanceof: true
-    checkAlwaysTrueStrictComparison: true
     checkDynamicProperties: true # PHP < 8.2
     checkExplicitMixedMissingReturn: true
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     reportStaticMethodSignatures: true
+    reportWrongPhpDocTypeInVarTag: true
     ignoreErrors:
         - identifier: missingType.iterableValue
