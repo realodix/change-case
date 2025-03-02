@@ -34,7 +34,6 @@ use Realodix\ChangeCase\ChangeCase;
 - [`Sentence case`](#sentence-case)
 - [`snake_case`](#snake_case)
 - [`swapCase`](#swapcase)
-- [`Title Case`](#titlecase)
 
 ### Options
 
