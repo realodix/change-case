@@ -30,11 +30,11 @@ class ChangeCase
             'delimiter'   => ' ',
             'splitRx'     => [
                 // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-                '/([' . self::LO_CHAR_RX . self::NUM_RX . '])([' . self::UP_CHAR_RX . '])/u',
-                '/([' . self::UP_CHAR_RX . '])([' . self::UP_CHAR_RX . '][' . self::LO_CHAR_RX . '])/u',
+                '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
+                '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
             ],
             // Remove all non-word characters
-            'stripRx'     => '/[^' . self::ALPHA_RX . self::NUM_RX . ']+/ui',
+            'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
             'separateNum' => false,
             'apostrophe'  => false,
         ]);
@@ -50,12 +50,15 @@ class ChangeCase
         if ($options['separateNum'] === true) {
             $options['splitRx'] = \array_merge(
                 $options['splitRx'],
-                ['/([' . self::NUM_RX . '])([' . self::ALPHA_RX . '])/u', '/([' . self::ALPHA_RX . '])([' . self::NUM_RX . '])/u'],
+                [
+                    '/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
+                    '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u',
+                ],
             );
         }
 
         if ($options['apostrophe'] === true) {
-            $options['stripRx'] = '/[^' . self::ALPHA_RX . self::NUM_RX . '\']+/ui';
+            $options['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
         }
 
         return $options;
@@ -183,7 +186,7 @@ class ChangeCase
     {
         $options = [
             'delimiter' => '_',
-            'stripRx'   => '/(?!^_*)[^' . self::ALPHA_RX . self::NUM_RX . ']+/ui',
+            'stripRx'   => '/(?!^_*)[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
         ];
 
         return self::no($str, \array_merge($options, $opt));
