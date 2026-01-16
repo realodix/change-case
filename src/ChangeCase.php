@@ -22,6 +22,9 @@ class ChangeCase
      * - stripRx: (RegExp) Used to remove extraneous characters.
      * - separateNum: (bool) Used to separate numbers or not.
      * - apostrophe: (bool) Used to separate apostrophe or not.
+     *
+     * @param array<string> $opt
+     * @return array<string>
      */
     private static function defaultOptions(array $opt = []): array
     {
@@ -67,6 +70,8 @@ class ChangeCase
     /**
      * Transform into a lower cased string with spaces between words, and clean
      * up the string from non-word characters.
+     *
+     * @param array<string> $opt
      */
     public static function no(string $value, array $opt = []): string
     {
@@ -92,6 +97,8 @@ class ChangeCase
     /**
      * Transform into a string with the separator denoted by the next word
      * capitalized.
+     *
+     * @param array<string> $opt
      */
     public static function camel(string $str, array $opt = []): string
     {
@@ -108,6 +115,8 @@ class ChangeCase
 
     /**
      * Transform into a lower case string with a period between words.
+     *
+     * @param array<string> $opt
      */
     public static function dot(string $str, array $opt = []): string
     {
@@ -116,6 +125,8 @@ class ChangeCase
 
     /**
      * Transform into a dash separated string of capitalized words.
+     *
+     * @param array<string> $opt
      */
     public static function header(string $str, array $opt = []): string
     {
@@ -146,6 +157,8 @@ class ChangeCase
 
     /**
      * Transform into a lower cased string with dashes between words.
+     *
+     * @param array<string> $opt
      */
     public static function kebab(string $str, array $opt = []): string
     {
@@ -154,6 +167,8 @@ class ChangeCase
 
     /**
      * Transform into a string of capitalized words without separators.
+     *
+     * @param array<string> $opt
      */
     public static function pascal(string $str, array $opt = []): string
     {
@@ -164,6 +179,8 @@ class ChangeCase
 
     /**
      * Transform into a lower case string with slashes between words.
+     *
+     * @param array<string> $opt
      */
     public static function path(string $str, array $opt = []): string
     {
@@ -173,6 +190,8 @@ class ChangeCase
     /**
      * Transform into a lower case with spaces between words, then capitalize
      * the string.
+     *
+     * @param array<string> $opt
      */
     public static function sentence(string $str, array $opt = []): string
     {
@@ -181,6 +200,8 @@ class ChangeCase
 
     /**
      * Transform into a lower case string with underscores between words.
+     *
+     * @param array<string> $opt
      */
     public static function snake(string $str, array $opt = []): string
     {
