@@ -15,5 +15,3 @@ parameters:
     checkInternalClassCaseSensitivity: true
     reportStaticMethodSignatures: true
     reportWrongPhpDocTypeInVarTag: true
-    ignoreErrors:
-        - identifier: missingType.iterableValue

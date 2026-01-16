@@ -43,7 +43,7 @@ class Str
      * - "fooBARBaz" => ["foo", "B", "A", "R", "Baz"]
      * - "Foo-baR-baz" => ["Foo-ba", "R-baz"]
      *
-     * @return string[]
+     * @return array<string>
      *
      * @throws \RuntimeException Regex failed, e.g. because of invalid UTF-8 in the string
      */
