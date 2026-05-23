@@ -12,6 +12,32 @@ class ChangeCase
     const LO_CHAR_RX = '\p{Ll}\p{M}';
     const UP_CHAR_RX = '\p{Lu}\p{M}';
 
+    private static ?OptionsResolver $resolver = null;
+
+    private static function getResolver(): OptionsResolver
+    {
+        if (self::$resolver === null) {
+            self::$resolver = new OptionsResolver();
+            self::$resolver->setDefaults([
+                'delimiter'   => ' ',
+                'splitRx'     => [
+                    '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
+                    '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
+                ],
+                'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
+                'separateNum' => false,
+                'apostrophe'  => false,
+            ]);
+            self::$resolver->setAllowedTypes('delimiter', 'string')
+                ->setAllowedTypes('splitRx', ['string', 'string[]'])
+                ->setAllowedTypes('stripRx', ['string', 'string[]'])
+                ->setAllowedTypes('separateNum', 'bool')
+                ->setAllowedTypes('apostrophe', 'bool');
+        }
+
+        return self::$resolver;
+    }
+
     /**
      * The default options for the methods. These are merged with the user supplied options.
      * The user supplied options take precedence.
@@ -28,27 +54,7 @@ class ChangeCase
      */
     private static function defaultOptions(array $opt = []): array
     {
-        $resolver = new OptionsResolver;
-        $resolver->setDefaults([
-            'delimiter'   => ' ',
-            'splitRx'     => [
-                // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-                '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
-                '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
-            ],
-            // Remove all non-word characters
-            'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
-            'separateNum' => false,
-            'apostrophe'  => false,
-        ]);
-        $resolver->setAllowedTypes('delimiter', 'string')
-            ->setAllowedTypes('splitRx', ['string', 'string[]'])
-            ->setAllowedTypes('stripRx', ['string', 'string[]'])
-            ->setAllowedTypes('separateNum', 'bool')
-            ->setAllowedTypes('apostrophe', 'bool');
-
-        // Merge the user supplied options with the defaults.
-        $options = $resolver->resolve($opt);
+        $options = self::getResolver()->resolve($opt);
 
         if ($options['separateNum'] === true) {
             $options['splitRx'] = \array_merge(
