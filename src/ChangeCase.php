@@ -21,9 +21,11 @@ class ChangeCase
             self::$resolver->setDefaults([
                 'delimiter'   => ' ',
                 'splitRx'     => [
+                    // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
                     '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
                     '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
                 ],
+                // Remove all non-word characters
                 'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
                 'separateNum' => false,
                 'apostrophe'  => false,
@@ -108,7 +110,8 @@ class ChangeCase
      */
     public static function camel(string $str, array $opt = []): string
     {
-        return Str::lcfirst(self::pascal($str, $opt));
+        // symfony/polyfill-php84
+        return mb_lcfirst(self::pascal($str, $opt));
     }
 
     /**
@@ -201,7 +204,8 @@ class ChangeCase
      */
     public static function sentence(string $str, array $opt = []): string
     {
-        return Str::ucfirst(self::no($str, $opt));
+        // symfony/polyfill-php84
+        return mb_ucfirst(self::no($str, $opt));
     }
 
     /**
