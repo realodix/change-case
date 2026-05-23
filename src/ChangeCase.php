@@ -110,7 +110,8 @@ class ChangeCase
      */
     public static function camel(string $str, array $opt = []): string
     {
-        return Str::lcfirst(self::pascal($str, $opt));
+        // symfony/polyfill-php84
+        return mb_lcfirst(self::pascal($str, $opt));
     }
 
     /**
@@ -203,7 +204,8 @@ class ChangeCase
      */
     public static function sentence(string $str, array $opt = []): string
     {
-        return Str::ucfirst(self::no($str, $opt));
+        // symfony/polyfill-php84
+        return mb_ucfirst(self::no($str, $opt));
     }
 
     /**
