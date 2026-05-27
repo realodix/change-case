@@ -83,30 +83,40 @@ class ChangeCase
     }
 
     /**
-     * Transform into a lower cased string with spaces between words, and clean
-     * up the string from non-word characters.
+     * Normalize a string into an array of words.
      *
      * @param _Options $options
+     * @return string[]
      */
-    public static function no(string $value, array $options = []): string
+    private static function words(string $str, array $options = []): array
     {
         $opts = self::defaultOptions($options);
 
-        // Replace all non-word characters with the delimiter (default or user supplied)
-        // Like "foo-bar" -> "foo bar" or "foo_bar" -> "foo bar".
-        $result = preg_replace(
-            $opts['stripRx'],
-            $opts['delimiter'],
-            preg_replace($opts['splitRx'], '$1 $2', $value),
-        );
+        // Support camelCase splitting (e.g., "camelCase" -> "camel Case")
+        $str = preg_replace($opts['splitRx'], '$1 $2', $str);
+        // Replace non-word characters/symbols with a space to avoid merging words
+        $str = preg_replace($opts['stripRx'], ' ', $str);
 
-        // Clean up excess delimiters
-        $result = trim(preg_replace('/\s+/', ' ', $result));
+        $str = trim($str);
+        $str = preg_replace('/\s+/', ' ', $str);
+        $words = explode(' ', $str);
+        $words = array_values(array_filter($words, fn(string $w) => $w !== ''));
 
-        // Change the delimiter with the user's choice
-        $result = implode($opts['delimiter'], explode(' ', $result));
+        return array_map('mb_strtolower', $words);
+    }
 
-        return mb_strtolower($result);
+    /**
+     * Transform into a lower cased string with spaces between words,
+     * and clean up the string from non-word characters.
+     *
+     * @param _Options $options
+     */
+    public static function no(string $str, array $options = []): string
+    {
+        $opts = self::defaultOptions($options);
+        $delimiter = $opts['delimiter'];
+
+        return implode($delimiter, self::words($str, $opts));
     }
 
     /**
@@ -117,8 +127,13 @@ class ChangeCase
      */
     public static function camel(string $str, array $options = []): string
     {
+        $words = self::words($str, $options);
+        if (empty($words)) {
+            return '';
+        }
+
         // symfony/polyfill-php84
-        return mb_lcfirst(self::pascal($str, $options));
+        return array_shift($words).implode('', array_map('mb_ucfirst', $words));
     }
 
     /**
@@ -126,7 +141,7 @@ class ChangeCase
      */
     public static function constant(string $str): string
     {
-        return mb_strtoupper(self::snake($str));
+        return mb_strtoupper(implode('_', self::words($str)));
     }
 
     /**
@@ -136,7 +151,9 @@ class ChangeCase
      */
     public static function dot(string $str, array $options = []): string
     {
-        return self::no($str, array_merge(['delimiter' => '.'], $options));
+        $delimiter = $options['delimiter'] ?? '.';
+
+        return implode($delimiter, self::words($str, $options));
     }
 
     /**
@@ -146,10 +163,13 @@ class ChangeCase
      */
     public static function header(string $str, array $options = []): string
     {
+        $delimiter = $options['delimiter'] ?? '-';
+        $joined = implode($delimiter, self::words($str, $options));
+
         return preg_replace_callback(
             '/^.|-./u',
-            fn(array $matches) => mb_strtoupper($matches[0]),
-            self::no($str, array_merge(['delimiter' => '-'], $options)),
+            fn(array $m) => mb_strtoupper($m[0]),
+            $joined,
         );
     }
 
@@ -178,7 +198,9 @@ class ChangeCase
      */
     public static function kebab(string $str, array $options = []): string
     {
-        return self::no($str, array_merge(['delimiter' => '-'], $options));
+        $delimiter = $options['delimiter'] ?? '-';
+
+        return implode($delimiter, self::words($str, $options));
     }
 
     /**
@@ -188,9 +210,8 @@ class ChangeCase
      */
     public static function pascal(string $str, array $options = []): string
     {
-        $value = self::headline(self::no($str, $options));
-
-        return str_ireplace(' ', '', $value);
+        // symfony/polyfill-php84
+        return implode('', array_map('mb_ucfirst', self::words($str, $options)));
     }
 
     /**
@@ -200,7 +221,9 @@ class ChangeCase
      */
     public static function path(string $str, array $options = []): string
     {
-        return self::no($str, array_merge(['delimiter' => '/'], $options));
+        $delimiter = $options['delimiter'] ?? '/';
+
+        return implode($delimiter, self::words($str, $options));
     }
 
     /**
@@ -211,8 +234,15 @@ class ChangeCase
      */
     public static function sentence(string $str, array $options = []): string
     {
+        $words = self::words($str, $options);
+        if (empty($words)) {
+            return '';
+        }
+
         // symfony/polyfill-php84
-        return mb_ucfirst(self::no($str, $options));
+        $words[0] = mb_ucfirst($words[0]);
+
+        return implode(' ', $words);
     }
 
     /**
@@ -222,12 +252,12 @@ class ChangeCase
      */
     public static function snake(string $str, array $options = []): string
     {
-        $opts = [
-            'delimiter' => '_',
-            'stripRx'   => '/(?!^_*)[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
-        ];
+        $delimiter = $options['delimiter'] ?? '_';
+        $snakeOpt = array_merge([
+            'stripRx' => '/(?!^_*)[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
+        ], $options);
 
-        return self::no($str, array_merge($opts, $options));
+        return implode($delimiter, self::words($str, $snakeOpt));
     }
 
     /**
