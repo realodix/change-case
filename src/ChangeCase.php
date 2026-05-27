@@ -21,37 +21,8 @@ class ChangeCase
     const LO_CHAR_RX = '\p{Ll}\p{M}';
     const UP_CHAR_RX = '\p{Lu}\p{M}';
 
-    private static ?OptionsResolver $resolver = null;
-
-    private static function getResolver(): OptionsResolver
-    {
-        if (self::$resolver === null) {
-            self::$resolver = new OptionsResolver;
-            self::$resolver->setDefaults([
-                'delimiter'   => ' ',
-                'splitRx'     => [
-                    // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
-                    '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
-                    '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
-                ],
-                // Remove all non-word characters
-                'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
-                'separateNum' => false,
-                'apostrophe'  => false,
-            ]);
-            self::$resolver->setAllowedTypes('delimiter', 'string')
-                ->setAllowedTypes('splitRx', ['string', 'string[]'])
-                ->setAllowedTypes('stripRx', ['string', 'string[]'])
-                ->setAllowedTypes('separateNum', 'bool')
-                ->setAllowedTypes('apostrophe', 'bool');
-        }
-
-        return self::$resolver;
-    }
-
     /**
-     * The default options for the methods. These are merged with the user supplied options.
-     * The user supplied options take precedence.
+     * The default options for the methods.
      *
      * ### Options
      * - delimiter: (string) This character separates each chunk of data within the text string.
@@ -61,13 +32,40 @@ class ChangeCase
      * - apostrophe: (bool) Used to separate apostrophe or not.
      *
      * @param _Options $options
-     * @return array<string>
+     * @return _Options
      */
-    private static function defaultOptions(array $options = []): array
+    private static function defaultOptions(array $options): array
     {
-        $opts = self::getResolver()->resolve($options);
+        $resolver = new OptionsResolver;
+        $resolver->setDefaults([
+            'delimiter'   => ' ',
+            // Support camel case ("camelCase" -> "camel Case" and "CAMELCase" -> "CAMEL Case")
+            'splitRx'     => [
+                '/(['.self::LO_CHAR_RX.self::NUM_RX.'])(['.self::UP_CHAR_RX.'])/u',
+                '/(['.self::UP_CHAR_RX.'])(['.self::UP_CHAR_RX.']['.self::LO_CHAR_RX.'])/u',
+            ],
+            // Remove all non-word characters
+            'stripRx'     => '/[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
+            'separateNum' => false,
+            'apostrophe'  => false,
+        ]);
+        $resolver->setAllowedTypes('delimiter', 'string')
+            ->setAllowedTypes('splitRx', ['string', 'string[]'])
+            ->setAllowedTypes('stripRx', ['string', 'string[]'])
+            ->setAllowedTypes('separateNum', 'bool')
+            ->setAllowedTypes('apostrophe', 'bool');
 
-        if ($opts['separateNum'] === true) {
+        // Merge the user supplied options with the defaults.
+        $opts = $resolver->resolve($options);
+
+        // Custom delimiters must pass through stripRx so that characters at
+        // the edges are preserved
+        if ($opts['delimiter'] !== ' ') {
+            $escaped = preg_quote($opts['delimiter'], '/');
+            $opts['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.$escaped.']+/ui';
+        }
+
+        if ($opts['separateNum']) {
             $opts['splitRx'] = array_merge(
                 $opts['splitRx'],
                 [
@@ -77,7 +75,7 @@ class ChangeCase
             );
         }
 
-        if ($opts['apostrophe'] === true) {
+        if ($opts['apostrophe']) {
             $opts['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
         }
 
