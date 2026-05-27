@@ -147,7 +147,7 @@ trait ChangeCaseTestProvider
 
             ['String', 'string'],
             ['Camel Case', 'camelCase'],
-            ['C A M E L Case', 'CAMELCase'], // Error
+            ['Camel Case', 'CAMELCase'],
             ['Dot.case', 'dot.case'],
             ['Headline Case', 'Headline Case'],
             ['Header Case', 'Header-Case'],

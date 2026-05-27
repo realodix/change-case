@@ -23,7 +23,12 @@ class Str
      */
     public static function ucsplit(string $string)
     {
-        $substrings = \preg_split('/(?=\p{Lu})/u', $string, -1, PREG_SPLIT_NO_EMPTY);
+        $substrings = preg_split(
+            '/(?<=[\p{Ll}\p{N}])(?=\p{Lu})|(?<=\p{Lu})(?=\p{Lu}\p{Ll})/u',
+            $string,
+            -1,
+            PREG_SPLIT_NO_EMPTY,
+        );
 
         if ($substrings === false) {
             throw new \RuntimeException('Error while splitting string');
