@@ -165,9 +165,10 @@ class ChangeCase
     {
         $delimiter = $options['delimiter'] ?? '-';
         $joined = implode($delimiter, self::words($str, $options));
+        $escapedDelimiter = preg_quote($delimiter, '/');
 
         return preg_replace_callback(
-            '/^.|-./u',
+            '/^.|'.$escapedDelimiter.'./u',
             fn(array $m) => mb_strtoupper($m[0]),
             $joined,
         );

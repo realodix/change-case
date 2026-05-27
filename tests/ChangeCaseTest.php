@@ -94,7 +94,7 @@ class ChangeCaseTest extends TestCase
         );
 
         // Change default options
-        $this->assertSame('Foo:bar', ChangeCase::header('FooBar', ['delimiter' => ':']));
+        $this->assertSame('Foo:Bar', ChangeCase::header('FooBar', ['delimiter' => ':']));
     }
 
     #[DataProvider('headlineCaseProvider')]
