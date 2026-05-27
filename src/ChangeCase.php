@@ -5,6 +5,15 @@ namespace Realodix\ChangeCase;
 use Realodix\ChangeCase\Support\Str;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @phpstan-type _Options array{
+ *  delimiter?: string,
+ *  splitRx?: array<string>,
+ *  stripRx?: string|array<string>,
+ *  separateNum?: bool,
+ *  apostrophe?: bool
+ * }
+ */
 class ChangeCase
 {
     const ALPHA_RX = '\p{L}\p{M}';
@@ -51,16 +60,16 @@ class ChangeCase
      * - separateNum: (bool) Used to separate numbers or not.
      * - apostrophe: (bool) Used to separate apostrophe or not.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      * @return array<string>
      */
-    private static function defaultOptions(array $opt = []): array
+    private static function defaultOptions(array $options = []): array
     {
-        $options = self::getResolver()->resolve($opt);
+        $opts = self::getResolver()->resolve($options);
 
-        if ($options['separateNum'] === true) {
-            $options['splitRx'] = \array_merge(
-                $options['splitRx'],
+        if ($opts['separateNum'] === true) {
+            $opts['splitRx'] = \array_merge(
+                $opts['splitRx'],
                 [
                     '/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
                     '/(['.self::ALPHA_RX.'])(['.self::NUM_RX.'])/u',
@@ -68,36 +77,36 @@ class ChangeCase
             );
         }
 
-        if ($options['apostrophe'] === true) {
-            $options['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
+        if ($opts['apostrophe'] === true) {
+            $opts['stripRx'] = '/[^'.self::ALPHA_RX.self::NUM_RX.'\']+/ui';
         }
 
-        return $options;
+        return $opts;
     }
 
     /**
      * Transform into a lower cased string with spaces between words, and clean
      * up the string from non-word characters.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      */
-    public static function no(string $value, array $opt = []): string
+    public static function no(string $value, array $options = []): string
     {
-        $opt = self::defaultOptions($opt);
+        $opts = self::defaultOptions($options);
 
         // Replace all non-word characters with the delimiter (default or user supplied)
         // Like "foo-bar" -> "foo bar" or "foo_bar" -> "foo bar".
         $result = \preg_replace(
-            $opt['stripRx'],
-            $opt['delimiter'],
-            \preg_replace($opt['splitRx'], '$1 $2', $value),
+            $opts['stripRx'],
+            $opts['delimiter'],
+            \preg_replace($opts['splitRx'], '$1 $2', $value),
         );
 
         // Clean up excess delimiters
         $result = \trim(\preg_replace('/\s+/', ' ', $result));
 
         // Change the delimiter with the user's choice
-        $result = \implode($opt['delimiter'], \explode(' ', $result));
+        $result = \implode($opts['delimiter'], \explode(' ', $result));
 
         return \mb_strtolower($result);
     }
@@ -106,12 +115,12 @@ class ChangeCase
      * Transform into a string with the separator denoted by the next word
      * capitalized.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      */
-    public static function camel(string $str, array $opt = []): string
+    public static function camel(string $str, array $options = []): string
     {
         // symfony/polyfill-php84
-        return mb_lcfirst(self::pascal($str, $opt));
+        return mb_lcfirst(self::pascal($str, $options));
     }
 
     /**
@@ -125,24 +134,24 @@ class ChangeCase
     /**
      * Transform into a lower case string with a period between words.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      */
-    public static function dot(string $str, array $opt = []): string
+    public static function dot(string $str, array $options = []): string
     {
-        return self::no($str, \array_merge(['delimiter' => '.'], $opt));
+        return self::no($str, \array_merge(['delimiter' => '.'], $options));
     }
 
     /**
      * Transform into a dash separated string of capitalized words.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      */
-    public static function header(string $str, array $opt = []): string
+    public static function header(string $str, array $options = []): string
     {
         return \preg_replace_callback(
             '/^.|-./u',
             fn(array $matches) => \mb_strtoupper($matches[0]),
-            self::no($str, \array_merge(['delimiter' => '-'], $opt)),
+            self::no($str, \array_merge(['delimiter' => '-'], $options)),
         );
     }
 
@@ -167,21 +176,21 @@ class ChangeCase
     /**
      * Transform into a lower cased string with dashes between words.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      */
-    public static function kebab(string $str, array $opt = []): string
+    public static function kebab(string $str, array $options = []): string
     {
-        return self::no($str, \array_merge(['delimiter' => '-'], $opt));
+        return self::no($str, \array_merge(['delimiter' => '-'], $options));
     }
 
     /**
      * Transform into a string of capitalized words without separators.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      */
-    public static function pascal(string $str, array $opt = []): string
+    public static function pascal(string $str, array $options = []): string
     {
-        $value = self::headline(self::no($str, $opt));
+        $value = self::headline(self::no($str, $options));
 
         return \str_ireplace(' ', '', $value);
     }
@@ -189,38 +198,38 @@ class ChangeCase
     /**
      * Transform into a lower case string with slashes between words.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      */
-    public static function path(string $str, array $opt = []): string
+    public static function path(string $str, array $options = []): string
     {
-        return self::no($str, \array_merge(['delimiter' => '/'], $opt));
+        return self::no($str, \array_merge(['delimiter' => '/'], $options));
     }
 
     /**
      * Transform into a lower case with spaces between words, then capitalize
      * the string.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      */
-    public static function sentence(string $str, array $opt = []): string
+    public static function sentence(string $str, array $options = []): string
     {
         // symfony/polyfill-php84
-        return mb_ucfirst(self::no($str, $opt));
+        return mb_ucfirst(self::no($str, $options));
     }
 
     /**
      * Transform into a lower case string with underscores between words.
      *
-     * @param array<string> $opt
+     * @param _Options $options
      */
-    public static function snake(string $str, array $opt = []): string
+    public static function snake(string $str, array $options = []): string
     {
-        $options = [
+        $opts = [
             'delimiter' => '_',
             'stripRx'   => '/(?!^_*)[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
         ];
 
-        return self::no($str, \array_merge($options, $opt));
+        return self::no($str, \array_merge($opts, $options));
     }
 
     /**
