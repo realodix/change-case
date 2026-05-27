@@ -26,7 +26,7 @@ class ChangeCase
     private static function getResolver(): OptionsResolver
     {
         if (self::$resolver === null) {
-            self::$resolver = new OptionsResolver();
+            self::$resolver = new OptionsResolver;
             self::$resolver->setDefaults([
                 'delimiter'   => ' ',
                 'splitRx'     => [
@@ -68,7 +68,7 @@ class ChangeCase
         $opts = self::getResolver()->resolve($options);
 
         if ($opts['separateNum'] === true) {
-            $opts['splitRx'] = \array_merge(
+            $opts['splitRx'] = array_merge(
                 $opts['splitRx'],
                 [
                     '/(['.self::NUM_RX.'])(['.self::ALPHA_RX.'])/u',
@@ -96,19 +96,19 @@ class ChangeCase
 
         // Replace all non-word characters with the delimiter (default or user supplied)
         // Like "foo-bar" -> "foo bar" or "foo_bar" -> "foo bar".
-        $result = \preg_replace(
+        $result = preg_replace(
             $opts['stripRx'],
             $opts['delimiter'],
-            \preg_replace($opts['splitRx'], '$1 $2', $value),
+            preg_replace($opts['splitRx'], '$1 $2', $value),
         );
 
         // Clean up excess delimiters
-        $result = \trim(\preg_replace('/\s+/', ' ', $result));
+        $result = trim(preg_replace('/\s+/', ' ', $result));
 
         // Change the delimiter with the user's choice
-        $result = \implode($opts['delimiter'], \explode(' ', $result));
+        $result = implode($opts['delimiter'], explode(' ', $result));
 
-        return \mb_strtolower($result);
+        return mb_strtolower($result);
     }
 
     /**
@@ -128,7 +128,7 @@ class ChangeCase
      */
     public static function constant(string $str): string
     {
-        return \mb_strtoupper(self::snake($str));
+        return mb_strtoupper(self::snake($str));
     }
 
     /**
@@ -138,7 +138,7 @@ class ChangeCase
      */
     public static function dot(string $str, array $options = []): string
     {
-        return self::no($str, \array_merge(['delimiter' => '.'], $options));
+        return self::no($str, array_merge(['delimiter' => '.'], $options));
     }
 
     /**
@@ -148,10 +148,10 @@ class ChangeCase
      */
     public static function header(string $str, array $options = []): string
     {
-        return \preg_replace_callback(
+        return preg_replace_callback(
             '/^.|-./u',
-            fn(array $matches) => \mb_strtoupper($matches[0]),
-            self::no($str, \array_merge(['delimiter' => '-'], $options)),
+            fn(array $matches) => mb_strtoupper($matches[0]),
+            self::no($str, array_merge(['delimiter' => '-'], $options)),
         );
     }
 
@@ -161,16 +161,16 @@ class ChangeCase
      */
     public static function headline(string $str): string
     {
-        $parts = \explode(' ', $str);
-        $titleCase = fn($str) => \mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
+        $parts = explode(' ', $str);
+        $titleCase = fn($str) => mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
 
-        $parts = \count($parts) > 1
-            ? \array_map($titleCase, $parts)
-            : \array_map($titleCase, Str::ucsplit(\implode('_', $parts)));
+        $parts = count($parts) > 1
+            ? array_map($titleCase, $parts)
+            : array_map($titleCase, Str::ucsplit(implode('_', $parts)));
 
-        $collapsed = \str_replace(['-', '_', ' '], '_', \implode('_', $parts));
+        $collapsed = str_replace(['-', '_', ' '], '_', implode('_', $parts));
 
-        return \implode(' ', \array_filter(\explode('_', $collapsed)));
+        return implode(' ', array_filter(explode('_', $collapsed)));
     }
 
     /**
@@ -180,7 +180,7 @@ class ChangeCase
      */
     public static function kebab(string $str, array $options = []): string
     {
-        return self::no($str, \array_merge(['delimiter' => '-'], $options));
+        return self::no($str, array_merge(['delimiter' => '-'], $options));
     }
 
     /**
@@ -192,7 +192,7 @@ class ChangeCase
     {
         $value = self::headline(self::no($str, $options));
 
-        return \str_ireplace(' ', '', $value);
+        return str_ireplace(' ', '', $value);
     }
 
     /**
@@ -202,7 +202,7 @@ class ChangeCase
      */
     public static function path(string $str, array $options = []): string
     {
-        return self::no($str, \array_merge(['delimiter' => '/'], $options));
+        return self::no($str, array_merge(['delimiter' => '/'], $options));
     }
 
     /**
@@ -229,7 +229,7 @@ class ChangeCase
             'stripRx'   => '/(?!^_*)[^'.self::ALPHA_RX.self::NUM_RX.']+/ui',
         ];
 
-        return self::no($str, \array_merge($opts, $options));
+        return self::no($str, array_merge($opts, $options));
     }
 
     /**
@@ -238,7 +238,7 @@ class ChangeCase
      */
     public static function swap(string $str): string
     {
-        return \mb_strtolower($str) ^ \mb_strtoupper($str) ^ $str;
+        return mb_strtolower($str) ^ mb_strtoupper($str) ^ $str;
     }
 
     /**
@@ -248,6 +248,6 @@ class ChangeCase
      */
     public static function title(string $str): string
     {
-        return \mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
+        return mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
     }
 }
